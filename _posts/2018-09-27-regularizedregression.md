@@ -263,7 +263,7 @@ Residual sum of squares = $$\sum_{i=1}^{n}({y_i}^2-\hat{y}^2_i)$$
 
 Tuning parameter = $$\lambda$$
 
-L2 norm = $$\||w||_1$$
+L1 norm = $$\||w||1$$
 
 Geometric intution:
 
@@ -298,7 +298,7 @@ plot(lasso_cv)
 ```
 <img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/lasso_cv.jpg" alt="Grid search of lambda for lasso">
 
-As before, the first dotted line is the $$\lambda$$ value with minimum MSE and the second dotted line is the $$\lamdba$$ value at one standard error from minimum MSE.
+As before, the first dotted line is the $$\lambda$$ value with minimum MSE and the second dotted line is the $$\lambda$$ value at one standard error from minimum MSE.
 Also notice how our features decrease the $$\lambda$$ value increases.
 
 ```r
