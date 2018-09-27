@@ -2,7 +2,7 @@
 title: "About"
 permalink: /about/
 header:
-  image: "/images/kailash.jpg"
+  image: "/images/horseshoe.jpg"
 ---
 
 I am currently pursuing a Master's degree in Operations Research and Analytics at Texas A&M, College Station.
