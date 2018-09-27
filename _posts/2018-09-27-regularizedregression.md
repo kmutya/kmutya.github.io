@@ -263,8 +263,6 @@ Residual sum of squares = $$\sum_{i=1}^{n}({y_i}^2-\hat{y}^2_i)$$
 
 Tuning parameter = $$\lambda$$
 
-L1 norm = $$\||w||1$$
-
 Geometric intution:
 
 The 2D contour plot below provides intution as to why the coefficients in lasso shrink to exactly zero instead of near zero like ridge.
