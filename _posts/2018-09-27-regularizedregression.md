@@ -20,7 +20,7 @@ Mathamatically, it can be defined as:
 
 Minimize:
 
-$$sum_{i=1}^{n}({y_i}^2 -\hat{y}^2_i)+\lambda||w||^2_2$$
+$$\sum_{i=1}^{n}({y_i}^2 -\hat{y}^2_i)+\lambda||w||^2_2$$
 
 where,
 
