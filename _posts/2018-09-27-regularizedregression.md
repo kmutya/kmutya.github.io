@@ -349,7 +349,7 @@ However, notice that this prediction was with 82 features instead of 92 like in 
 In this post we looked at the intution behind ridge and lasso regression along with it's implementaton in R using the glmnet package.
 Regularization is particularly useful while dealing with bias-variance tradeoff.
 
-Entire code can be found on my [github](https://github.com/kmutya/Ridge-and-Lasso-regression/blob/master/ridge_lasso_regression.R)
+Entire code can be found on my [github.](https://github.com/kmutya/Ridge-and-Lasso-regression/blob/master/ridge_lasso_regression.R)
 # References
 
 Giersdorf, J. (2017). Analysis of Feature-Selection for Lasso Regression Models. [link](https://www.ni.tu-berlin.de/fileadmin/fg215/teaching/nnproject/Lasso_Project.pdf)
