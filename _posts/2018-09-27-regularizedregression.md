@@ -6,7 +6,7 @@ header:
 mathjax: "true"
 ---
 
-This post is an implementation of two common regularization techniques namely Ridge and Lasso Regression in R using a housing dataset.
+This post entails an elementary implementation of two common regularization techniques namely Ridge and Lasso Regression in R using a housing dataset.
 
 When we try to fit a higher order polynomial in cases where there are a lot of independent variables we notice that our model tends to overfit (i.e have high variance). This is because, given a lot of dimensions it is not feasible to have training observations covering all different combinations of inputs. More importantly, it becomes much harder for OLS assumptions to hold ground as the no. of inputs increase. In such cases when can use regularization to control our regression coefficients and in turn reduce variance.
 
@@ -47,6 +47,7 @@ library(glmnet) #regularized regression package
 library(ggplot2) #for plotting
 library(caret) #hot one encoding
 library(e1071) #skewess function
+library(gridExtra) #grid mapping
 ```
 # Preprocessing
 
@@ -69,10 +70,15 @@ feature_class = sapply(colnames(data),function(x){class(data[[x]])})
 numeric_features = names(feature_class[feature_class != "character"])
 numeric_features
 
-#Plotting using ggplot
+#Plotting using ggplot and fixing grid using gridExtra
+dist_list = list()
 for (i in numeric_features){
-  print(ggplot(data = data, aes_string(x = i)) + geom_histogram(aes(x = data[i])) + theme_grey())
+  dist_list[[i]] = ggplotGrob(ggplot(data = data, aes_string(x = i)) + geom_histogram(aes(x = data[i])) + theme_grey())
 }
+
+grid.arrange(dist_list[[1]],dist_list[[2]],dist_list[[3]],dist_list[[4]], dist_list[[5]],
+             dist_list[[6]],dist_list[[7]],dist_list[[8]],dist_list[[9]],dist_list[[10]],
+             dist_list[[11]], dist_list[[12]], ncol=3)
 ```
 <img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/distribution_grid.jpg" alt="Distribution of features">
 
@@ -118,7 +124,7 @@ data_test = master_data[-seq_rows,]
 
 Points to note:
 
-1. glmnet package trains our model for various values of $\lambda$
+1. glmnet package trains our model for various values of $$\lambda$$
 
 2. It provides a built-in option to perform k-fold CV.
 
@@ -156,7 +162,7 @@ plot(ridge_cv)
 <img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/ridge_cv.jpg" alt="Grid search of lambda for ridge">
 
 From the plot we can observe that MSE increases once log($$\lambda$$) is greater than -2.
-The first dotted line is the $$\lambda$$ value with minimum MSE and the second dotted line is the $$\lamdba$$ value at one standard error from minimum MSE.
+The first dotted line is the $$\lambda$$ value with minimum MSE and the second dotted line is the $$\lambda$$ value at one standard error from minimum MSE.
 
 ```r
 min(ridge_cv$cvm) #lowest MSE
@@ -258,6 +264,7 @@ Residual sum of squares = $$\sum_{i=1}^{n}({y_i}^2-\hat{y}^2_i)$$
 Tuning parameter = $$\lambda$$
 
 L1 norm = $$\||w||_1$$
+
 i.e $$\sum_{i=1}^{n}|w|_i$$
 
 
@@ -275,10 +282,69 @@ As before $$\lambda$$ plays the role of a tuning parameter but in this case, as 
 
 As, we have performed the necessary preprocessing we can start the implementaton and our flow will be exatly like before:
 
-1. Train model and perform k-fold cross validation to pick the $\lambda$ value that minimizes MSE
+1. Train model and perform k-fold cross validation to pick the $$\lambda$$ value that minimizes MSE
 
-2. Use this $\lambda$ value to build a model on the entire training set
+2. Use this $$\lambda$$ value to build a model on the entire training set
 
 3. Use the model from 2. to predict house prices on the test set
 
 4. Compare predictions with actual house prices and evaluate fit
+
+```r
+#1. k-fold cv (k = 10 by default)
+lasso_cv = cv.glmnet(
+  x = data_train_x,
+  y = data_train_y,
+  alpha = 1 #1 for lasso
+)
+plot(lasso_cv)
+```
+<img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/lasso_cv.jpg" alt="Grid search of lambda for lasso">
+
+As before, the first dotted line is the $$\lambda$$ value with minimum MSE and the second dotted line is the $$\lamdba$$ value at one standard error from minimum MSE.
+Also notice how our features decrease the $$\lambda$$ value increases.
+
+```r
+min(lasso_cv$cvm) #lowest MSE
+lasso_cv$lambda.min #lambda for lowest MSE
+min_l = lasso_cv$lambda.1se #selecting the 1st se from lowest
+
+#2. Final model
+#visualization
+lasso = glmnet(
+  x = data_train_x,
+  y = data_train_y,
+  alpha = 1
+)
+plot(lasso, xvar = "lambda")
+abline(v = log(lasso_cv$lambda.1se), col = "red", lty = "dashed") #lambda value we picked
+```
+<img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/lasso_final.jpg" alt="Lasso model">
+
+Notice how the coefficient path is significantly different in ridge and lasso. We can observe that in ridge the coefficients mostly flock together but in this case they are all over the place. This is because, ridge distributes weights of the features to keep its $$w^2$$ value low (and hence the cost function). A downside of this is that the individual impact of features will not be very clear.
+
+```r
+#building model using the seleceted lambda value
+lasso_min = glmnet(
+  x = data_train_x,
+  y = data_train_y,
+  alpha = 1, lambda = min_l
+)
+
+#number of non zero coeff
+length(lasso_min$beta[lasso_min$beta!=0]) #82
+```
+<img src="{{ site.url }}{{ site.baseurl }}//images/regularizedreg/influential_lasso.jpg" alt="Important variables">
+
+The obove plot shows all the remaining influential variables and their coefficient value.
+
+Now, predicting results and model assesment.
+```r
+#predicting lasso on test set
+y_pred_l = predict(lasso_min, data_test_x)
+#computing r_squared
+r_sq(data_test_y, y_pred_l)
+```
+
+Our model holds slightly better than ridge accounting for 88.5% of the variability.
+However, notice that this prediction was with 82 features instead of 92 like in ridge.
