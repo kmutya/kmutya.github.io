@@ -102,7 +102,7 @@ analytics:
 # Site Author
 author:
   name             : "Kartik Mutya"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/images/dp1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Master's student in Operations Research and Analytics (I.E)"
   location         : "College Station, TX"
   email            : kartik.mutya@gmail.com
@@ -126,7 +126,6 @@ author:
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
     - label: "Linkedin"
-      icon: "fab fa-fw fa-Linkedin"
       url: "https://www.linkedin.com/in/kartik-mutya-ab6a6010a/"
 
 # Site Footer
