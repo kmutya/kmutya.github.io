@@ -6,7 +6,7 @@ header:
 mathjax: "true"
 ---
 
-This post entails an elementary implementation of two common regularization techniques namely Ridge and Lasso Regression in R using a housing dataset.
+This post entails an elementary implementation of two common regularization techniques namely Ridge and Lasso in the context of Regression in R using a housing dataset.
 
 When we try to fit a higher order polynomial in cases where there are a lot of independent variables we notice that our model tends to overfit (i.e have high variance). This is because, given a lot of dimensions it is not feasible to have training observations covering all different combinations of inputs. More importantly, it becomes much harder for OLS assumptions to hold ground as the no. of inputs increase. In such cases when can use regularization to control our regression coefficients and in turn reduce variance.
 
@@ -343,3 +343,13 @@ r_sq(data_test_y, y_pred_l)
 
 Our model holds slightly better than ridge accounting for 88.5% of the variability.
 However, notice that this prediction was with 82 features instead of 92 like in ridge.
+
+# Conclusion
+
+In this post we looked at the intution behind ridge and lasso regression along with it's implementaton in R using the glmnet package.
+
+Regularization is particularly useful while dealing with bias-variance tradeoff.
+
+# References
+
+Giersdorf, J. (2017). Analysis of Feature-Selection for Lasso Regression Models. [link](https://www.ni.tu-berlin.de/fileadmin/fg215/teaching/nnproject/Lasso_Project.pdf)
