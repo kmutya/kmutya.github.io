@@ -39,7 +39,7 @@ The 2D contour plot below provies intution as to why the coefficients in ridge s
 
 In the above figure RSS equation has the form of an elipse (in red) and the L2 norm for 2 variables is naturally the equation of a circle (in blue). We can observe that their interaction is when $$\beta_2$$ is close but not equal to 0.
 
-First, let us load the packages we'd be needing.
+First, let us load the packages we'd be needing:
 
 ```r
 #Libraries to be used
@@ -263,10 +263,7 @@ Residual sum of squares = $$\sum_{i=1}^{n}({y_i}^2-\hat{y}^2_i)$$
 
 Tuning parameter = $$\lambda$$
 
-L1 norm = $$\||w||_1$$
-
-i.e $$\sum_{i=1}^{n}|w|_i$$
-
+L2 norm = $$\||w||_1$$
 
 Geometric intution:
 
