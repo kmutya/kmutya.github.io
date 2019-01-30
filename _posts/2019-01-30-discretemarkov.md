@@ -19,26 +19,26 @@ Naturally, we will consider each team to correspond to each state in the Markov 
 
 Therefore, Our state space will be $X_n$ i.e the total no. of football teams in NFL.
 
-Therefore, $X_n$ $\in$ {0,1,2...31}
+Therefore, $$X_n$$ $$\in$$ {0,1,2...31}
 
-We introduce a new paramter $F$ i.e Football fans where $f$ is an individual fan.
+We introduce a new paramter $$F$$ i.e Football fans where $$f$$ is an individual fan.
 
-Initially, we assume that football fans are equally distributed among all the teams i.e $F_0 = F_1 = F_2 = ... = F_{31}$
+Initially, we assume that football fans are equally distributed among all the teams i.e $$F_0 = F_1 = F_2 = ... = F_{31}$$
 
 Then,
 
 </br>
 
-$\exists$ $P_{i,j}$ $\forall$ $i = j$ i.e Transition exists for all the teams that have played each other
+$$\exists$$ $$P_{i,j}$$ $$\forall$$ $$i = j$$ i.e Transition exists for all the teams that have played each other
 
-$\nexists$ $P_{i,j}$ $\forall$ $i \ne j$ i.e Transition does not exist for all the teams that have not played each other
+$$\nexists$$ $$P_{i,j}$$ $$\forall$$ $$i \ne j$$ i.e Transition does not exist for all the teams that have not played each other
 
 </br>
 
 Based on the values of scores (subjective to the approach used), we assume that after each match a fan makes a decision to move i.e switch allegiance from one team to another. Eventually, we consider the team with the highest no. of fans to be ranked 1.
 
 </br>
-Note that, *movement of fans* here is an arbitirary concept and it is the same as saying *chances of winning of the Vince Lombardi Trophy* $t$, where after each match $t$ moves from team $i \longrightarrow j$ or $j \longrightarrow i$. So, in conclusion here we are simply equating $F$ (No. of fans) to chances of winning the trophy.
+Note that, *movement of fans* here is an arbitirary concept and it is the same as saying *chances of winning of the Vince Lombardi Trophy* $$t$$, where after each match $$t$$ moves from team $$i \longrightarrow j$$ or $$j \longrightarrow i$$. So, in conclusion here we are simply equating $$F$$ (No. of fans) to chances of winning the trophy.
 
 With this construct we can say that our problem is a first order **Markov Chain** as $P(X_{n+1} = j| X_n = i )$ and $P(X_{n+1} = i| X_n = j)$.
 
