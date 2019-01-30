@@ -17,7 +17,7 @@ We will be using scores from the 2007 regular season, can be downloaded from: [l
 
 Naturally, we will consider each team to correspond to each state in the Markov chain.
 
-Therefore, Our state space will be $X_n$ i.e the total no. of football teams in NFL.
+Therefore, Our state space will be the total no. of football teams in NFL represented as $$X_n$$.
 
 Therefore, $$X_n$$ $$\in$$ {0,1,2...31}
 
@@ -27,20 +27,17 @@ Initially, we assume that football fans are equally distributed among all the te
 
 Then,
 
-</br>
-
 $$\exists$$ $$P_{i,j}$$ $$\forall$$ $$i = j$$ i.e Transition exists for all the teams that have played each other
 
 $$\nexists$$ $$P_{i,j}$$ $$\forall$$ $$i \ne j$$ i.e Transition does not exist for all the teams that have not played each other
 
-</br>
-
 Based on the values of scores (subjective to the approach used), we assume that after each match a fan makes a decision to move i.e switch allegiance from one team to another. Eventually, we consider the team with the highest no. of fans to be ranked 1.
 
-</br>
-Note that, *movement of fans* here is an arbitirary concept and it is the same as saying *chances of winning of the Vince Lombardi Trophy* $$t$$, where after each match $$t$$ moves from team $$i \longrightarrow j$$ or $$j \longrightarrow i$$. So, in conclusion here we are simply equating $$F$$ (No. of fans) to chances of winning the trophy.
+Note that, *movement of fans* here is an arbitirary concept and it is the same as saying *chances of winning the Vince Lombardi Trophy*, $$t$$, where after each match $$t$$ moves from team $$i \longrightarrow j$$ or $$j \longrightarrow i$$. So, in conclusion here we are simply equating $$F$$ (No. of fans) to chances of winning the trophy.
 
-With this construct we can say that our problem is a first order **Markov Chain** as $P(X_{n+1} = j| X_n = i )$ and $P(X_{n+1} = i| X_n = j)$.
+With this construct we can say that our problem is a first order **Markov Chain** as
+
+$$P(X_{n+1} = j| X_n = i )$$ and $$P(X_{n+1} = i| X_n = j)$$.
 
 ## Approach 1 : Using both PtsW and PtsL
 
