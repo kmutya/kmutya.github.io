@@ -33,7 +33,9 @@ Note that, *movement of fans* here is an arbitirary concept and it is the same a
 
 With this construct we can say that our problem is a first order **Markov Chain** as
 
-$$P(X_{n+1} = j| X_n = i )$$ and $$P(X_{n+1} = i| X_n = j)$$.
+$$P(X_{n+1} = j| X_n = i )$$
+and
+$$P(X_{n+1} = i| X_n = j)$$.
 
 ## Approach 1 : Using both PtsW and PtsL
 
@@ -65,17 +67,23 @@ Note that, in this case a fan does not move from the same team to itself i.e $$f
 
 Now, we will show that our Markov chain is irreducible and aperiodic. This is to utilize an essential property of Markov chains which is:
 
-*For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
+> *For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
 
-$$\lim_{n \to \infty} p_{i,j}^(n) = \pi_j$$, $$i,j \in S$$
+$$\lim_{n \to \infty} p^(n)_{i,j} = \pi_j$$, where $$i,j \in S$$
 
 where the $$\pi_j$$ are the unique solution to
 
-$$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, $$j \in S$$
+$$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, where $$j \in S$$
 
 and $$\sum_{j \in S} = 1$$
 
-Our Markov Chain is also **irreducible** simply by how the league is scheduled^[1]. To elaborate, in an NFL league each team plays 16 games each season.
+Note that, for finite states an irreducible and aperiodic DTMC is positive reccurent.
+
+On an intutive level: if a DTMC is positive recurrent and we take it's probability transition matrix to infinity then it's transition probability values of moving from one state to another will converge to a steady state distribution.
+
+##### First, we prove it is irreducible.
+
+Our Markov Chain is **irreducible** simply by how the league is scheduled. To elaborate, in an NFL league each team plays 16 games each season.
 
 * Twice agianst each team in their division (6)
 * 4 games against a division in the other league (4)
@@ -86,18 +94,114 @@ So a team is connected to all the other 32 teams.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 
-Now, that we have proved that our markov chain is **irreducible and aperiodic** we can use the property of $$\pi = \pi P$$ to obtain the steady state vector $$\pi$$ which can then be used to rank the teams.
+Now, that we have proved that our markov chain is **irreducible and aperiodic** we can use above mentioned property of $$\pi = \pi P$$ to obtain the steady state vector $$\pi$$ which can then be used to rank the teams.
 
-Post some code this is what our matrix looks like with only PtsW and PtsL values.
+Below is the code to generate a transition matrix from the csv file downloaded.
+
+```python
+df2 = pd.DataFrame(np.random.randint(low=0, high=1, size=(32, 32)), columns=['Arizona Cardinals', 'Atlanta Falcons', 'Baltimore Ravens',
+       'Buffalo Bills', 'Carolina Panthers', 'Chicago Bears',
+       'Cincinnati Bengals', 'Cleveland Browns', 'Dallas Cowboys',
+       'Denver Broncos', 'Detroit Lions', 'Green Bay Packers',
+       'Houston Texans', 'Indianapolis Colts', 'Jacksonville Jaguars',
+       'Kansas City Chiefs', 'Miami Dolphins', 'Minnesota Vikings',
+       'New England Patriots', 'New Orleans Saints', 'New York Giants',
+       'New York Jets', 'Oakland Raiders', 'Philadelphia Eagles',
+       'Pittsburgh Steelers', 'San Diego Chargers', 'San Francisco 49ers',
+       'Seattle Seahawks', 'St. Louis Rams', 'Tampa Bay Buccaneers',
+       'Tennessee Titans', 'Washington Redskins'])
+
+my_dict = {'Arizona Cardinals' : 0, 'Atlanta Falcons' : 1, 'Baltimore Ravens' : 2,
+       'Buffalo Bills' : 3, 'Carolina Panthers' : 4, 'Chicago Bears' : 5,
+       'Cincinnati Bengals' : 6, 'Cleveland Browns' : 7, 'Dallas Cowboys' : 8,
+       'Denver Broncos' : 9, 'Detroit Lions' : 10, 'Green Bay Packers' : 11,
+       'Houston Texans' : 12, 'Indianapolis Colts' : 13, 'Jacksonville Jaguars' : 14,
+       'Kansas City Chiefs' : 15, 'Miami Dolphins' : 16, 'Minnesota Vikings' : 17,
+       'New England Patriots' : 18, 'New Orleans Saints' : 19, 'New York Giants' : 20,
+       'New York Jets' : 21, 'Oakland Raiders' : 22, 'Philadelphia Eagles' : 23,
+       'Pittsburgh Steelers' : 24, 'San Diego Chargers' : 25, 'San Francisco 49ers' : 26,
+       'Seattle Seahawks' : 27, 'St. Louis Rams' : 28, 'Tampa Bay Buccaneers' : 29,
+       'Tennessee Titans' : 30, 'Washington Redskins' : 31}
 
 
+data2 = data[['Winner', 'Loser', 'PtsW', 'PtsL']]
 
-![Initial Matrix after filling in Ptsw and PtsL](/Users/apple/Desktop/assignment/ap1_initial.png) ![Matrix with probabilites where rows now add up to 1](/Users/apple/Desktop/assignment/ap1_2.png)
+############
+#Function to assign Loser -> Winner scores (L -> W, PtsW)
+def L_W(data, my_dict, winner, data2):
+    for loser in data.loc[data.Winner == winner, 'Loser'].unique():
+        for team, value in my_dict.items():
+            if loser == team:
+                i = value
+                l = sum(data.loc[(data.Loser == loser) & (data.Winner == winner), 'PtsW'].values)
+                j = winner
+                data2.loc[i, j] = l
+    return(data2)
 
-Note that, in cases where there were two matches between teams we have taken the sum of Ptsw and PtsL.
+t1 = data[['Winner', 'Loser', 'PtsW']]
+win_team = t1.Winner.unique()
+for winner in win_team:
+    L_W(t1, my_dict, winner, df2)
 
-\newpage
+#Function to assign Winner -> Loser score (W -> L, PtsL)
+
+def W_L(data, my_dict, winner, data2):
+    for loser in data.loc[data.Winner == winner, 'Loser'].unique():
+        for team, value in my_dict.items():
+            if winner == team:
+                i = value
+                l = sum(data.loc[(data.Loser == loser) & (data.Winner == winner), 'PtsL'].values)
+                j = loser
+                data2.loc[i, j] = l
+    return(data2)
+
+t2 = data[['Winner', 'Loser', 'PtsL']]
+for winner in win_team:
+    W_L(t2, my_dict, winner, df2)
+```
+This is what our transition matrix looks like:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/discretemarkov/transition1.jpg" alt="Transition Matrix">
+
+Note, that we need to normalize the values of the matrix such that all the rows add up to 1.
+We do this as the transition matrix should be a stochastic matrix.
+
+```python
+#Sum by row
+row_sum = df2.sum(axis = 1).to_dict()
+transition_mat = df2.values
+
+
+final_mat  = transition_mat/transition_mat.sum(axis = 1)[:, None]
+final_mat.sum(axis = 1) #All rows add up to 1
+```
+
+Now, we raise the matrix to a high power to find it's liming distribution.
+
+```python
+raised_mat = matrix_power(final_mat, 10000)
+```
+Here is what it looks like after converging.
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/discretemarkov/transition1.jpg" alt="Transition Matrix raised to the power of 10000">
+
+Note that:
+- In cases where there were two matches between teams we have taken the sum of Ptsw and PtsL.
+- The images only display a partial matrix.
+
 After ranking the steady state $\pi$ vector this is what we get:
+
+```python
+steady_state = dict(enumerate(raised_mat[1]))
+#Sort dictionary by value
+rank = sorted(steady_state, key = steady_state.get, reverse = True)
+
+#Result
+for r in rank:
+    for name, state in my_dict.items():
+        if r == state:
+            print(name)
+```
 
 1. New England Patriots
 2. Indianapolis Colts
@@ -138,32 +242,54 @@ The same construct that we defined in the Approach 1 carries over to this one wi
 
 At each iteration,
 
-\[
+$$
  f_{i,k} \longrightarrow f_{j,k+1}
-\]
+$$
 
-1. A fan moves from the losing team to the winning team with a probability $p \in (0.5, 1)$
+1. A fan moves from the losing team to the winning team with a probability $$p \in (0.5, 1)$$
 
-\[
+$$
  f_{j,k} \longrightarrow f_{i,k+1}
-\]
+$$
 
-2. A fan moves from the winning team to losing team with probability $1-p$
+2. A fan moves from the winning team to losing team with probability $$1-p$$
 
-Note that, the probability of a fan moving to a winning team should be higher than a losing team. Mathamatically, $P(f_{i_w})>P(f_{j_l})$
+Note that, the probability of a fan moving to a winning team should be higher than a losing team. Mathamatically, $$P(f_{i_w})>P(f_{j_l})$$
 
-Secondly, if two teams have equal wins and loses against each other then the transitions between the two teams are considered to be equally likely in either direction i.e $f_{i,j} = f_{j,i} = 0.5$.
+Secondly, if two teams have equal wins and loses against each other then the transitions between the two teams are considered to be equally likely in either direction i.e $$f_{i,j} = f_{j,i} = 0.5$$.
 
 The chain is irreducible and aperiodic due to the same reasons as mentioned in Approach 1.
 
-In this case we choose an arbitirary p value of $0.8$
+In this case we choose an arbitirary p value of $$0.8$$
 
+```python
+#Function to create a transition matrix
+p = 0.8 #arbitrary value selected
+q = 0.2 #arbitrary value selected
+def get_matrix(data_original, team, data_state, team_dict):
+    '''Takes in the original dataframe, team, empty transition matrix and dictionary to give
+    a transition matrix based on values of p and 1'''
+    t1 = data_original.loc[data_original.Winner == team, 'Loser'].unique() #Teams supplied 'team' WON against
+    t2 = data_original.loc[data_original.Loser == team, 'Winner'].unique() #Teams suuplied 'team' LOST again
+    t3 = np.intersect1d(t1,t2) #Teams supplied 'team' both won and lost against, p = 0.5 for this
+    t1 = np.setdiff1d(t1,t3) #Removing the intersection for WON
+    t2 = np.setdiff1d(t2,t3) #Removing the intersection for LOST
+    for name, state in team_dict.items():
+        if name == team:
+            l = state #l is the state space number
+    for i in t1:
+        data_state.loc[l, i] = q
+    for j in t2:
+        data_state.loc[l, j] = p
+    for k in t3:
+        data_state.loc[l, k] = 0.5
+    return(data_state)
 
-![Matrix with initial probabilites of p and (1-p)](/Users/apple/Desktop/assignment/ap2_1.png) ![Matrix after normalization](/Users/apple/Desktop/assignment/ap2_2.png)
+for i in teams:
+    get_matrix(data, i, df2, my_dict)
+```
 
-\newpage
-
-Using $\pi = \pi P$ and ranking the steady state $\pi$ vector this is what we get:
+Using $$\pi = \pi P$$ and ranking the steady state $$\pi$$ vector this is what we get:
 
 1. New England Patriots
 2. Dallas Cowboys
@@ -198,59 +324,6 @@ Using $\pi = \pi P$ and ranking the steady state $\pi$ vector this is what we ge
 31. San Francisco 49ers
 32. St. Louis Rams
 
-##Approach 3 : Difference of PtsW-PtsL
-
-In this case we consider only the difference of points scored i.e (PtsW - PtsL) between 2 teams to indicate that the fan of a losing team moves from it to a winning team.
-
-\[
- f_{i,k} \longrightarrow f_{j,k+1}
-\]
-
-
-Additionally, as New England Patriots have zero losses we assign a probability of $1/32$ for a fan to move from Patriots to any other team in our state space or stay with Patriots. Intutively, it means that as Patriots are undefeated all the time Patriot fans have equal probability of shifting to any other team or remain with Patriots if they choose to do so after each match. By doing so we relax our assumption, only for Patriots, that a fan does not move from the same team to itself.
-
-By the nature of league scheduling, each team is connected to all the other teams in our state space, even though we do not have bidirected states like in approach 1 or 2. Our Markov Chain is **irreducible** as each team has won at least once, hence there exists a probability to come back to the team in finite steps.
-
-Moreover, as Patriots division has 4 bi-directed fully connected states. The division is **aperiodic** and by extension our chain is **aperiodic**.
-
-
-![Matrix with initial probabilites of p and (1-p)](/Users/apple/Desktop/assignment/ap3_1.png) ![Matrix after normalization](/Users/apple/Desktop/assignment/ap3_2.png)
-
-\newpage
-Using $\pi = \pi P$ and ranking the steady state $\pi$ vector this is what we get:
-
-1. New England Patriots
-2. Dallas Cowboys
-3. Indianapolis Colts
-4. Washington Redskins
-5. Green Bay Packers
-6. Chicago Bears
-7. San Diego Chargers
-8. Tennessee Titans
-9. Jacksonville Jaguars
-10. Pittsburgh Steelers
-11. Minnesota Vikings
-12. New Orleans Saints
-13. Houston Texans
-14. Philadelphia Eagles
-15. Seattle Seahawks
-16. Cincinnati Bengals
-17. Detroit Lions
-18. New York Giants
-19. Denver Broncos
-20. Tampa Bay Buccaneers
-21. Arizona Cardinals
-22. Kansas City Chiefs
-23. Carolina Panthers
-24. Cleveland Browns
-25. Baltimore Ravens
-26. Buffalo Bills
-27. Atlanta Falcons
-28. San Francisco 49ers
-29. New York Jets
-30. Oakland Raiders
-31. St. Louis Rams
-32. Miami Dolphins
 
 #References
 
