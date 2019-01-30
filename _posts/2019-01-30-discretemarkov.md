@@ -7,19 +7,15 @@ header:
 mathjax: "true"
 ---
 
-# Background
-
 Ranking methods are an essential tool in making decisions. They have many applications from sports to web searches to recommender systems. One of the most popular ranking algorithm is Google's Page Rank algorithm that also uses Markov Chains in some capacity. In this post we use Discrete Time Markov Chains (DTMC's) to rank all the 32 NFL teams after the regular season.
 The National Football League (NFL) is a professional American football league consisting of 32 teams, divided equally between the National Football Conference (NFC) and the American Football Conference (AFC). Both conferences consist of four four-team divisions. Each team plays 16 regular-season games; thus, teams do not play all other teams during a single regular season.
-We will be using scores from the 2007 regular season, can be downloaded from: [link](https://www.pro-football-reference.com/years/2007/games.html)
+We will be using scores from the 2007 regular season, can be downloaded from: [link](https://www.pro-football-reference.com/years/2007/games.html).
 
 ## Modelling the problem
 
 Naturally, we will consider each team to correspond to each state in the Markov chain.
 
-Therefore, Our state space will be the total no. of football teams in NFL represented as $$X_n$$.
-
-Therefore, $$X_n$$ $$\in$$ {0,1,2...31}
+Therefore, Our state space will be the total no. of football teams in NFL represented as $$X_n \forall n \in {0,1,2...31}$$.
 
 We introduce a new paramter $$F$$ i.e Football fans where $$f$$ is an individual fan.
 
@@ -41,21 +37,43 @@ $$P(X_{n+1} = j| X_n = i )$$ and $$P(X_{n+1} = i| X_n = j)$$.
 
 ## Approach 1 : Using both PtsW and PtsL
 
+In the first approach we will be utilising the points won (PtsW) and points lost (PtsL) by each team.
+
+```python
+data = pd.read_csv('data_2007.csv') #reading in the file
+data = data.rename(index = str, columns = {"Winner/tie": "Winner", "Loser/tie": "Loser"})
+data.Winner.isnull() #256 to 267 rows are null i.e Playoff rows
+data = data[0:256]
+list(data.columns) #names of all the columns
+```
+
 In this approach at each iteration,
 
-\[
+$$
  f_{i,k} \longrightarrow f_{j,k+1}
-\]
+$$
 
 1. A fan moves from losing team to winning team based on PtsW i.e points scored by the winning team
 
-\[
+$$
  f_{j,k} \longrightarrow f_{i,k+1}
-\]
+$$
 
 2. A fan moves from the winning team to losing team based on PtsL i.e points scored by the losing team
 
-Note that, in this case a fan does not move from the same team to itself i.e $f_{i,k} \not\to f_{i,k+1}$ as we are explicitly using scores and there is naturally no PtsW and PtsL data for a team against itself. Therefore, by extension: $\nexists$ $P_{i,i}$ $\forall$ $i$
+Note that, in this case a fan does not move from the same team to itself i.e $$f_{i,k} \not\to f_{i,k+1}$$ as we are explicitly using scores and there is naturally no PtsW and PtsL data for a team against itself. Therefore, by extension: $$\nexists P_{i,i} \forall i$$
+
+Now, we will show that our Markov chain is irreducible and aperiodic. This is to utilize an essential property of Markov chains which is:
+
+*For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
+
+$$\lim_{n \to \infty} p_{i,j}^(n) = \pi_j$$, $$i,j \in S$$
+
+where the $$\pi_j$$ are the unique solution to
+
+$$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, $$j \in S$$
+
+and $$\sum_{j \in S} = 1$$
 
 Our Markov Chain is also **irreducible** simply by how the league is scheduled^[1]. To elaborate, in an NFL league each team plays 16 games each season.
 
@@ -68,7 +86,7 @@ So a team is connected to all the other 32 teams.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 
-Now, that we have proved that our markov chain is **irreducible and aperiodic** we can use the property of $\pi$ = $\pi P$ to obtain the steady state vector $\pi$ which can then be used to rank the teams.
+Now, that we have proved that our markov chain is **irreducible and aperiodic** we can use the property of $$\pi = \pi P$$ to obtain the steady state vector $$\pi$$ which can then be used to rank the teams.
 
 Post some code this is what our matrix looks like with only PtsW and PtsL values.
 
