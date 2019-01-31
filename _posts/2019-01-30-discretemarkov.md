@@ -69,13 +69,14 @@ Now, we will show that our Markov chain is irreducible and aperiodic. This is to
 
 > *For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
 
-> $$\lim_{n \to \infty} p^n_{i,j} = \pi_j$$, where $$i,j \in S$$
-
-> where the $$\pi_j$$ is the unique solution to:
-
-> $$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, where $$j \in S$$
-
-> and $$\sum_{j \in S} = 1$$
+$$
+\begin{aligned}
+\lim_{n \to \infty} p^n_{i,j} = \pi_j, \forall i,j \in S
+where the \pi_j is the unique solution to:
+\pi_j = \sum_{i \in S} \pi_i p_{i,j}, \forall j \in S
+\sum_{j \in S} = 1
+\end{aligned}
+$$
 
 Note that, for finite states an irreducible and aperiodic DTMC is positive reccurent.
 
