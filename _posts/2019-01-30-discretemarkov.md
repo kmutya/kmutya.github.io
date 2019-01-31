@@ -103,7 +103,7 @@ So a team is connected to all the other 32 teams.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 
-Now, that we have proved that our markov chain is **irreducible and aperiodic** we can use above mentioned property of $$\pi = \pi P$$ to obtain the steady state vector $$\pi$$ which can then be used to rank the teams.
+**Now, that we have proved that our markov chain is irreducible and aperiodic we can use above mentioned property of $$\pi = \pi P$$ to obtain the steady state vector $$\pi$$ which can then be used to rank the teams.**
 
 Below is the code to generate a transition matrix from the csv file downloaded.
 
@@ -192,7 +192,7 @@ raised_mat = matrix_power(final_mat, 10000)
 ```
 Here is what it looks like after converging.
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/discretemarkov/transition1.jpg" alt="Transition Matrix raised to the power of 10000">
+<img src="{{ site.url }}{{ site.baseurl }}//images/discretemarkov/raised1.jpg" alt="Transition Matrix raised to the power of 10000">
 
 Note that:
 - In cases where there were two matches between teams we have taken the sum of Ptsw and PtsL.
@@ -333,7 +333,7 @@ Using $$\pi = \pi P$$ and ranking the steady state $$\pi$$ vector this is what w
 31. San Francisco 49ers
 32. St. Louis Rams
 
-
+All the code for this project can be found on my [here](https://www.pro-football-reference.com/years/2007/games.html).
 ## References
 
 1. NFL league scheduling: https://www.youtube.com/watch?v=KGKwTnaV-rg
