@@ -34,7 +34,11 @@ Our objective is to forecast the RUL of the test set i.e the red colored portion
         <em>Plots of 21 sensor measurements</em>
 </p>
 
-![image-title-here](Users/apple/Desktop/kmutya.github.io/images/predmaintenance/all_sensors.jpg){:class="img-responsive"}
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/all_sensors.jpg" alt="my alt text"/>
+  <figcaption>Plots of 21 sensor measurements.</figcaption>
+</figure>
+
 
 The scatter plots above give us an intuition regarding the health of the engine w.r.t to various sensors. However, not all sensors are equally important as some of them do not provide any information and others provide conflicting evidence. Therefore, based on the sensor patterns, we classify them into three categories: 1) Continuous and consistent 2) Discrete and 3) Continuous and Inconsistent.
 
