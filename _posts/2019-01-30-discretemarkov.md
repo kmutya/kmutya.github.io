@@ -71,9 +71,13 @@ Now, we will show that our Markov chain is irreducible and aperiodic. This is to
 
 $$
 \begin{aligned}
-\lim_{n \to \infty} p^n_{i,j} = \pi_j, \forall i,j \in S
-where the \pi_j is the unique solution to:
-\pi_j = \sum_{i \in S} \pi_i p_{i,j}, \forall j \in S
+\lim_{n \to \infty} p^n_{i,j} = \pi_j, \forall i,j \in S \\
+\end{aligned}
+$$
+where the $$\pi_j$$ is the unique solution to:
+$$
+\begin{aligned}
+\pi_j = \sum_{i \in S} \pi_i p_{i,j}, \forall j \in S \\
 \sum_{j \in S} = 1
 \end{aligned}
 $$
@@ -82,7 +86,7 @@ Note that, for finite states an irreducible and aperiodic DTMC is positive reccu
 
 On an intutive level: if a DTMC is positive recurrent and we take it's probability transition matrix to infinity then it's transition probability values of moving from one state to another will converge to a steady state distribution.
 
-### First, we prove it is irreducible.
+> ### First, we prove it is irreducible.
 
 Our Markov Chain is **irreducible** simply by how the league is scheduled. To elaborate, in an NFL league each team plays 16 games each season.
 
@@ -93,7 +97,7 @@ Our Markov Chain is **irreducible** simply by how the league is scheduled. To el
 
 So a team is connected to all the other 32 teams.
 
-### Secondly, we show how it is aperiodic.
+> ### Secondly, we show it is aperiodic.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 
