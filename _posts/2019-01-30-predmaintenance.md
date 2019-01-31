@@ -42,7 +42,7 @@ Sensors that have one or more discrete values do not increase our understanding 
 
 <figure>
   <img src="{{site.url}}/images/predmaintenance/op.jpg" alt="my alt text"/>
-  <figcaption><center>Plots of the 3 operational settings</center></figcaption>
+  <figcaption>Plots of the 3 operational settings</figcaption>
 </figure>
 
 All three operational settings are ignored based on the sensor selection criteria. 
@@ -70,13 +70,16 @@ which gave us 128 as the minimum value. Now, in these 128 cycles naturally first
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/hi1.jpg">
 
 <figure>
-  <img src="{{site.url}}images/predmaintenance/hi2.jpg" alt="my alt text"/>
-  <center><figcaption>HI for engine 1 in the training set</figcaption></center>
+  <img src="{{site.url}}/images/predmaintenance/hi2.jpg" alt="my alt text"/>
+  <figcaption>HI for engine 1 in the training set</figcaption>
 </figure>
 
 After assigning 0's /1's, removing null values and keeping only the required sensors. We look at the correlation between the remaining sensors and the manually curated health index.
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/corr.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/corr.jpg" alt="my alt text"/>
+  <figcaption>Correlation plot between continuous - consistent sensors and health index</figcaption>
+</figure>
 
 As we can observe from the above correlation plot, all the sensors have a significant correlation with the HI. Therefore, we will proceed without eliminating any of them.
 
