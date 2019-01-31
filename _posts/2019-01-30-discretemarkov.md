@@ -69,7 +69,7 @@ Now, we will show that our Markov chain is irreducible and aperiodic. This is to
 
 > *For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
 
-> $$\lim_{n \to \infty} p^(n)_{i,j} = \pi_j$$, where $$i,j \in S$$
+> $$\lim_{n \to \infty} p^n_{i,j} = \pi_j$$, where $$i,j \in S$$
 
 > where the $$\pi_j$$ is the unique solution to:
 
@@ -330,7 +330,7 @@ Using $$\pi = \pi P$$ and ranking the steady state $$\pi$$ vector this is what w
 ## References
 
 1. NFL league scheduling: https://www.youtube.com/watch?v=KGKwTnaV-rg
-2. Data from https://www.pro-football-reference.com/years/2007/games.htm#
+2. Data from https://www.pro-football-reference.com/years/2007/games.html
 3. Background reading:
  - “DISCRETE-TIME MARKOV CHAINS: LIMITING BEHAVIOR.” Introduction to Modeling and Analysis of Stochastic Systems, by Vidyadhar G. Kulkarni, Springer, 2011.
  - Vaziri, B. (n.d.). Markov-based ranking methods
