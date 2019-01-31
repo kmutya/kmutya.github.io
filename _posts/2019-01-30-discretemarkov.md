@@ -339,6 +339,6 @@ All the code for this project can be found on my [here](https://github.com/kmuty
 1. NFL league scheduling: https://www.youtube.com/watch?v=KGKwTnaV-rg
 2. Data from https://www.pro-football-reference.com/years/2007/games.html
 3. Background reading:
- - “DISCRETE-TIME MARKOV CHAINS: LIMITING BEHAVIOR.” Introduction to Modeling and Analysis of Stochastic Systems, by Vidyadhar G. Kulkarni, Springer, 2011.
+ - “Discrete-Time Markov Chains: Limiting Behavior.” Introduction to Modeling and Analysis of Stochastic Systems, by Vidyadhar G. Kulkarni, Springer, 2011.
  - Vaziri, B. (n.d.). Markov-based ranking methods
  - Mattingly, R (n.d.). A Markov Method for Ranking College Football Conferences
