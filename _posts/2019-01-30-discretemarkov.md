@@ -74,7 +74,9 @@ $$
 \lim_{n \to \infty} p^n_{i,j} = \pi_j, \forall i,j \in S \\
 \end{aligned}
 $$
+
 where the $$\pi_j$$ is the unique solution to:
+
 $$
 \begin{aligned}
 \pi_j = \sum_{i \in S} \pi_i p_{i,j}, \forall j \in S \\
