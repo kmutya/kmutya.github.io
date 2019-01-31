@@ -34,6 +34,8 @@ Our objective is to forecast the RUL of the test set i.e the red colored portion
         <em>Plots of 21 sensor measurements</em>
 </p>
 
+![image-title-here](Users/apple/Desktop/kmutya.github.io/images/predmaintenance/all_sensors.jpg){:class="img-responsive"}
+
 The scatter plots above give us an intuition regarding the health of the engine w.r.t to various sensors. However, not all sensors are equally important as some of them do not provide any information and others provide conflicting evidence. Therefore, based on the sensor patterns, we classify them into three categories: 1) Continuous and consistent 2) Discrete and 3) Continuous and Inconsistent.
 
 Sensors that have one or more discrete values do not increase our understanding of the engine health hence can be eliminated. Sensors that have continuous but inconsistent values may contain some hidden information but due to inconsistencies towards the end they tend to be rather misleading and therefore need to be eliminated as well. Only sensors that have continuous and consistent values are chosen i.e (sensors 2, 3, 4, 7, 8,11, 12, 13, 15, 20 and 21). These sensors will aid in modelling a mathematical function to describe engine degradation.
