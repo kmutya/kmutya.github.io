@@ -69,19 +69,19 @@ Now, we will show that our Markov chain is irreducible and aperiodic. This is to
 
 > *For an irreducible positive recurrent DTMC, there exist $${\pi_j > 0, j \in S}$$ such that*
 
-$$\lim_{n \to \infty} p^(n)_{i,j} = \pi_j$$, where $$i,j \in S$$
+> $$\lim_{n \to \infty} p^(n)_{i,j} = \pi_j$$, where $$i,j \in S$$
 
-where the $$\pi_j$$ are the unique solution to
+> where the $$\pi_j$$ is the unique solution to:
 
-$$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, where $$j \in S$$
+> $$\pi_j = \sum_{i \in S} \pi_i p_{i,j} $$, where $$j \in S$$
 
-and $$\sum_{j \in S} = 1$$
+> and $$\sum_{j \in S} = 1$$
 
 Note that, for finite states an irreducible and aperiodic DTMC is positive reccurent.
 
 On an intutive level: if a DTMC is positive recurrent and we take it's probability transition matrix to infinity then it's transition probability values of moving from one state to another will converge to a steady state distribution.
 
-##### First, we prove it is irreducible.
+### First, we prove it is irreducible.
 
 Our Markov Chain is **irreducible** simply by how the league is scheduled. To elaborate, in an NFL league each team plays 16 games each season.
 
@@ -91,6 +91,8 @@ Our Markov Chain is **irreducible** simply by how the league is scheduled. To el
 * 1 game each against two of the remaining divisions in their league (2)
 
 So a team is connected to all the other 32 teams.
+
+### Secondly, we show how it is aperiodic.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 
@@ -189,7 +191,7 @@ Note that:
 - In cases where there were two matches between teams we have taken the sum of Ptsw and PtsL.
 - The images only display a partial matrix.
 
-After ranking the steady state $\pi$ vector this is what we get:
+After ranking the steady state $$\pi$$ vector this is what we get:
 
 ```python
 steady_state = dict(enumerate(raised_mat[1]))
@@ -236,7 +238,7 @@ for r in rank:
 31. San Francisco 49ers
 32. Carolina Panthers
 
-##Approach 2 : Using absolute wins and losses
+## Approach 2 : Using absolute wins and losses
 
 The same construct that we defined in the Approach 1 carries over to this one with the only difference being that instead of PtsW and PtsL we consider wins and losses of a team.
 
@@ -325,8 +327,11 @@ Using $$\pi = \pi P$$ and ranking the steady state $$\pi$$ vector this is what w
 32. St. Louis Rams
 
 
-#References
+## References
 
 1. NFL league scheduling: https://www.youtube.com/watch?v=KGKwTnaV-rg
 2. Data from https://www.pro-football-reference.com/years/2007/games.htm#
-3. Background reading: Vaziri, B. (n.d.). Markov-based ranking methods
+3. Background reading:
+ - “DISCRETE-TIME MARKOV CHAINS: LIMITING BEHAVIOR.” Introduction to Modeling and Analysis of Stochastic Systems, by Vidyadhar G. Kulkarni, Springer, 2011.
+ - Vaziri, B. (n.d.). Markov-based ranking methods
+ - Mattingly, R (n.d.). A Markov Method for Ranking College Football Conferences
