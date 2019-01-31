@@ -13,7 +13,7 @@ In particular we'll be using ARIMA, exponential smoothing (Holt-Winter's) and a 
 ## Introduction
 
 - First let us look at the dataset characteristics:
--
+
 Data is a from a fleet of 4 similar simulated aircraft engines operating under different conditions. Data is available from 21 internal sensors and 3 external sensors. This data is contaminated with sensor noise where in each case the engine is operating normally at the start of each time series and develops a fault at some point during the series and eventually deteriorates until failure. Each dataset is divided into:
 
 1. Training: In the training set, the fault grows in magnitude until system failure.
@@ -29,8 +29,10 @@ Our objective is to forecast the RUL of the test set i.e the red colored portion
 ## Preprocessing:
 
 **1. Sensor selection:**
-
+<p>
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/all_sensors.jpg" alt="Plots of 21 sensor measurements">
+<em>Plots of 21 sensor measurements</em>
+</p>
 
 The scatter plots above give us an intuition regarding the health of the engine w.r.t to various sensors. However, not all sensors are equally important as some of them do not provide any information and others provide conflicting evidence. Therefore, based on the sensor patterns, we classify them into three categories: 1) Continuous and consistent 2) Discrete and 3) Continuous and Inconsistent.
 
@@ -76,7 +78,7 @@ Now, we will use our target i.e HI and features i.e continuous and consistent se
 $$
 \begin{aligned}
 
-Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + ... + \beta_k x_k + \epsilon 
+Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \beta_3 x_3 + ... + \beta_k x_k + \epsilon
 
 \end{aligned}
 $$
