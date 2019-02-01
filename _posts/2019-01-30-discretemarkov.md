@@ -190,7 +190,7 @@ Now, we raise the matrix to a high power to find it's liming distribution.
 ```python
 raised_mat = matrix_power(final_mat, 10000)
 ```
-Here is what it looks like after converging.
+Here is what it looks like after converging:
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/discretemarkov/raised1.jpg" alt="Transition Matrix raised to the power of 10000">
 

@@ -149,3 +149,52 @@ Attaching HI for 5 of the 100 engines:
 This marks the end of preprocessing.
 
 ## Modelling
+
+We'll .....
+
+### ARIMA
+
+ARIMA is a classic statistical approach to model univariate data. An ideal approach in using ARIMA(p,d,q) is to:
+
+1. Plot the time series to check if it is stationary:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_1.jpg" alt="something">
+
+2. If the series is not stationary, make it by differencing (to remove trend) or apply a power transformation (to stablize variance): <- this is the d part:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_2.jpg" alt="something">
+
+3. Plot the ACF/PACF of the stationary series to identify AR/MA order. AR or MA terms are needed to correct any autocorrelation that remains in the differenced series. The partial autocorrelation at lag k is equal to the estimated AR(k) coefficient in an autoregressive model with k terms and the lag at which the ACF cuts off is the indicated number of MA terms: <- this is the p,q part
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_3.jpg" alt="something">
+
+4. Supply the parameters p and q to the model. $$p = 2, q = 2$$ in this case. Note that we pick p = 2 instead of p = 4 for a more parsimonious model.
+
+5. Analyse residuals to make sure the fit is good and doesn't violate any of the assumptions:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_4.jpg" alt="something">
+
+Analyzing our residuals,
+- Normality assumption is met based on the Q-Q plot.
+- Residuals look indepent identically distributed.
+- As our p-value is greater than 0.5 in the Ljung–Box–Pierce Q-statistic it indicates that our ACF residuls follow a $X^2$ distribution. Note that the null hypothesis, $$H_0$$ here is that our residuals do not follow a chi-squared distribution.
+
+But as we would like to forecast RUL for multiple engines, doing this for each engine is not effective. Therefore, we will use the auto.arima() function from the forecast package in R. This function returns the best ARIMA model according to either AIC, AICc or BIC value by conducting a search over possible model. Post that we create a custom function that will use auto.arima() to generate model order $$p,d,q$$ and then forecast it's RUL till it reaches 0.
+
+```r
+#Our custom function uses the auto.arima() function from forecast package
+#Forecasts till 10000 iterations or when our RUL reaches 0, whichever is earlier
+RUL_list_arima = lapply(final_list2, function(x){
+  out = auto.arima(x, d = 1, max.p = 15, max.q = 15)
+  p = out$arma[1]
+  q = out$arma[2]
+  for(i in 1:10000){
+    out_for = sarima.for(x, i, p,1,q)
+    if (out_for$pred[i] <= 0.0){
+      RUL = i
+      break
+    }
+  }
+  return(RUL)
+})
+```
