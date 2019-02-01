@@ -8,7 +8,7 @@ mathjax: "true"
 ---
 
 Unexpected downtime has a significant effect on throughput in manufacturing. Managing the service life of equipment helps in reducing downtime costs. The ability to predict equipment outage helps in deploying pre-failure maintenance and bring down unplanned downtime costs. Quite commonly, these machines produce streams of time series data which can be modeled using markovian techniques. In this post we look at using time series techniques to forecast the failure of such machines.  
-In particular we'll be using ARIMA, exponential smoothing (Holt-Winter's) and a single layer perceptron model on the C-MAPSS dataset from NASA's prognostics data repository. You can find the dataset [here](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
+In particular we'll be using ARIMA and a single layer perceptron model on the C-MAPSS dataset from NASA's prognostics data repository. You can find the dataset [here](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
 ## Introduction
 
@@ -55,7 +55,7 @@ In order to do so, first we would need a target variable w.r.t to which various 
 
 You could probably ask why 30? 
 
-So, first, we first looked at the summary of max RUL
+So, first, we first look at the summary of max RUL
 
 ```r
 #Look at the RUL summary
@@ -134,23 +134,41 @@ for (j in engines){
   hilist[[j]] = plot_hi(j)
 }
 ```
-Attaching HI for 5 of the 100 engines:
+Below is the HI for 81 of the 100 engines:
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/one.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/100.jpg" alt="my alt text"/>
+  <figcaption>Health Index (HI) of 81 engines</figcaption>
+</figure>
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/two.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+Now, we will select 9 of these engines to forecast RUL. Below is the plot of the 9 engines selected:
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/three.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/to_forecast.jpg" alt="my alt text"/>
+  <figcaption>Row 1 - Low RUL, Row 2 - Med RUL, Row 3 - High RUL </figcaption>
+</figure>
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/four.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+We have selected these engine's such that 3 of them have a low RUL, 3 have medium RUL and 3 have a lot of useful life before failure. This is to see how effective our algorithm would be in a real world stochastic situation.
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/five.jpg" alt="Correlation plot between continuous - consistent sensors and health index">
+From the above image it appears as though the time series in the first two row's have a stochastic trend while the last row looks almost stationary. This is important because based on if the series has a trend or not we would have to convert it to stationarity and supply it to our model. To test for stationarity let us perform the Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test for the null hypothesis, $$H_0$$ that our series is stationary.
+
+```r
+#Performing kpss test to test stationarity
+stationary_result = lapply(forecast_list2, kpss.test, null = "Level") #Level means that the data is like white noise
+print(stationary_result)
+```
+Here *null = "Level"* argument test for the null hypothesis, $$H_0$$ that our series is stationary. Naturally, if our p-value is less $$\aplha = 0.05$$ we reject $$H_0$$ and it means that our series has a trend and differencing would be required to make it stationary.
+
+Below is the image of the p-value obtained after the KPSS test:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/kpss.jpg" alt="Max RUL summary">
+
 
 This marks the end of preprocessing.
 
 ## Modelling
 
-We'll .....
+We'll be using two modelling techniques as mentioned earlier.
 
 ### ARIMA
 
@@ -160,11 +178,11 @@ ARIMA is a classic statistical approach to model univariate data. An ideal appro
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_1.jpg" alt="something">
 
-2. If the series is not stationary, make it by differencing (to remove trend) or apply a power transformation (to stablize variance): <- this is the d part:
+2. If the series is not stationary, make it by differencing (to remove trend) or apply a power transformation (to stablize variance): -> this is the d part.
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_2.jpg" alt="something">
 
-3. Plot the ACF/PACF of the stationary series to identify AR/MA order. AR or MA terms are needed to correct any autocorrelation that remains in the differenced series. The partial autocorrelation at lag k is equal to the estimated AR(k) coefficient in an autoregressive model with k terms and the lag at which the ACF cuts off is the indicated number of MA terms: <- this is the p,q part
+3. Plot the ACF/PACF of the stationary series to identify AR/MA order. AR or MA terms are needed to correct any autocorrelation that remains in the differenced series. The partial autocorrelation at lag k is equal to the estimated AR(k) coefficient in an autoregressive model with k terms and the lag at which the ACF cuts off is the indicated number of MA terms: -> this is the p,q part.
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/arima_3.jpg" alt="something">
 
@@ -177,7 +195,7 @@ ARIMA is a classic statistical approach to model univariate data. An ideal appro
 Analyzing our residuals,
 - Normality assumption is met based on the Q-Q plot.
 - Residuals look indepent identically distributed.
-- As our p-value is greater than 0.5 in the Ljung–Box–Pierce Q-statistic it indicates that our ACF residuls follow a $X^2$ distribution. Note that the null hypothesis, $$H_0$$ here is that our residuals do not follow a chi-squared distribution.
+- As our p-value is greater than 0.5 in the Ljung–Box–Pierce Q-statistic it indicates that our ACF residuls follow a $$X^2$$ distribution. Note that the null hypothesis, $$H_0$$ here is that our residuals do not follow a chi-squared distribution.
 
 But as we would like to forecast RUL for multiple engines, doing this for each engine is not effective. Therefore, we will use the auto.arima() function from the forecast package in R. This function returns the best ARIMA model according to either AIC, AICc or BIC value by conducting a search over possible model. Post that we create a custom function that will use auto.arima() to generate model order $$p,d,q$$ and then forecast it's RUL till it reaches 0.
 
@@ -198,3 +216,27 @@ RUL_list_arima = lapply(final_list2, function(x){
   return(RUL)
 })
 ```
+### Multilayer Perceptron (MLP)
+
+A multilayer perceptron is a basic feed forward ANN network. In this post we implement MLP using the nnfor package in R.
+Neural networks are not great in modelling trends because usually with trends the values of the time series are ever increasing/decreasing whereas with the activation functions used within the network it is impossible to achieve an ever increasing/decreasing range of outputs as the output values are restricted to a range $$[0,1]$$ or $$[-1,1]$$ depending on the activation funciton used, i.e sigmoid and tanh respectively.
+
+Therefore, in such cases with trends differencing and scaling can help. However, there is a catch here. Note, that differencing will only be of use when we are dealing with a stochastic trend and absence of seasonality. If we have a series with trend and seasonality then by working on the differenced series we will be unable to approximate the underlying functional form of seasonality.
+
+For this particular problem we will:
+
+1. First train a model on one of the engines. We will be supplying lags of the series as inputs the default for the *mlp()* command is 3. We will have 5 hidden nodes in one single layer. The activation function used is sigmoid (by default).
+
+2. We will then pass this model as an argument to forecast other models as well. This is to reduce computation speed as by passing this argument we will be using the weights and biases of this fitted model to forecast other series in our list.
+
+Mathamatically, our model is:
+
+$$
+\begin{aligned}
+\hat{y} = \beta_0 + \sum^5_{i=1}(w_i\sigma(\beta_{0,i}+\sum^3_{j=1}w_{j,i}X_j))
+\end{aligned}
+$$
+
+where $$\beta_0$$ and $$\beta_{0,i}$$ are the bias of the output and each node respectively. $$w_{j,i}$$ and $$w_i$$ are weights for each input $$X_j$$ and hidden nodes $$H_i$$.
+
+ We can clearly observe that each neuron is a conventional regression that passes through a sigmoid to become nonlinear. Inputs are passed via the nonlinear function multiple times and the results are combined in the output. This combination of several nonlinear approximations enables the neural network to map our series very well. 
