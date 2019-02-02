@@ -263,5 +263,11 @@ Now that we have our RUL predictions we will compute the residuals to visualize 
 
 <figure>
   <img src="{{site.url}}/images/predmaintenance/residual.jpg" alt="my alt text"/>
-  <figcaption>ARIMA and MLP RUL predictions </figcaption>
+  <figcaption>ARIMA and MLP RUL predictions with Engine numbers</figcaption>
 </figure>
+
+We can make 3 key observations:
+
+- MLP prediction errors are much smaller than ARIMA's for all of the 9 engines.
+- There is a linear trend in the errors of the ARIMA model. The errors get bigger as the RUL count increases. This means ARIMA is drastically overestimating the life of our machine in comparision with MLP.
+- 
