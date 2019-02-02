@@ -157,7 +157,7 @@ From the above image it appears as though the time series in the first two row's
 stationary_result = lapply(forecast_list2, kpss.test, null = "Level") #Level means that the data is like white noise
 print(stationary_result)
 ```
-Here *null = "Level"* argument test for the null hypothesis, $$H_0$$ that our series is stationary. Naturally, if our p-value is less $$\aplha = 0.05$$ we reject $$H_0$$ and it means that our series has a trend and differencing would be required to make it stationary.
+Here *null = "Level"* argument test for the null hypothesis, $$H_0$$ that our series is stationary. Naturally, if our p-value is less $$\alpha = 0.05$$ we reject $$H_0$$ and it means that our series has a trend and differencing would be required to make it stationary.
 
 Below is the image of the p-value obtained after the KPSS test:
 
@@ -219,15 +219,11 @@ RUL_list_arima = lapply(final_list2, function(x){
 ### Multilayer Perceptron (MLP)
 
 A multilayer perceptron is a basic feed forward ANN network. In this post we implement MLP using the nnfor package in R.
-Neural networks are not great in modelling trends because usually with trends the values of the time series are ever increasing/decreasing whereas with the activation functions used within the network it is impossible to achieve an ever increasing/decreasing range of outputs as the output values are restricted to a range $$[0,1]$$ or $$[-1,1]$$ depending on the activation funciton used, i.e sigmoid and tanh respectively.
+Neural networks are not great in modelling trends as in time series with trends the values are ever increasing/decreasing but the activation functions used within the network are bounded to $$[0,1]$$ or $$[-1,1]$$ depending on the activation funciton used i.e sigmoid and tanh respectively.
 
-Therefore, in such cases with trends differencing and scaling can help. However, there is a catch here. Note, that differencing will only be of use when we are dealing with a stochastic trend and absence of seasonality. If we have a series with trend and seasonality then by working on the differenced series we will be unable to approximate the underlying functional form of seasonality.
+Therefore, in such cases with trends, differencing and scaling can help. However, there is a catch here. Note, that differencing will only be of use when we are dealing with a stochastic trend and absence of seasonality. If we have a series with trend and seasonality then by working on the differenced series we will be unable to approximate the underlying functional form of seasonality.
 
-For this particular problem we will:
-
-1. First train a model on one of the engines. We will be supplying lags of the series as inputs the default for the *mlp()* command is 3. We will have 5 hidden nodes in one single layer. The activation function used is sigmoid (by default).
-
-2. We will then pass this model as an argument to forecast other models as well. This is to reduce computation speed as by passing this argument we will be using the weights and biases of this fitted model to forecast other series in our list.
+For this particular problem we will train a model on each of the 9 engines. We will be supplying lags of the series as inputs the default for the *mlp()* command is 3. We will have 5 hidden nodes in one single layer. The activation function used is sigmoid (by default). Additionally, we will also perform differencing, in alignment with the above KPSS test results, which is taken care by the model argument *difforder*.
 
 Mathamatically, our model is:
 
@@ -239,4 +235,33 @@ $$
 
 where $$\beta_0$$ and $$\beta_{0,i}$$ are the bias of the output and each node respectively. $$w_{j,i}$$ and $$w_i$$ are weights for each input $$X_j$$ and hidden nodes $$H_i$$.
 
- We can clearly observe that each neuron is a conventional regression that passes through a sigmoid to become nonlinear. Inputs are passed via the nonlinear function multiple times and the results are combined in the output. This combination of several nonlinear approximations enables the neural network to map our series very well. 
+ We can clearly observe that each neuron is a conventional regression that passes through a sigmoid to become nonlinear. Inputs are passed via the nonlinear function multiple times and the results are combined in the output. This combination of several nonlinear approximations enables the neural network to map our series very well.
+
+ Training our model on the 9 engines
+
+```r
+#Fitting a MLP to the 9 engines
+RUL_list_mlp = lapply(forecast_list2, function(x){
+  mlp_fit = mlp(x, difforder = 1) #passing the trained model as an argument
+  for(i in 1:1000){
+    out_for = forecast(mlp_fit, h = i)
+    if (out_for$mean[i] <= 0.01){
+      RUL = i
+      break
+    }
+  }
+  return(RUL)
+})
+```
+Note that, the MLP function by default trains the model 20 times and the different forecasts are combined using the median operator.
+
+Modelling this way is very very computationally intensive and a workaround could be training one model on a series and then passing this model as an argument to forecast other models as well. This would use the weights and biases of the fitted model to forecast other time series. However, as we only have 9 engines we let the code run for now.
+
+## Analysis
+
+Now that we have our RUL predictions we will compute the residuals to visualize the results. Instead of using $$e = y - \hat{y}$$ we will compute the residuals as $$e = \hat{y} - y$$ where $$\hat{y}$$ and $$y$$ are the predicted and actual RUL respectively. We do this we would like to see how much we have over or under predicted. Below is a plot of our results:
+
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/residual.jpg" alt="my alt text"/>
+  <figcaption>ARIMA and MLP RUL predictions </figcaption>
+</figure>
