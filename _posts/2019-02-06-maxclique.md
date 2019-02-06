@@ -55,11 +55,11 @@ $$
 Now we use duality to make explicit the effect of changes in the constraints on the value of the objective and also aid in the column generation scheme. Below is the dual of the above equation.
 
 $$
-\begin{aligned}
+\begin{aligned} \label{eqn:eq3}
 	\bar{\omega}(G) = min & \sum_{I \in I^*} y_{I}\\
     s.t. \; & \sum_{I \in I_j} y_{I} \geq 1,\;\; \forall j \in V\\
 	&  x_j \geq 0, \; I \in I^*,
-\begin{aligned}
+\end{aligned}
 $$
 
 where $$I_j$$ denote the set of all maximal independent sets containing vertex $$j $\in$ V$$.
