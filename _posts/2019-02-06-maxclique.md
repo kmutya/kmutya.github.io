@@ -37,7 +37,7 @@ Let $$I^*$$ denote the set of all maximal independent sets in $$G$$. Then the ma
 $$
 \begin{aligned}
 maximize & \; \sum_{j \in V} x_j\\
-subject\;to\;  &   \sum_{j \in V} x_j \leq 1, \foral I \in I^*\\
+subject\;to\;  &   \sum_{j \in V} x_j \leq 1, \forall I \in I^*\\
 &  x_j \in \{0,1\}, \; j \in V.
 \end{aligned}
 $$
@@ -55,7 +55,7 @@ $$
 Now we use duality to make explicit the effect of changes in the constraints on the value of the objective and also aid in the column generation scheme. Below is the dual of the above equation.
 
 $$
-\begin{aligned} \label{eqn:eq3}
+\begin{aligned}
 	\bar{\omega}(G) = min & \sum_{I \in I^*} y_{I}\\
     s.t. \; & \sum_{I \in I_j} y_{I} \geq 1,\;\; \forall j \in V\\
 	&  x_j \geq 0, \; I \in I^*,
