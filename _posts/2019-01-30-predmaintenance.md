@@ -270,4 +270,6 @@ We can make 3 key observations:
 
 - MLP prediction errors are much smaller than ARIMA's for all of the 9 engines.
 - There is a linear trend in the errors of the ARIMA model. The errors get bigger as the RUL count increases. This means ARIMA performs poorly in estimating the life of our machine when many cyles are left.
-- Introducing some non-linearity in our function has helped in forecating RUL. 
+- Introducing some non-linearity in our function has helped in forecating RUL.
+
+Code for this article can be found [here](https://github.com/kmutya/Predictive-Maintainence).
