@@ -52,16 +52,79 @@ $$
 \end{aligned}
 $$
 
-Now we use duality to make explicit the effect of changes in the constraints on the value of the objective and also aid in the column generation scheme. Below is the dual of the above equation.
+To aid in column generation scheme we will formulate the dual of the above equation.
 
 $$
 \begin{aligned}
 	\bar{\omega}(G) = min & \sum_{I \in I^*} y_{I}\\
     s.t. \; & \sum_{I \in I_j} y_{I} \geq 1,\;\; \forall j \in V\\
-	&  x_j \geq 0, \; I \in I^*,
 \end{aligned}
 $$
 
 where $$I_j$$ denote the set of all maximal independent sets containing vertex $$j \in V$$.
 
 Note that, for every linear programming problem there is a companion problem i.e “dual” linear program, in which the roles of variables and constraints are reversed.
+
+In the above formulation, each variable represents a maximal independent set. Since generating the number of maximal independent sets in a graph is a NP-Hard problem as it is the same as finding the maximum clique in a compliment graph. We will use a greedy approach to generate a set of few maximal independent sets such that they cover all the vertices. The generated set $$I^\prime \subseteq I^*$$ will used as the basis (column-wise) to initialize the restricted master problem (RMP). Below is the RMP:
+
+$$
+\begin{aligned}
+	\bar{\omega}(G) = min & \sum_{I \in I^\prime y_I\\
+    s.t. \; & \sum_{I} \in I^\prime_j y_{I} \geq 1,\;\; \forall j \in V\\
+\end{aligned}
+$$
+
+We would be implementing this post on a graph I obtained from my department. In order for it's implementation first we will build a function to read the .txt file and convert it into a list where each vertex represents another list.
+
+```python
+def preprocess(file):
+  '''takes in the name of the file as a string and returns a list of edges'''
+    f = open(file, 'r')
+    lines = f.read().split("\n")
+    col = [line.split() for line in lines] #split each line into a list
+    condition = 'e' #all edges start with e
+    wanted_list_3 = [i for i in col if(len(i) == 3)] #by len as some line may be empty
+    wanted_list_e = [j for j in wanted_list_3 if(j[0] == condition)] #filter based on e
+    wanted_list_s = [l[1:] for l in wanted_list_e] #only keep the edges
+    wanted_list = [list(map(int, i)) for i in wanted_list_s] #convert string to int
+    return (wanted_list)
+```
+In order to create the list of edges as a graph we use the networkx package in python. Traditionally we can use linked lists to represent the graph either as an adjacency list or an adjacency matrix. However, for this implementation we would use the networkx package which implements an adjacency list in the background.
+
+```python
+def create_graph(edge_list):
+    '''Takes in the list of edges as input and returns a graph'''
+    elist = [tuple(x) for x in edge_list] #convert sub elements to tuple as req by networkx
+    G = nx.Graph()
+    G.add_edges_from(elist)
+    print(G.number_of_nodes())
+    return (G)
+```
+
+Now we create a greedy algorithm to find a good starting basis for the RMP by generating a subset $$I^\prime$$ of maximal independent sets. We need to make sure that all the vertices of $$G$$ are included in our subset in order to serve as a good starting basis.
+
+```python
+#Main greedy algorithm
+'''Takes in the graph and returns maximal independent sets'''
+def greedy_init(G):
+    n = G.number_of_nodes()                 #Storing total number of nodes in 'n'
+    max_ind_sets = []                       #initializing a list that will store maximum independent sets
+    for j in range(1, n+1):
+        R = G.copy()                        #Storing a copy of the graph as a residual
+        neigh = [n for n in R.neighbors(j)] #Catch all the neighbours of j
+        R.remove_node(j)                    #removing the node we start from
+        max_ind_sets.append([j])
+        R.remove_nodes_from(neigh)          #Removing the neighbours of j
+        if R.number_of_nodes() != 0:
+            x = get_min_degree_vertex(R)
+        while R.number_of_nodes() != 0:
+            neigh2 = [m for m in R.neighbors(x)]
+            R.remove_node(x)
+            max_ind_sets[j-1].append(x)
+            R.remove_nodes_from(neigh2)
+            if R.number_of_nodes() != 0:
+                x = get_min_degree_vertex(R)
+    return(max_ind_sets)
+```
+
+The algorithm works as follows. For each vertex $$j$$, starting with $$j$$, all neighbours of $$j$$ are removed, and then, at each step, a minimum degree vertex is chosen from the residual graph $$R$$ and added to the maximal independent set of vertex $$j$$. Subsequently, as vertices are added to the set, their neighbours are removed and the steps are repeated until the residual graph is empty. This algorithm thus leaves us with a set of maximal independent sets for each $$j \in V$$.
