@@ -69,8 +69,8 @@ In the above formulation, each variable represents a maximal independent set. Si
 
 $$
 \begin{aligned}
-	\bar{\omega}(G) = min & \sum_{I \in I^\prime y_I\\
-    s.t. \; & \sum_{I} \in I^\prime_j y_{I} \geq 1,\;\; \forall j \in V\\
+\bar{\omega}(G) = min & \sum_{I \in I^\prime y_I\\
+  s.t. \; & \sum_{I \in I^\prime_j} y_{I} \geq 1,\;\; \forall j \in V\\
 \end{aligned}
 $$
 
