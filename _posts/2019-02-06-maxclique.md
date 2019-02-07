@@ -69,8 +69,8 @@ In the above formulation, each variable represents a maximal independent set. Si
 
 $$
 \begin{aligned}
-\bar{\omega}(G) = min & \sum_{I \in I^\prime y_I\\
-  s.t. \; & \sum_{I \in I^\prime_j} y_{I} \geq 1,\;\; \forall j \in V\\
+	\bar{\omega}(G) = min & \sum_{I \in I^*} y_{I}\\
+    s.t. \; & \sum_{I \in I^\prime_j} y_{I} \geq 1,\;\; \forall j \in V\\
 \end{aligned}
 $$
 
@@ -179,3 +179,328 @@ objective = grb.quicksum(y_var[j]
 rmp_model.setObjective(objective, grb.GRB.MINIMIZE)
 rmp_model.write('rmp_day2.lp') #Write model to an LP file to verify
 ```
+
+Now we use the decomposition principle to transform the RMP into a Column generation subproblem (CGSP) which is:
+
+$$
+\begin{aligned}
+	w = \underset{I \in I}^*}{\mathrm{max}} \left\{\sum_{j} \in I} d_j - 1\right\},
+\end{aligned}
+$$
+
+where $$d$$ represent the dual prices of the RMP. Therefore, the CGSP is a maximum weight independent set problem seeking to find an independent set maximizing the sum of vertex weights in $$G$$, where the weights are given by the dual $$d$$.
+
+The CGSP can be solved using the following IP formulation which we will feed into our CGSP gurobi model.
+
+$$
+\begin{aligned}
+	max & \sum_{j \in V} d_jx_j\\
+	s.t. \; & x_i + x_j \leq 1,\;\; \{i, j\} \in E \\
+	&  x_j \in \{0,1\} \; j \in V.
+\end{aligned}
+$$
+
+```python
+#CGSP
+
+#set of vertices
+set_III = edge_list
+#Define an optimization model
+cgsp_model = grb.Model(name = "CGSP")
+cgsp_model.setParam(grb.GRB.Param.Presolve, 0)
+cgsp_model.setParam('OutputFlag', False)
+#Create a biniary decision variable
+x_var = {}
+for j in set_I:
+    x_var[j] = cgsp_model.addVar(obj = 1, vtype = grb.GRB.BINARY, name = "x_var[%d]"%j)
+#create constraints
+temp2 = {}
+y = 0
+for (i,j) in set_III:
+    y = y+1
+    var1 = [x_var[i]]
+    coef1 = [1]
+    var2 = [x_var[j]]
+    coef2 = [1]
+    expr = grb.LinExpr(coef1, var1)
+    expr.addTerms(coef2, var2)
+    temp2[y] = cgsp_model.addConstr(expr, grb.GRB.LESS_EQUAL, 1, "temp2[%d]"%y)
+cgsp_model.write('day2_cgsp.lp')
+```
+We create another function to update our CGSP objective based on the dual values obtained each iteration from solving the RMP.
+
+```python
+def update_obj(dual):
+    var3 = [x_var[j] for j in set_I]
+    coef3 = [dual[j-1] for j in set_I]
+    objective2 = grb.LinExpr(coef3, var3)
+    cgsp_model.setObjective(objective2, grb.GRB.MAXIMIZE)
+    cgsp_model.update()
+    ob = cgsp_model.getObjective()
+    #print(ob)
+    cgsp_model.write('cgsp.lp')
+```
+
+Now we run our model in a loop with a termination condition.
+
+```python
+#Column generation
+K = len(set_I) + 1
+
+while True:
+    rmp_model.optimize()                        #solve the RMP
+    print('RMP_Objective : ', rmp_model.ObjVal)
+    dual = get_dual(rmp_model)                  #get dual from the 'rmp_model'
+    update_obj(dual)                            #update CGSP objective
+    cgsp_model.optimize()                       #solve the CGSP
+    x_values = cgsp_model.x
+    print('CGSP_Objective : ', cgsp_model.ObjVal)
+    if cgsp_model.ObjVal <=1.001:
+        break
+    else:
+        col = grb.Column()
+        for i in range(1,n):
+            col.addTerms(x_values[i-1], temp[i]) #add column to RMP
+        y_var[K] = rmp_model.addVar(obj=1, vtype=grb.GRB.CONTINUOUS, name="y_var[%d]"%K, column = col)
+        rmp_model.update()
+        rmp_model.write('updated.lp')
+        K += 1
+```
+Below is the output for the input graph.
+
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  45.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.5
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  44.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  43.0
+CGSP_Objective :  2.0
+RMP_Objective :  42.5
+CGSP_Objective :  2.0
+RMP_Objective :  42.5
+CGSP_Objective :  2.0
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.6666666666666665
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  1.5
+RMP_Objective :  42.5
+CGSP_Objective :  2.0
+RMP_Objective :  42.5
+CGSP_Objective :  2.0
+RMP_Objective :  42.25
+CGSP_Objective :  2.0
+RMP_Objective :  42.099999999999994
+CGSP_Objective :  1.8
+RMP_Objective :  42.0
+CGSP_Objective :  2.0
+RMP_Objective :  41.875
+CGSP_Objective :  1.75
+RMP_Objective :  41.625
+CGSP_Objective :  1.75
+RMP_Objective :  41.625
+CGSP_Objective :  1.7499999999999993
+RMP_Objective :  41.625
+CGSP_Objective :  1.7499999999999971
+RMP_Objective :  41.5
+CGSP_Objective :  2.0
+RMP_Objective :  41.5
+CGSP_Objective :  1.5
+RMP_Objective :  41.5
+CGSP_Objective :  1.5
+RMP_Objective :  41.5
+CGSP_Objective :  1.5
+RMP_Objective :  41.0
+CGSP_Objective :  1.5
+RMP_Objective :  41.0
+CGSP_Objective :  1.5
+RMP_Objective :  41.0
+CGSP_Objective :  1.4761904761904763
+RMP_Objective :  41.0
+CGSP_Objective :  1.4705882352941178
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.75
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.75
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.7500000000000004
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.75
+RMP_Objective :  41.0
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  41.0
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.6666666666666665
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.6666666666666667
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.5
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333333
+RMP_Objective :  40.99999999999999
+CGSP_Objective :  1.3333333333333335
+RMP_Objective :  41.00000000000001
+CGSP_Objective :  1.0
+
+Notice how the RMP objective starts at 45 and gradually reduces to 41 due to column generation.
+
+## References
+
+Griva, I., & Nash, S. G. (2009). Linear and nonlinear optimization. Philadelphia, PA: Society for Industrial and Applied Mathematics.
