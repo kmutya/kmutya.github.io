@@ -100,6 +100,13 @@ def create_graph(edge_list):
     print(G.number_of_nodes())
     return (G)
 ```
+This is how our graph looks:
+
+<figure>
+  <img src="{{site.url}}/images/maxclique/graph.jpg" alt="my alt text"/>
+  <figcaption>Visualization of our input graph</figcaption>
+</figure>
+
 
 Now we create a greedy algorithm to find a good starting basis for the RMP by generating a subset $$I^\prime$$ of maximal independent sets. We need to make sure that all the vertices of $$G$$ are included in our subset in order to serve as a good starting basis.
 
@@ -137,3 +144,38 @@ def get_min_degree_vertex(Residual_graph):
     return (min(node_degree, key = node_degree.get))
 ```
 The algorithm works as follows. For each vertex $$j$$, starting with $$j$$, all neighbours of $$j$$ are removed, and then, at each step, a minimum degree vertex is chosen from the residual graph $$R$$ and added to the maximal independent set of vertex $$j$$. Subsequently, as vertices are added to the set, their neighbours are removed and the steps are repeated until the residual graph is empty. This algorithm thus leaves us with a set of maximal independent sets for each $$j \in V$$.
+
+
+Now let us implement the RMP model in Gurobi:
+
+```python
+#GUROBI
+#RMP MODEL
+y_var = {}
+temp = {}
+#Create a set I' for obj function summation
+set_I = range(1, n+1) #n = no. of nodes in graph G
+
+#Create a set for constraint summation
+set_II = max_ind_sets #max_ind_sets are the maximal independent sets obtained from our greedy algorithm
+#Define an optimization model
+rmp_model = grb.Model(name="RMP")
+rmp_model.setParam(grb.GRB.Param.Presolve, 0)
+rmp_model.setParam('OutputFlag', False) #To deactivate unneccessary output
+#Create a continous decision variable 'y'
+for i in set_I:
+    y_var[i] = rmp_model.addVar(obj=1, lb=0.0, vtype=grb.GRB.CONTINUOUS, name="y_var[%d]"%i)
+#Create constraints
+# >= constraints
+x = 0
+for i in set_II:
+    x = x+1
+    var = [y_var[k] for k in i]
+    coef = [1] * len(i)
+    temp[x] = rmp_model.addConstr(grb.LinExpr(coef,var), ">", 1, name="temp[%d]"%x)
+#Objective Function
+objective = grb.quicksum(y_var[j]
+                         for j in set_I)
+rmp_model.setObjective(objective, grb.GRB.MINIMIZE)
+rmp_model.write('rmp_day2.lp') #Write model to an LP file to verify
+```
