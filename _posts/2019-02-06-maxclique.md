@@ -184,7 +184,13 @@ Now we use the decomposition principle to transform the RMP into a Column genera
 
 $$
 \begin{aligned}
-	w = \underset{I \in I^*} \mathrm{max} \left\ \sum_{j \in I} d_j - 1\right\},
+	w = \underset{I \in I^*} \mathrm{max} \leq \sum_{j in \in I} d_j -1
+\end{aligned}
+$$
+
+$$
+\begin{aligned}
+	w = \underset{I \in I^*} \mathrm{max} \left\ \sum_{j \in I} d_j - 1\right\,
 \end{aligned}
 $$
 
