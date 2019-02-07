@@ -126,5 +126,14 @@ def greedy_init(G):
                 x = get_min_degree_vertex(R)
     return(max_ind_sets)
 ```
+where the get_min_degree_vertex subroutine is as follows:
 
+```python
+def get_min_degree_vertex(Residual_graph):
+  '''Takes in the residual graph R and returns the node with the lowest degree'''
+    degrees = [val for (node, val) in Residual_graph.degree()]
+    node = [node for (node, val) in Residual_graph.degree()]
+    node_degree = dict(zip(node, degrees))
+    return (min(node_degree, key = node_degree.get))
+```
 The algorithm works as follows. For each vertex $$j$$, starting with $$j$$, all neighbours of $$j$$ are removed, and then, at each step, a minimum degree vertex is chosen from the residual graph $$R$$ and added to the maximal independent set of vertex $$j$$. Subsequently, as vertices are added to the set, their neighbours are removed and the steps are repeated until the residual graph is empty. This algorithm thus leaves us with a set of maximal independent sets for each $$j \in V$$.
