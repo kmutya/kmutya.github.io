@@ -182,9 +182,18 @@ rmp_model.write('rmp_day2.lp') #Write model to an LP file to verify
 
 Now we use the decomposition principle to transform the RMP into a Column generation subproblem (CGSP) which is:
 
+
 $$
 \begin{aligned}
-	w = \underset{I \in I^*} \mathrm{max} \leq \sum_{j in \in I} d_j -1
+	\bar{\omega}(G) = min & \sum_{I \in I^*} y_{I}\\
+    s.t. \; & \sum_{I \in I^\prime_j} y_{I} \geq 1,\;\; \forall j \in V\\
+\end{aligned}
+$$
+
+
+$$
+\begin{aligned}
+	w = \underset{I \in I^*} max \sum_{j in \in I} d_j -1 \\
 \end{aligned}
 $$
 
