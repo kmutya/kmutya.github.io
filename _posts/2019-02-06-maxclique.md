@@ -184,7 +184,7 @@ Now we use the decomposition principle to transform the RMP into a Column genera
 
 $$
 \begin{aligned}
-	w = \underset{I \in I}^*}{\mathrm{max}} \left\{\sum_{j} \in I} d_j - 1\right\},
+	w = \underset{I \in I^*} \mathrm{max} \left\ \sum_{j \in I} d_j - 1\right\},
 \end{aligned}
 $$
 
@@ -268,235 +268,464 @@ while True:
 ```
 Below is the output for the input graph.
 
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  45.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  44.5 \
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0 \
-CGSP_Objective :  2.0\ 
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0 \
-RMP_Objective :  44.0 \
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0 \
-CGSP_Objective :  2.0 \
-RMP_Objective :  44.0 \
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
+RMP_Objective :  45.0
+
 CGSP_Objective :  2.0
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  44.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  43.0\
-CGSP_Objective :  2.0\
-RMP_Objective :  42.5\
-CGSP_Objective :  2.0\
-RMP_Objective :  42.5\
-CGSP_Objective :  2.0\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
-CGSP_Objective :  1.5\
-RMP_Objective :  42.5\
+
+RMP_Objective :  45.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  45.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  45.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  45.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  45.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.5
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  44.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  43.0
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  2.0
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
+CGSP_Objective :  1.5
+
+RMP_Objective :  42.5
+
 CGSP_Objective :  1.6666666666666665
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  2.0
+
 RMP_Objective :  42.5
+
 CGSP_Objective :  2.0
+
 RMP_Objective :  42.25
+
 CGSP_Objective :  2.0
+
 RMP_Objective :  42.099999999999994
+
 CGSP_Objective :  1.8
+
 RMP_Objective :  42.0
+
 CGSP_Objective :  2.0
+
 RMP_Objective :  41.875
+
 CGSP_Objective :  1.75
+
 RMP_Objective :  41.625
+
 CGSP_Objective :  1.75
+
 RMP_Objective :  41.625
+
 CGSP_Objective :  1.7499999999999993
+
 RMP_Objective :  41.625
+
 CGSP_Objective :  1.7499999999999971
+
 RMP_Objective :  41.5
+
 CGSP_Objective :  2.0
+
 RMP_Objective :  41.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  41.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  41.5
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.4761904761904763
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.4705882352941178
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.75
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.75
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.7500000000000004
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.75
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  41.0
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.6666666666666665
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.6666666666666667
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.5
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333333
+
 RMP_Objective :  40.99999999999999
+
 CGSP_Objective :  1.3333333333333335
+
 RMP_Objective :  41.00000000000001
+
 CGSP_Objective :  1.0
 
 Notice how the RMP objective starts at 45 and gradually reduces to 41 due to column generation.
