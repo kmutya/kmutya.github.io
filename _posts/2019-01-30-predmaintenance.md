@@ -285,7 +285,10 @@ The cost function provided is:
 
 $$
 \begin{aligned}
-s = \begin{array} \sum_{n=1}^{n} e ^ (-d/a_1) - 1, d < 0 \\ \sum_{n=1}^{n} e ^ (-d/a_2) - 1, d \geq 0 \end{array}
+s =
+\begin{array}
+\sum_{n=1}^{n} e ^ (-d/a_1) - 1, d < 0 \\ \sum_{n=1}^{n} e ^ (-d/a_2) - 1, d \geq 0
+\end{array}
 \end{aligned}
 $$
 
