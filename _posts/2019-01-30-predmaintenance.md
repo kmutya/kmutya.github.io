@@ -255,7 +255,7 @@ RUL_list_mlp = lapply(forecast_list2, function(x){
 ```
 Note that, the MLP function by default trains the model 20 times and the different forecasts are combined using the median operator.
 
-Modelling this way is very very computationally intensive and a workaround could be training one model on a series and then passing this model as an argument to forecast other models as well. This would use the weights and biases of the fitted model to forecast other time series. However, as we only have 9 engines we let the code run for now.
+Modelling this way is very very very computationally intensive and a workaround could be training one model on a series and then passing this model as an argument to forecast other models as well. This would use the weights and biases of the fitted model to forecast other time series. However, as we only have 9 engines we let the code run for now.
 
 ## Analysis
 
@@ -266,10 +266,17 @@ Now that we have our RUL predictions we will compute the residuals to visualize 
   <figcaption>ARIMA and MLP RUL predictions with Engine numbers</figcaption>
 </figure>
 
+Here is a corresponding dataframe:
+
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/forecasts_df.jpg" alt="my alt text"/>
+  <figcaption>ARIMA and MLP forecasts and residuals along with RUL and Engine numbers</figcaption>
+</figure>
+
 We can make 3 key observations:
 
-- MLP prediction errors are much smaller than ARIMA's for all of the 9 engines.
-- There is a linear trend in the errors of the ARIMA model. The errors get bigger as the RUL count increases. This means ARIMA performs poorly in estimating the life of our machine when many cyles are left.
+- MLP prediction errors are much smaller than ARIMA's for 7 of the 9 engines.
+- There is a almost a linear trend in the errors of the ARIMA model. The errors get bigger as the RUL count increases. This means ARIMA performs poorly in estimating the life of our machine when many cyles are left.
 - Introducing some non-linearity in our function has helped in forecating RUL.
 
 However, this particular plot or the residuals we computed are not the best evaluation metric. The correct evaluation metric is mentioned in this [paper](https://ieeexplore.ieee.org/document/4711414) associated with the PHM08 challenge.
@@ -312,6 +319,70 @@ This how the asymmetric cost function looks:
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/cost_function.jpg" alt="something">
 
 Note that the cost function is asymmetric as naturally for an engine degradation scenario an early prediction is preferred over late predictions. Therefore, the scoring algorithm for this challenge was asymmetric around the true time of failure such that late predictions were more heavily penalized than early predictions. As can be seen from the above equation the asymmetric preference is controlled by parameters $$a_1$$ and $$a_2$$.
+
+Now let us apply this cost function to our values.
+
+```python
+#Create a function to calculate the cost function
+def cost_function(aplist):
+    d = aplist[1] - aplist[0] #Estimated - True
+    if d<0:
+        s = math.exp(-(d/13)) - 1
+    else:
+        s = math.exp(d/10)-1
+    return(s)
+
+
+#First, for the ARIMA case
+arima_cost = forecast_df[['RUL', 'ARIMA_Forecast']]
+arima_cost = arima_cost.values
+arima_cost = arima_cost.tolist()
+
+arima_value = []
+for i in arima_cost:
+    arima_value.append(cost_function(i))
+
+
+#Second, for the MLP case
+mlp_cost = forecast_df[['RUL', 'MLP_forecast']]
+mlp_cost = mlp_cost.values
+mlp_cost = mlp_cost.tolist()
+
+mlp_value = []
+for i in mlp_cost:
+    mlp_value.append(cost_function(i))
+
+#create a final scores df
+score_df = pd.DataFrame({'ARIMA_score': arima_value,
+              'MLP_score': mlp_value})
+final_score_df = pd.concat([forecast_df[['Engine', 'RUL']], score_df], axis=1)
+final_score_df.to_csv('final_score_df.csv', index = False)
+```
+Below is a screenshot of our results:
+
+<figure>
+  <img src="{{site.url}}/images/predmaintenance/final_score.jpg" alt="my alt text"/>
+  <figcaption>Score of our models on the 9 Engines.</figcaption>
+</figure>
+
+We can observe that MLP beats ARIMA on all the engines except 36 and 84 where it gave a forecast of 55 in comparision to ARIMA's 20 and 384 in comparision to 181.
+
+## Conclusion
+
+Based on our analysis we can conclude that using nonlinearity to map our univariate series can give us better perfomance in forecasting RUL. However, the MLP approach used here is quite difficult to train as the values don't necessarily converge to 0 everytime. We observe, that the ARIMA is devoid of this problem and always converges to 0. However, it is not practical to use ARIMA while forecasting machines with large RUL.
+
+## References
+
+Saxena, A., Goebel, K., Simon, D., & Eklund, N. (2008). Damage propagation modeling for aircraft engine run-to-failure simulation. 2008 International Conference on Prognostics and Health Management. doi:10.1109/phm.2008.4711414
+
+Elattar, H. (n.d.). Intelligent information system to forecast the remaining life of aircraft turbofan engine.
+
+Riad, A. (n.d.). Evaluation of Neural Networks in the Subject of Prognostics As Compared To Linear Regression Model.
+
+Zhao, J., Xu, L., & Liu, L. (2007). Equipment Fault Forecasting Based on ARMA Model. 2007 International Conference on Mechatronics and Automation. doi:10.1109/icma.2007.4304129
+
+
+
 
 
 Code for this article can be found [here](https://github.com/kmutya/Predictive-Maintainence).
