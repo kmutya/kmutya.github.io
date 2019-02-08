@@ -8,7 +8,7 @@ mathjax: "true"
 ---
 
 Unexpected downtime has a significant effect on throughput in manufacturing. Managing the service life of equipment helps in reducing downtime costs. The ability to predict equipment outage helps in deploying pre-failure maintenance and bring down unplanned downtime costs. Quite commonly, these machines produce streams of time series data which can be modeled using markovian techniques. In this post we look at using time series techniques to forecast the failure of such machines.  
-In particular we'll be using ARIMA and a single layer perceptron model on the C-MAPSS dataset from NASA's prognostics data repository. You can find the dataset [here](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
+In particular we'll be using ARIMA and a single layer perceptron model on the C-MAPSS dataset from NASA's prognostics data repository, part of a challenge known as Prognostics and Health Management (PHM08). You can find the dataset [here](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
 ## Introduction
 
@@ -271,5 +271,47 @@ We can make 3 key observations:
 - MLP prediction errors are much smaller than ARIMA's for all of the 9 engines.
 - There is a linear trend in the errors of the ARIMA model. The errors get bigger as the RUL count increases. This means ARIMA performs poorly in estimating the life of our machine when many cyles are left.
 - Introducing some non-linearity in our function has helped in forecating RUL.
+
+However, this particular plot or the residuals we computed are not the best evaluation metric. The correct evaluation metric is mentioned in this [paper](https://ieeexplore.ieee.org/document/4711414) associated with the PHM08 challenge.
+
+The cost function provided is:
+
+$$
+\begin{aligned}
+s = \begin{array}\sum_{n=1}^{n} e ^ (-d/a_1) - 1 for d < 0 \\\sum_{n=1}^{n} e ^ (-d/a_2) - 1 for d \gex 0 \end{array}
+\end{aligned}
+$$
+
+where:
+- $$s$$ is the computed score
+- $$n$$ is the number of UUT's
+- $$d$$ = Estimated RUL - True RUL
+- $$a_1$$ = 10, $$a_2$$ = 13
+
+We can visualize the cost function using python:
+
+```python
+#Plotting the cost function
+x = np.arange(-50, 50, 1)
+y = []
+for i in x:
+    if i<0:
+        y.append(np.exp(-(i / 13)) - 1)
+    else:
+        y.append(np.exp(i/10) - 1)
+
+plt.plot(x, y)
+plt.ylabel('Score')
+plt.xlabel('error')
+plt.title('Plot of the Cost as a function of error')
+plt.show()
+```
+
+This how the asymmetric cost function looks:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/cost_function.jpg" alt="something">
+
+Note that the cost function is asymmetric as naturally for an engine degradation scenario an early prediction is preferred over late predictions. Therefore, the scoring algorithm for this challenge was asymmetric around the true time of failure such that late predictions were more heavily penalized than early predictions. As can be seen from the above equation the asymmetric preference is controlled by parameters $$a_1$$ and $$a_2$$.
+
 
 Code for this article can be found [here](https://github.com/kmutya/Predictive-Maintainence).

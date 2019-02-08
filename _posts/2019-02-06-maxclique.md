@@ -729,6 +729,7 @@ RMP_Objective :  41.00000000000001
 CGSP_Objective :  1.0
 
 Notice how the RMP objective starts at 45 and gradually reduces to 41 due to column generation.
+Code for this project can be found [here](https://github.com/kmutya/Maximum-Clique-Problem).
 
 ## References
 
