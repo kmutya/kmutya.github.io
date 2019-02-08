@@ -286,9 +286,8 @@ The cost function provided is:
 $$
 \begin{aligned}
 s =
-\begin{array}
-\sum_{n=1}^{n} e ^ (-d/a_1) - 1, d < 0 \\ \sum_{n=1}^{n} e ^ (-d/a_2) - 1, d \geq 0
-\end{array}
+\sum_{n=1}^{n} e ^ (-d/a_1) - 1, d < 0 \\
+\sum_{n=1}^{n} e ^ (-d/a_2) - 1, d \geq 0
 \end{aligned}
 $$
 
@@ -317,7 +316,7 @@ plt.title('Plot of the Cost as a function of error')
 plt.show()
 ```
 
-This how the asymmetric cost function looks:
+This is how the asymmetric cost function looks:
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/predmaintenance/cost_function.jpg" alt="something">
 
