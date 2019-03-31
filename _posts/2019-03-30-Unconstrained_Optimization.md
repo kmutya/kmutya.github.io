@@ -1,5 +1,5 @@
 ---
-title: "Unconstrained Optimization"
+title: "Nonlinear Programming"
 date: 2019-03-30
 header:
   image: "/images/unconstrainedopt/head.jpg"
