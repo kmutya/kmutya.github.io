@@ -2,7 +2,7 @@
 title: "Unconstrained Optimization"
 date: 2019-03-30
 header:
-  image: "/images/unconstrainedopt/all2.jpg"
+  image: "/images/unconstrainedopt/head.jpg"
 mathjax: "true"
 ---
 
@@ -285,6 +285,7 @@ Second function converges in 36 iterations
 ### Conjugate Direction methods
 
 The main **idea** here is that the search direction is determined using conjugate vectors. These methods are more efficient in computing the search direction per iteration $$\approx$$ $$O(n)$$ whereas in Quasi-Newton methods the work per iteration is $$\approx$ $$O(n^2)$$.
+
 However, quality of the search direction $$p_k$$ computed in these mehtods is lower than that of Quasi-Newton in the sense that convergence rate is slower. But the use case is dominated by the cheaper search computations for large $$n$$.
 
 What is conjugacy? $$\rightarrow$$ Given a symmetric matrix Q, two vectors $$p_1$$ and $$p_2$$ are said to be Q-conjugate w.r.t Q if $$p_1^TQp_2 = 0$$. If Q=I, conjugacy is the same as orthogonality as $$p_1^Tp_2 = 0$$.
