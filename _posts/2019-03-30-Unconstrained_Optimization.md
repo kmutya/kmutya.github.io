@@ -217,7 +217,15 @@ $$
 Min_{p_k \neq 0} \frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||}
 $$
 
-where the solution $$p_k = -\nabla f(x_k)$$. We can prove this by rewriting the numerator as $$\frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||} = \frac{||p_k||.||\nabla f(x_k)|| \ cos \theta}{||p_k||.||\nabla f(x_k)||} = cos \theta$$, where $$\theta$$ is the angle between the direction and the gradient. Since, $$cos \theta$$ is bounded to [-1,1] any vector that minimizes the LHS of the equation has an angle $$\theta$$ with $$cos \theta = -1$$, hence must be a non-zero multiple of $$-\nabla f(x_k)$$. $$\implies p = -\nabla f(x_k)$$.
+where the solution $$p_k = -\nabla f(x_k)$$.
+
+We can prove this by rewriting the numerator as
+
+$$
+\frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||} = \frac{||p_k||.||\nabla f(x_k)|| \ cos \theta}{||p_k||.||\nabla f(x_k)||} = cos \theta
+$$
+
+where $$\theta$$ is the angle between the direction and the gradient. Since, $$cos \theta$$ is bounded to [-1,1] any vector that minimizes the LHS of the equation has an angle $$\theta$$ with $$cos \theta = -1$$, hence must be a non-zero multiple of $$-\nabla f(x_k)$$. $$\implies p = -\nabla f(x_k)$$.
 
 But why is it called "steepest descent"? $$\rightarrow$$ A descent direction satisfies the condition $$p_k^T \nabla f(x_k) < 0$$. Therefore, choosing $$p_k$$ to minimize $$p_k^T \nabla f(x_k)$$ gives the direction that provides the **most** descent possible.
 
