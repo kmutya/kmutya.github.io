@@ -2,7 +2,7 @@
 title: "Unconstrained Optimization"
 date: 2019-03-30
 header:
-  image: "/images/unconstrainedopt/head.jpg"
+  image: "/images/unconstrainedopt/all2.jpg"
 mathjax: "true"
 ---
 
@@ -239,7 +239,13 @@ Step3: Find optimial step length, $$\alpha_k = argmin_{\alpha>0} f(x_k + \alpha 
 
 Step4: Update $$x_{k+1} = x_k + \alpha_k p_k$$
 
-Step5: Stop when $$||\nabla  f(x_{k+1})|| < \epsilon$$, where $$\epsilon$$ is some tolerance. If not true go to Step2 and update k = k+1.
+Step5: Stop when
+
+$$
+||\nabla  f(x_{k+1})|| < \epsilon
+$$
+
+where $$\epsilon$$ is some tolerance. If not true go to Step2 and update k = k+1.
 
 We can solve for $$\alpha_k$$ either in a closed form manner using an exact method or via numerical line search methods such as golden search, bisection, fibonnaci or treat it like a hyperparameter.
 
