@@ -388,3 +388,10 @@ First function:
 Second function:
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/all2.jpg" alt="CGM travel path for the second function">
+
+Code displayed in this post can be found on my github [here](https://github.com/kmutya/Nonlinear-Optimization).
+
+
+## References
+
+Griva, I., & Nash, S. G. (2009). Linear and Nonlinear optimization. Philadelphia, PA: Society for Industrial and Applied Mathematics.
