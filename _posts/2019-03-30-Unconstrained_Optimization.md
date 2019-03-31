@@ -1,6 +1,6 @@
 ---
 title: "Unconstrained Optimization"
-date: 2010-03-30
+date: 2019-03-30
 header:
   image: "/images/unconstrainedopt/head.jpg"
 mathjax: "true"
@@ -15,9 +15,7 @@ Min_{x \in R^n} f(x)
 $$
 
 Below are implementations of a few Unconstrained Optimization methods.
-I used the SymPy library in python to generate equations in a symbolic manner. Thereafter, created some functions to preprocess these equations in python interpretable variables. Also, created some functions to plot the loss surface and contours.
-
-Considering two different quadratic functions with:
+Considering two different quadratic functions with respective loss surfaces:
 
 1. $$x_0^2 - 2.0  x_0  x_1 + 4  x_1^2$$
 
@@ -26,6 +24,9 @@ Considering two different quadratic functions with:
 2. $$0.5x_0^2 + 2.5x_1^2$$
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/l2.jpg" alt="Loss surface of the second function">
+
+## Preprocessing
+I used the SymPy library in python to generate equations in a symbolic manner. Thereafter, created some functions to preprocess these equations in python interpretable variables. Also, created some functions to plot the loss surface and contours.
 
 ```python
 import numpy as np #arrays
@@ -108,8 +109,8 @@ def contour_travel(x_array, sympy_function):
     plot = plt.plot(x_array[:,0],x_array[:,1],'x-')
     return (plot)
 ```
-
-## Classical Newton Method:
+## Algorithms
+### Classical Newton Method:
 
 Newton’s method is an algorithm for finding a zero of a nonlinear function i.e the points where a function equals 0 (minima).
 
@@ -185,7 +186,7 @@ where $$B_k = \nabla^2f(x_k)$$ assuming that the Hessian is Positive Definite. H
 
 In these methods, we instead try to approximate this $$B_k$$, the degree of comprise of these methods depends on the degree to which $$B_k$$ approximates the Hessian $$\nabla^2f(x_k)$$.
 
-## Steepest-Descent Method
+### Steepest-Descent Method
 
 The **idea** here is that moving in the direction of the gradient provides steepest increase. Hence, we move in the opposite direction to find the minimum. Therefore, we compute the search direction as:
 
@@ -264,7 +265,7 @@ Second function converges in 36 iterations
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/sdm2.jpg" alt="SDM travel path for the second function">
 
 
-## Conjugate Direction methods
+### Conjugate Direction methods
 
 The main **idea** here is that the search direction is determined using conjugate vectors. These methods are more efficient in computing the search direction per iteration $$\approx$$ $$O(n)$$ whereas in Quasi-Newton methods the work per iteration is $$\approx$ $O(n^2)$$.
 However, quality of the search direction $$p_k$$ computed in these mehtods is lower than that of Quasi-Newton in the sense that convergence rate is slower. But the use case is dominated by the cheaper search computations for large $$n$$.
