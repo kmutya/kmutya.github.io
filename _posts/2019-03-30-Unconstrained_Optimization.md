@@ -120,7 +120,7 @@ $$
 f(x) = f(x_0) + (x-x_0)^T \nabla f(x) + \frac{1}{2!} (x-x_0)^T \nabla^2 f(x_0)(x-x_0)
 $$
 
-Where $$x_0$$ is the intitial point about which we try to approximate and $x$ is the new point. Applying FONC ($$\nabla f(x) = 0$$) to the above equation, we get:
+Where $$x_0$$ is the intitial point about which we try to approximate and $$x$$ is the new point. Applying FONC ($$\nabla f(x) = 0$$) to the above equation, we get:
 
 $$
 x = x_0 - [\nabla^2f(x)]^{-1} \nabla f(x)
@@ -165,16 +165,19 @@ This is what the travel path of the Newton looks like for the two functions:
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/n1.jpg" alt="Newton travel path for the first function">
 
-<img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/l1.jpg" alt="Newton travel path for the second function">
+<img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/n2.jpg" alt="Newton travel path for the second function">
 
 Since, both the functions are quadratic newton convergence in one single iteration.
 
-**Pros:** 1. Quadratic rate of convergence due to reliance on second order information.
+**Pros:**
+
+1. Quadratic rate of convergences due to reliance on second order information.
 
 **Disadvantages of Newton Method:**
 
-1. Can fail to converge or converge to a point that is not a minimum. (Can be fixed with LM modification and line search) </br>
-2. Computational costs: if there are n variables, calculating the hessian involves calculating and storing $n^2$ entries and solving system of linear equations takes $O(n^3)$ operations per iteration.
+1. Can fail to converge or converge to a point that is not a minimum. (Can be fixed with LM modification and line search)
+
+2. Computational costs: if there are n variables, calculating the hessian involves calculating and storing $$n^2$$ entries and solving system of linear equations takes $$O(n^3)$$ operations per iteration.
 
 To alleviate these cons, we can use methods that reduce the computational cost of Newton but at the expense of slower convergence rates. So, we make a trade-off between costs per iteration (higher for newton) and the no. of iterations (higher for these methods). These methods are based on the newton method but compute the search direction in a different manner. In newton's method the search direction is computed using
 
@@ -194,7 +197,7 @@ $$
 p_k = -\nabla f(x_k)
 $$
 
-and then use a line search to obtain the transition from $x^{(k)}$ to another point $$x^{(k+1)}$$ at the $$k^{th}$$ stage. Therefore, the cost of computing line search is the same as the cost of computing the gradient. This search direction is a descent direction if $$\nabla f(x) \neq 0$$.
+and then use a line search to obtain the transition from $$x^{(k)}$$ to another point $$x^{(k+1)}$$ at the $$k^{th}$$ stage. Therefore, the cost of computing line search is the same as the cost of computing the gradient. This search direction is a descent direction if $$\nabla f(x) \neq 0$$.
 
 As mentioned before we are trying to approximate the search direction of the newton method. There are two ways to think about this approximation:
 
@@ -214,7 +217,7 @@ $$
 Min_{p_k \neq 0} \frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||}
 $$
 
-where the solution $$p_k = -\nabla f(x_k)$$. We can prove this by rewriting the numerator as $$\frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||} = \frac{||p_k||.||\nabla f(x_k)|| \ cos \theta}{||p_k||.||\nabla f(x_k)||} = cos \theta$$, where $$\theta$$ is the angle between the direction and the gradient. Since, $$cos \theta$$ is bounded to [-1,1] any vector that minimizes the LHS of the equation has an angle $$\theta$$ with $cos \theta = -1$, hence must be a non-zero multiple of $$-\nabla f(x_k)$$. $$\implies p = -\nabla f(x_k)$$.
+where the solution $$p_k = -\nabla f(x_k)$$. We can prove this by rewriting the numerator as $$\frac{p_k^T \nabla f(x_k)}{||p_k||.||\nabla f(x_k)||} = \frac{||p_k||.||\nabla f(x_k)|| \ cos \theta}{||p_k||.||\nabla f(x_k)||} = cos \theta$$, where $$\theta$$ is the angle between the direction and the gradient. Since, $$cos \theta$$ is bounded to [-1,1] any vector that minimizes the LHS of the equation has an angle $$\theta$$ with $$cos \theta = -1$$, hence must be a non-zero multiple of $$-\nabla f(x_k)$$. $$\implies p = -\nabla f(x_k)$$.
 
 But why is it called "steepest descent"? $$\rightarrow$$ A descent direction satisfies the condition $$p_k^T \nabla f(x_k) < 0$$. Therefore, choosing $$p_k$$ to minimize $$p_k^T \nabla f(x_k)$$ gives the direction that provides the **most** descent possible.
 
@@ -360,3 +363,13 @@ First function converges in 15 iterations
 Second function converges in 14 iterations
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/cdm2.jpg" alt="CGM travel path for the second function">
+
+Here is what all of them combined look on the same contour plot where Newton is blue, SDM is orange and CGM is green:
+
+First function:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/all1.jpg" alt="CGM travel path for the second function">
+
+Second function:
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/all2.jpg" alt="CGM travel path for the second function">
