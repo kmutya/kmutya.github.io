@@ -63,7 +63,7 @@ U^Tx_i - U^TUa = 0 \\
 \implies a = U^Tx_i(U^TU)^{-1}
 $$
 
-Note that this inverse ($$(U^TU)^{-1}$$) always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$ . Further since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$.
+Note that the above inverse always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$ . Furthermore, since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$.
 
 $$
 \implies a = U^Tx_i
