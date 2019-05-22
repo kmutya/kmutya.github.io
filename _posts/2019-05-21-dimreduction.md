@@ -45,7 +45,7 @@ Formally, the objective with dimensionality reduction is to seek an $$r$$ dimens
 
 **Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$D'$$ in such a way that we still capture most of the variation in our data.
 
-### Project points from D onto the subspace with a basis denoted by U.
+### 1. Project points from D onto the subspace with a basis denoted by U.
 
 $$
 x_i = Proj_{subspace}x_i + Proj_{subspace}^{\perp}x_i \\
@@ -64,9 +64,8 @@ U^Tx_i - U^TUa = 0 \\
 \implies a = U^Tx_i
 $$
 
-Note that the above inverse ($$(U^TU)^{-1}$$) always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$ . Furthermore, since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$. The above 'a' gives coordinates of projected points in the new basis.
 
-### Looking at the variance of projected points along the subspace
+### 2. Looking at the variance of projected points along the subspace
 
 $$
 \sigma^2_u = \frac{1}{n} \sum_{i=1}^n(a_i - \mu_u)^2 \\
@@ -82,7 +81,7 @@ $$
 
 where $$\Sigma$$ is the covariance matrix of the centered data.
 
-### (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
+### 3. (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
 
 The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset it makes sense to choose a basis that maximizes this projected variance.
 
