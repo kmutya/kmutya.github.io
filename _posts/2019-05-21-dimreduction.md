@@ -8,7 +8,7 @@ mathjax: "true"
 
 This post focuses on the mathematical underpinnings of dimensionality reduction and raw numpy implementations.
 
-#Basic Setting
+## Basic Setting
 
 **Setting:** Have a dataset $$D \in R^{n*d}$$ i.e
 
@@ -40,11 +40,11 @@ Asking these questions stem the notion of dimensionality reduction.
 
 Formally, the objective with dimensionality reduction is to seek an $$r$$ dimensional basis $$\ni r << d$$ that gives the best approximation of the projection of all points $$x_i \in D$$ on $$x_i' \in D'$$ where $$D'$$ is the r-dimensional subspace of D. This can alternatively be viewed as minimizing $$\epsilon = x_i-x_i'$$ over all $$x_i \forall i \in \{1,2...,n\}$$
 
-#Principal Component Analysis (PCA)
+## Principal Component Analysis (PCA)
 
 **Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$D'$$ in such a way that we still capture most of the variation in our data.
 
-#### Project points from D onto the subspace with a basis denoted by U.
+### Project points from D onto the subspace with a basis denoted by U.
 
 $$
 x_i = Proj_{subspace}x_i + Proj_{subspace}^{\perp}x_i \\
@@ -70,7 +70,7 @@ $$
 
 This above 'a' gives coordinates of projected points in the new basis.
 
-#### Looking at the variance of projected points along the subspace
+### Looking at the variance of projected points along the subspace
 
 $$
 \sigma^2_u = \frac{1}{n} \sum_{i=1}^n(a_i - \mu_u)^2 \\
@@ -86,7 +86,7 @@ $$
 
 where $$\Sigma$$ is the covariance matrix of the centered data.
 
-#### (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
+### (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
 
 The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset it makes sense to choose a basis that maximizes this projected variance.
 
