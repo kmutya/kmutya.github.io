@@ -123,7 +123,36 @@ This means that, to maximize the projected variance along basis '$$u$$' we can s
 
 Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance ($$\sigma^2_v = v^T\Sigma v$$)and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem $$u^Tv = 0$$.
 
-$$
-Max \sigma^2_v
 
 $$
+Max \ v^T\Sigma v \\
+s.t: \ i.) \ v^Tv = 1 \\
+ii.) \ u^Tv = 0 \\
+$$
+
+Using Langrange multipliers we can rewrite the optimization problem into an unconstrained one as:
+
+$$
+v^T\Sigma v - \lambda(v^Tv - 1) + \beta(u^Tv) = 0
+$$
+
+Taking $$\frac{\partial}{\partial v}$$ we get,
+
+$$
+2\Sigma v - 2\lambda v - \beta u = 0
+$$
+
+Multiplying with $$u^T$$ and solving for $$\beta$$ we get:
+
+$$
+\beta = 2v^T \Sigma u = 2\Sigma v^Tu = 0
+$$
+
+Sub $$\beta$$ in the unconstrained objective function we get,
+
+$$
+v^T\Sigma v - \lambda(v^Tv - 1) = 0 \\
+\implies \Sigma v = \lambda v
+$$
+
+Now, this time to maximize the projected variance ($$\sigma^2_v$$) along basis '$$v$$' we need to choose the second largest eigenvalue '$$\lambda_2$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_2$$' specifies the direction with the most variation and is known as the **second principal component**.
