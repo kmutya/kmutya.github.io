@@ -72,16 +72,18 @@ $$
 
 ### 2. Looking at the variance of projected points along the subspace
 
+Assuming a 1-D subspace.
+
 $$
 \sigma^2_u = \frac{1}{n} \sum_{i=1}^n(a_i - \mu_u)^2 \\
 $$
 $$\mu_u = 0$$ if we center the data.
 $$
 \sigma^2_u = \frac{1}{n} \sum_{i=1}^n(a_i)^2 \\
-= \frac{1}{n} \sum_{i=1}^n(U^Tx_i)^2 \\
-= \frac{1}{n} \sum_{i=1}^n(U^T(x_ix_i^T)U) \\
-= U^T (\frac{1}{n} \sum_{i=1}^n x_ix_i^T) U \\
-= U^T\Sigma U
+= \frac{1}{n} \sum_{i=1}^n(u^Tx_i)^2 \\
+= \frac{1}{n} \sum_{i=1}^n(u^T(x_ix_i^T)u) \\
+= u^T (\frac{1}{n} \sum_{i=1}^n x_ix_i^T) u \\
+= u^T\Sigma u
 $$
 
 where $$\Sigma$$ is the covariance matrix of the centered data.
@@ -90,18 +92,22 @@ where $$\Sigma$$ is the covariance matrix of the centered data.
 
 The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset it makes sense to choose a basis that maximizes this projected variance.
 
-Assuming a 1-D subspace. We can write out the equality constrained optimization problem as follows:
+We can write out the equality constrained optimization problem as follows:
 
 $$
-Max \ U^T\Sigma U \\
-s.t \ U^TU = 1 \\
+Max \ u^T\Sigma u \\
+s.t \ u^Tu = 1 \\
 $$
 
 Using Langrange multipliers we can rewrite this constrained optimization problem into an unconstrained one and solve it.
 
 $$
-Max \ U^T\Sigma U - \lambda(U^TU - 1) \\
-\frac{\partial U^T\Sigma U - \lambda(U^TU - 1)}{\partial U} = 0 \\
-2\Sigma U - 2\lambda U = 0 \\
-\implies \Sigma U = \lambda U
+Max \ u^T\Sigma u - \lambda(u^Tu - 1) \\
+\frac{\partial u^T\Sigma u - \lambda(u^Tu - 1)}{\partial u} = 0 \\
+2\Sigma u - 2\lambda u = 0 \\
+\implies \Sigma u = \lambda u
 $$
+
+The above result is very profound, it basically means that the langrange multiplier $$\lambda$$ is actually the eigenvalue of the covariance matrix $$\Sigma$$ with an assosiated eigenvector $$u$$. This assosiated dominant eigenvector is also called the **principal component**
+
+Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem.
