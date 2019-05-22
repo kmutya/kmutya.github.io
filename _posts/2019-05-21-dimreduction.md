@@ -64,6 +64,7 @@ U^Tx_i - U^TUa = 0 \\
 \implies a = U^Tx_i
 $$
 
+Note that the above inverse ($$(U^TU)^{-1}$$) always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$ . Furthermore, since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$ . The above 'a' gives coordinates of projected points in the new basis.
 
 ### 2. Looking at the variance of projected points along the subspace
 
