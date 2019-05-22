@@ -90,7 +90,7 @@ where $$\Sigma$$ is the covariance matrix of the centered data.
 
 ### 3. (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
 
-The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset it makes sense to choose a basis that maximizes this projected variance.
+The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset in such a way that we still capture most of the variation in our data, it makes sense to choose a basis that maximizes the variance of this projection.
 
 We can write out the equality constrained optimization problem as follows:
 
@@ -156,3 +156,31 @@ v^T\Sigma v - \lambda(v^Tv - 1) = 0 \\
 $$
 
 Now, this time to maximize the projected variance ($$\sigma^2_v$$) along basis '$$v$$' we need to choose the second largest eigenvalue '$$\lambda_2$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_2$$' specifies the direction with the most variation and is known as the **second principal component**.
+
+It is pretty straight forward to extend the same notion to an r-dimensional case.
+
+Assuming we have already computed $$j-1$$ principal components. The jth new basis vector that we would like to compute say '$$w$$' would naturally be orthogonal to all previous components $$u_i \forall i \in \{1,2...,j-1\}$$ by construction.
+
+Therefore, this is how the optimization problem would look:
+
+$$
+Max \ w^T \Sigma w \\
+s.t \ i.) w^Tw = 1 \\
+ii.) \ u_i^Tw = 0  \ \forall \ i \in \{1,2...,j-1\}
+$$
+
+Rewriting the optimization problem using Langrange multipliers:
+
+$$
+w^T \Sigma w - \lambda (w^Tw - 1) - \sum_{i=1}^{j-1} \beta_i (u_i^Tw)
+$$
+
+As earlier solving for $$\beta$$ and re-substituing that in the optimization problem yields:
+
+$$
+\Sigma w = \lambda w
+$$
+
+Now, as earlier to maximize the variance along basis '$$w$$' we need to choose the jth largest eigenvalue '$$\lambda_j$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_j$$' specifies the direction with the most variation and is the **jth principal component**.
+
+To conclude, to find an r-dimensional approximation of D we simply need to i.) compute the covariance matrix of D i.e $$\Sigma$$ ii.) Sort it's eigenvalues in descending order iii.) Pick r-largest eigenvalue's. Their corresponding eigenvectors will form the basis of this subspace. 
