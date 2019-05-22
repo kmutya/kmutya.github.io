@@ -108,6 +108,6 @@ Max \ u^T\Sigma u - \lambda(u^Tu - 1) \\
 \implies \Sigma u = \lambda u
 $$
 
-The above result is very profound, it basically means that the langrange multiplier $$\lambda$$ is actually the eigenvalue of the covariance matrix $$\Sigma$$ with an assosiated eigenvector $$u$$. This assosiated dominant eigenvector is also called the **principal component**
+The above result is very profound, it basically means that the langrange multiplier '$$\lambda$$' is actually the eigenvalue of the covariance matrix '$$\Sigma$$' with an assosiated eigenvector '$$u$$'. This assosiated dominant eigenvector is also called the **principal component**.
 
-Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem.
+Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem $$u^Tv = 0$$.
