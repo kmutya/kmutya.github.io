@@ -108,6 +108,22 @@ Max \ u^T\Sigma u - \lambda(u^Tu - 1) \\
 \implies \Sigma u = \lambda u
 $$
 
-The above result is very profound, it basically means that the langrange multiplier '$$\lambda$$' is actually the eigenvalue of the covariance matrix '$$\Sigma$$' with an assosiated eigenvector '$$u$$'. This assosiated dominant eigenvector is also called the **principal component**.
+The above result is very profound, it basically means that the langrange multiplier '$$\lambda$$' is actually the eigenvalue of the covariance matrix '$$\Sigma$$' with an assosiated eigenvector '$$u$$'.
 
-Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem $$u^Tv = 0$$.
+Now, taking a dot product with $$u^T$$ on both sides we get
+
+$$
+u^T\Sigma u = u^T\lambda u \\
+Since, \ \sigma^2_u = u^T\Sigma u \\
+\implies \sigma^2_u = u^T\lambda u \\
+\implies \sigma^2_u = \lambda
+$$
+
+This means that, to maximize the projected variance along basis '$$u$$' we can simply choose the largest eigenvalue '$$\lambda_1$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_1$$' is the dominant eigenvector specifying the direction with the most variation and is also the known as the **principal component**.
+
+Now for 2-dimensions, we find the next basis component say 'v' that maximizes the projected variance ($$\sigma^2_v = v^T\Sigma v$$)and since the basis vectors are orthonormal by definition we have an additional constraint in our optimization problem $$u^Tv = 0$$.
+
+$$
+Max \sigma^2_v
+
+$$
