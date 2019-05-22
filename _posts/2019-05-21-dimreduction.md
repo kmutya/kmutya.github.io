@@ -20,9 +20,10 @@ where each row is a vector in a $$d$$-dimensional cartesian coordinate space, $$
 
 Since it is a standard basis, we observe two interesting properties:
 
-i.) $$e_i^T.e_j = 0  \ \forall \ i,j \ni i\neq j$$
-
-ii.) $$||e_i|| = 1$$
+$$
+i.) \ e_i^T.e_j = 0  \ \forall \ i,j \ni i\neq j \\
+ii.) \ ||e_i|| = 1
+$$
 
 Now, given any other set of $$d$$-orthonormal vectors $$\{u_1,u_2,...,u_d\}$$ we can express each row $$x_i \forall \ i \in \{1,2,...,n\}$$, which can also be thought of as a point in a $$d$$-dimensional space, as a linear combination of the new $$d$$-orthonormal vectors and some constant vector $$a = (a_1,a_2,...,a_d)^T$$. In matrix form,
 
@@ -62,7 +63,7 @@ U^Tx_i - U^TUa = 0 \\
 \implies a = U^Tx_i(U^TU)^{-1}
 $$
 
-Note that this inverse $$(U^TU)^{-1}$$ always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$. Further since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$.
+Note that this inverse ($$(U^TU)^{-1}$$) always exists as U being a orthogonal matrix is linearly independent and non-singular. Therefore, $$det |U| \neq 0$$ . Further since U is orthogonal, $$U^{-1} = U^T \implies U^TU = I$$.
 
 $$
 \implies a = U^Tx_i
