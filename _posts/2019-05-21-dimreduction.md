@@ -221,3 +221,5 @@ var (A) = \sum_{i=1}^r u_i^T\Sigma u_i = \sum_{i=1}^r u_i^T\lambda_i u_i
 $$
 
 **Therefore, total variance of the projection is the sum of the $$r$$-eigenvalues of the covariance matrix ($$\Sigma$$) of D.**
+
+### 5. How many principal components to choose?
