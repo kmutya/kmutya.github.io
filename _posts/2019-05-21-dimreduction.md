@@ -6,9 +6,9 @@ header:
 mathjax: "true"
 ---
 
-This post focuses on the mathematical underpinnings of dimensionality reduction and raw numpy implementations.
+This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
 
-## Basic Setting
+## Set-Up
 
 **Setting:** Have a dataset $$D \in R^{n*d}$$ i.e
 
@@ -33,17 +33,17 @@ Note that, U is a diagonal matrix since it comprises of d-dimensional unit vecto
 
 **Key Questions:** There are some natural questions to ask in regards to the above setting:
 
-1. As there are infinite choices for the set of orthonormal basis vectors, can we somehow select an optimal basis?
+K1. As there are infinite choices for the set of orthonormal basis vectors, can we somehow select an optimal basis?
 
-2. If $$d$$ is very large can we find a subspace of $$d$$ such that essential charecterstics of data are still preserved?
+K2. If $$d$$ is very large can we find a subspace of $$d$$ such that essential charecterstics of data are still preserved?
 
 Asking these questions stem the notion of dimensionality reduction.
 
-Formally, the objective with dimensionality reduction is to seek an $$r$$ dimensional basis $$\ni r << d$$ that gives the best approximation of the projection of all points $$x_i \in D$$ on $$x_i' \in D'$$ where $$D'$$ is the r-dimensional subspace of D. This can alternatively be viewed as minimizing $$\epsilon = x_i-x_i'$$ over all $$x_i \forall i \in \{1,2...,n\}$$
+Formally, the objective with dimensionality reduction is to seek an $$r$$ dimensional basis $$\ni r << d$$ that gives the best approximation of the projection of all points $$x_i \in D$$ on $$x_i' \in A$$ where $$A$$ is the r-dimensional subspace of D. This can alternatively be viewed as minimizing $$\epsilon = x_i-x_i'$$ over all $$x_i \forall i \in \{1,2...,n\}$$
 
 ## Principal Component Analysis (PCA)
 
-**Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$D'$$ in such a way that we still capture most of the variation in our data.
+**Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$D'$$ in such a way that we still capture most of the variation in our data (This answer's K2).
 
 ### 1. Project points from D onto the subspace with a basis denoted by U.
 
@@ -88,11 +88,11 @@ $$
 
 where $$\Sigma$$ is the covariance matrix of the centered data.
 
-### 3. (An answer to the first key question): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
+### 3. (An answer to K1): One way to select an optimum basis among all basis would be to choose a basis that maximizes the projected variance.
 
 The above statement is super intuitive. Since, we want to find a low dimensional representation of our dataset in such a way that we still capture most of the variation in our data, it makes sense to choose a basis that maximizes the variance of this projection.
 
-We can write out the equality constrained optimization problem as follows:
+We can set this up as an equality constrained optimization problem as follows:
 
 $$
 Max \ u^T\Sigma u \\
@@ -183,4 +183,41 @@ $$
 
 Now, as earlier to maximize the variance along basis '$$w$$' we need to choose the jth largest eigenvalue '$$\lambda_j$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_j$$' specifies the direction with the most variation and is the **jth principal component**.
 
-To conclude, to find an r-dimensional approximation of D we simply need to i.) compute the covariance matrix of D i.e $$\Sigma$$ ii.) Sort it's eigenvalues in descending order iii.) Pick r-largest eigenvalue's. Their corresponding eigenvectors will form the basis of this subspace. 
+**Understanding this optimization problem helps provide an intuition as to why computing the covariance matrix of D i.e $$\Sigma$$ and picking it's largest sorted eigenvalues give us the direction of the principal components.**
+
+
+### 4. What is the total projected variance?
+
+If we truncate the projection ($$x'$$) of $$x$$ to the first $$r$$-basis vectors we get:
+
+$$x' = U_ra_r$$
+
+where $$U_r$$ represents the $$r$$-dimensional basis vector matrix. Also, from $$a = U^Tx$$ we can get $$a_r = U^T_rx$$. Plugging this into $$x'$$ we get:
+
+$$x' = U_rU_r^Tx = P_rx$$
+
+This $$P_r$$ is the orthogonal projection matrix for the subspace spanned by the first $$r$$-basis vectors. This projection matrix can be decomposed as:
+
+$$P_r = \sum_{i=1}^ru_iu_i^T$$
+
+Let the co-ordinates of all projected points ($$x'$$) of $$x_i \in D$$ yield a new matrix $$A$$ where $$a_i \in R^r$$. Since, we assume $$D$$ to be centered co-ordinates of the projected mean are also assumed to be 0.
+
+Now, the total variance of $$A$$ is:
+
+$$
+var (A) = \frac{1}{n}\sum_{i=1}^n||a_i - 0||^2 \\
+= \frac{1}{n}\sum_{i=1}^n(U^T_rx_i)^T(U^T_rx_i) \\
+= \frac{1}{n}\sum_{i=1}^n x_i^T(U_rU_r^T)x_i \\
+= \frac{1}{n}\sum_{i=1}^n x_i^TP_rx_i \\
+= \frac{1}{n}\sum_{i=1}^n x_i^T(\sum_{i=1}^ru_iu_i^T)x_i \\
+= \frac{1}{n}\sum_{i=1}^n x_ix_i^T(\sum_{i=1}^ru_iu_i^T) \\
+= \sum_{i=1}^r u_i^T\Sigma u_i
+$$
+
+Since, $$u_1,u_2,...u_r$$ are eigenvectors of $$\Sigma$$ we have $$\Sigma u_1 = \lambda u_1, \Sigma u_2 = \lambda u_2, ..., \Sigma u_r = \lambda u_r$$. Therefore,
+
+$$
+var (A) = \sum_{i=1}^r u_i^T\Sigma u_i = \sum_{i=1}^r u_i^T\lambda_i u_i
+$$
+
+**Therefore, total variance of the projection is the sum of the $$r$$-eigenvalues of the covariance matrix ($$\Sigma$$) of D.**
