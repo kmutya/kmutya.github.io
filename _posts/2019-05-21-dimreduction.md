@@ -223,3 +223,11 @@ $$
 **Therefore, total variance of the projection is the sum of the $$r$$-eigenvalues of the covariance matrix ($$\Sigma$$) of D.**
 
 ### 5. How many principal components to choose?
+
+Given a certain threshold for the amount of variance to be explained say $$\gamma$$ we need to choose the cardinality of $|r|$ such that the ratio
+
+$$
+\frac{Var(A)}{Var(D)} = \frac{\sum_{i=1}^r \lambda_i}{\sum_{i=1}^d \lambda_i} \geq \gamma
+$$
+
+## Python implementation
