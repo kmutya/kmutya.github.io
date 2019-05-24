@@ -43,7 +43,7 @@ Formally, the objective with dimensionality reduction is to seek an $$r$$ dimens
 
 ## Principal Component Analysis (PCA)
 
-**Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$D'$$ in such a way that we still capture most of the variation in our data (This answer's K2).
+**Idea:** The basic idea is to project points from our Dataset $$D$$ onto a lower dimensional subspace $$A$$ in such a way that we still capture most of the variation in our data (This answer's K2).
 
 ### 1. Project points from D onto the subspace with a basis denoted by U.
 
@@ -183,7 +183,7 @@ $$
 
 Now, as earlier to maximize the variance along basis '$$w$$' we need to choose the jth largest eigenvalue '$$\lambda_j$$'of $$\Sigma$$ and the corresponding eigenvector '$$u_j$$' specifies the direction with the most variation and is the **jth principal component**.
 
-**Understanding this optimization problem helps provide an intuition as to why computing the covariance matrix of D i.e $$\Sigma$$ and picking it's largest sorted eigenvalues give us the direction of the principal components.**
+**Understanding this optimization problem helps provide an intuition as to why computing the covariance matrix of D i.e $$\Sigma$$ and picking it's eigenvectors give us the principal components.**
 
 
 ### 4. What is the total projected variance?
@@ -217,7 +217,7 @@ $$
 Since, $$u_1,u_2,...u_r$$ are eigenvectors of $$\Sigma$$ we have $$\Sigma u_1 = \lambda u_1, \Sigma u_2 = \lambda u_2, ..., \Sigma u_r = \lambda u_r$$. Therefore,
 
 $$
-var (A) = \sum_{i=1}^r u_i^T\Sigma u_i = \sum_{i=1}^r u_i^T\lambda_i u_i
+var (A) = \sum_{i=1}^r u_i^T\Sigma u_i = \sum_{i=1}^r u_i^T\lambda_i u_i = \sum_{i=1}^r \lambda_i
 $$
 
 **Therefore, total variance of the projection is the sum of the $$r$$-eigenvalues of the covariance matrix ($$\Sigma$$) of D.**
