@@ -248,7 +248,7 @@ For this example I use the SECOM dataset from [here](http://archive.ics.uci.edu/
 First I load the data, drop the response and time columns.
 Use a simple heuristic to replace the missing values with the columns means. The dataset is now $$\in R^{1567*590}$$.
 
-```Python
+```python
 import numpy as np
 import pandas as pd
 import os
@@ -269,7 +269,7 @@ print('Number of null values in the dataframe: ',sum(data.isna().sum()))
 
 Below is the PCA implementation:
 
-```Python
+```python
 def PCA(data,threshold):
     '''Takes in a dataset and a specified threshold value to return a low dimensional representation
     of the original dataset containing threshold % variance of the original dataset'''
@@ -311,4 +311,4 @@ def PCA(data,threshold):
     return(reduced_mat)
 ```
 
-The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset. 
+The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset.
