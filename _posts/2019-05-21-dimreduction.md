@@ -243,30 +243,6 @@ iii.) Pick the PC's that give the required variance.
 
 iv.) Use their corresponding eigenvector forming the reduced basis to compute the Reduced Matrix.
 
-For this example I use the SECOM dataset from [here](http://archive.ics.uci.edu/ml/datasets/secom)
-
-First I load the data, drop the response and time columns.
-Use a simple heuristic to replace the missing values with the columns means. The dataset is now $$\in R^{1567*590}$$.
-
-```python
-import numpy as np
-import pandas as pd
-import os
-import time
-
-#Reading the data in
-os.getcwd()
-os.chdir('/Users/apple/Documents/ML_Data')
-data = pd.read_csv('uci-secom.csv')
-print(data.head(5))
-
-#Removing Time and target variable
-data.drop(columns = ['Time','Pass/Fail'], inplace = True)
-#Replacing all the null values with columns mean
-data.fillna(data.mean(), inplace = True)
-print('Number of null values in the dataframe: ',sum(data.isna().sum()))
-```
-
 Below is the PCA implementation:
 
 ```python
@@ -310,5 +286,64 @@ def PCA(data,threshold):
     print("Run Time: ", round(finish - start,2), "seconds")
     return(reduced_mat)
 ```
+Below is a quick test of my implementation with Sklearn's implementation. For this example we use the SECOM dataset from [here](http://archive.ics.uci.edu/ml/datasets/secom).
 
-The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset.
+First we load the data, drop the response and time columns. Use a simple heuristic to replace the missing values with the columns means. The dataset is now $$\in R^{1567*590}$$.
+
+```python
+import numpy as np
+import pandas as pd
+import os
+import time
+
+#Reading the data in
+os.getcwd()
+os.chdir('/Users/apple/Documents/ML_Data')
+data = pd.read_csv('uci-secom.csv')
+print(data.head(5))
+
+#Removing Time and target variable
+data.drop(columns = ['Time','Pass/Fail'], inplace = True)
+#Replacing all the null values with columns mean
+data.fillna(data.mean(), inplace = True)
+print('Number of null values in the dataframe: ',sum(data.isna().sum()))
+```
+
+Output of our function:
+
+```python
+reduced_mat, var_explained = PCA(data, 0.90)
+print(var_explained)
+print(sum(var_explained))
+```
+<img src="{{ site.url }}{{ site.baseurl }}//images/dimreduction/1.jpg" alt="">
+
+Implemtation from sklearn:
+
+```python
+#sklearn implementation
+from sklearn.decomposition import PCA
+s = time.time()
+pca = PCA(n_components=3)
+pca.fit(data)
+f = time.time()
+print("Run Time: ", f-s, "seconds")
+print(pca.explained_variance_ratio_)
+print(sum(pca.explained_variance_ratio_))
+```
+
+<img src="{{ site.url }}{{ site.baseurl }}//images/dimreduction/2.jpg" alt="">
+
+Ignoring the embarrassingly slow run time (because this was a basic implementation without vectorization or any sort of optimization) ratio of variance and total variance explained are exactly the same upto 15 decimal places. Not bad.
+
+```python
+print(reduced_mat.shape)
+```
+
+The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset. This means the original high-dimensional dataset was very noisy and most of the information was only spread along a few directions. 
+
+
+## References
+
+MJ Zaki, W Meira Jr (2014). Data Mining and Analysis:
+Fundamental Concepts and Algorithms.
