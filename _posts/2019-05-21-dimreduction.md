@@ -73,7 +73,7 @@ $$
 U^{-1} = U^T \implies U^TU = I
 $$
 
-### 2. Looking at the variance of projected points along the subspace
+### 2. Look at the variance of projected points along the subspace.
 
 Assuming a 1-D subspace.
 
@@ -246,7 +246,7 @@ iii.) Pick the PC's that give the required variance.
 
 iv.) Use their corresponding eigenvector forming the reduced basis to compute the Reduced Matrix.
 
-Below is the PCA implementation:
+### Our Implementation:
 
 ```python
 def PCA(data,threshold):
@@ -289,7 +289,10 @@ def PCA(data,threshold):
     print("Run Time: ", round(finish - start,2), "seconds")
     return(reduced_mat)
 ```
-Below is a quick test of my implementation with Sklearn's implementation. For this example we use the SECOM dataset from [here](http://archive.ics.uci.edu/ml/datasets/secom).
+
+### Comparision with sklearn's implementation:
+
+Below is a quick test of our implementation with Sklearn's implementation. For this example we use the SECOM dataset from [here](http://archive.ics.uci.edu/ml/datasets/secom).
 
 First we load the data, drop the response and time columns. Use a simple heuristic to replace the missing values with the columns means. The dataset is now $$\in R^{1567*590}$$.
 

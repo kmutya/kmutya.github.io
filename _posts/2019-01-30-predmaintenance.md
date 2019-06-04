@@ -3,8 +3,11 @@ title: "Predictive maintenance: A time series approach"
 date: 2019-01-30
 tags: [Time Series Modelling, Prognostics]
 header:
-  image: 
+  image:
 mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
 ---
 
 Unexpected downtime has a significant effect on throughput in manufacturing. Managing the service life of equipment helps in reducing downtime costs. The ability to predict equipment outage helps in deploying pre-failure maintenance and bring down unplanned downtime costs. Quite commonly, these machines produce streams of time series data which can be modeled using markovian techniques. In this post we look at using time series techniques to forecast the failure of such machines.  
