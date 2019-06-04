@@ -5,9 +5,10 @@ header:
   image: "/images/cave.jpg"
 ---
 
-I am currently pursuing a Master's degree in Operations Research and Analytics from the ISEN department at Texas A&M, College Station.
-Previously, I interned at Tesla for about an year where I worked on projects related to Machine Learning, Mathematical Optimization, Statistical Modeling and Visualization.
+I like to use mathematics to solve ambigious open-ended problems. On paper, I have a Master's degree in Operations Research from the ISEN department at Texas A&M, College Station during which my focus was on Machine Learning and Mathematical Optimization.
 
-During my Master's I worked as a research assistant in the Human Factors and Machine Learning lab at TAMU. My work was primarily focused on increasing classifier accuracy for Drowsy Driving Algorithms using Deep Learning. I also worked at the Office of Scholarly Communication on an NSF funded project to make Statistical Inferences about researcher performance at TAMU.
+At TAMU, I worked as a research assistant in the Human Factors and Machine Learning lab and developed deep learning based algorithms to detect Drowsy Driving. I also served a short stint at the Office of Scholarly Communication, TAMU Libraries where I worked on an NSF funded project to make some Statistical Inferences about researcher performance.
 
-My areas of interest are Time series forcasting/classification, Deep Learning, Statistical Modeling and Mathamatical Optimization.
+Amidst this, I also pursed a Co-Op at Tesla for 9 months where I worked on projects related to Machine Learning, Optimization and Statistical Data Analysis.
+
+Apart from Math, I am also fascinated by Indian Philosphy particular questions relating to Atman (self), try to lead a sattvic lifestyle, maintain a low carbon footprint and quite contradictorily love strength training.

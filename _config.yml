@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "kmutya's blog"
 title_separator          : "-"
 name                     : "Kartik Mutya"
-description              : "Blog about Data Science"
+description              : "Graduate Studies Blog"
 url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -103,7 +103,7 @@ analytics:
 author:
   name             : "Kartik Mutya"
   avatar           : "/images/dp1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Master's student in Operations Research and Analytics (I.E)"
+  bio              : "Applied Math, Circa-Sattvic Lifestyle and Indian Philosphy"
   location         : "College Station, TX"
   email            : kartik.mutya@gmail.com
   links:

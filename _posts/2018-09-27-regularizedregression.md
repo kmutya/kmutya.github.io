@@ -2,7 +2,7 @@
 title: "Regularized Regression"
 date: 2018-09-27
 header:
-  image: "/images/regularizedreg/head.jpg"
+  image: 
 mathjax: "true"
 ---
 

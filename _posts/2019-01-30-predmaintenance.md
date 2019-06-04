@@ -3,7 +3,7 @@ title: "Predictive maintenance: A time series approach"
 date: 2019-01-30
 tags: [Time Series Modelling, Prognostics]
 header:
-  image: "/images/predmaintenance/cover.jpg"
+  image: 
 mathjax: "true"
 ---
 

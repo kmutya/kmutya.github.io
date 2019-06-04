@@ -3,8 +3,11 @@ title: "Maximum Clique Problem: Linear Programming Approach"
 date: 2019-02-06
 tags: [Linear Programming]
 header:
-  image: "/images/maxclique/cover.jpg"
+  image:
 mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
 ---
 
 

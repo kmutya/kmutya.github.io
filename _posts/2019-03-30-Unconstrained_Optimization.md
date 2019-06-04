@@ -2,8 +2,11 @@
 title: "Nonlinear Programming"
 date: 2019-03-30
 header:
-  image: "/images/unconstrainedopt/head.jpg"
+  image:
 mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
 ---
 
 # Methods for Unconstrained Optimization

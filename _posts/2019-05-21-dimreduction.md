@@ -4,6 +4,9 @@ date: 2019-05-19
 header:
   image:
 mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
 ---
 
 This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
@@ -340,7 +343,7 @@ Ignoring the embarrassingly slow run time (because this was a basic implementati
 print(reduced_mat.shape)
 ```
 
-The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset. This means the original high-dimensional dataset was very noisy and most of the information was only spread along a few directions. 
+The reduced matrix is in $$\in R^{1567*3}$$ and explains 90% of the variance in the original dataset. This means the original high-dimensional dataset was very noisy and most of the information was only spread along a few directions.
 
 
 ## References
