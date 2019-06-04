@@ -2,7 +2,8 @@
 title: "About"
 permalink: /about/
 header:
-  image: "/images/cave.jpg"
+  image:
+classes: wide
 ---
 
 I like to use mathematics to solve ambigious open-ended problems. On paper, I have a Master's degree in Operations Research from the ISEN department at Texas A&M, College Station during which my focus was on Machine Learning and Mathematical Optimization.
