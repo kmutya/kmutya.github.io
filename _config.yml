@@ -102,8 +102,8 @@ analytics:
 # Site Author
 author:
   name             : "Kartik Mutya"
-  avatar           : "/images/dp1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "Applied Math and Circa-Sattvic Lifestyle"
+  avatar           : "/images/dp2.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio              : "Applied Math and Circa-Sattvic Lifestyle."
   location         : "College Station, TX"
   email            : kartik.mutya@gmail.com
   links:
