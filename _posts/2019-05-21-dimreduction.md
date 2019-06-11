@@ -249,6 +249,7 @@ iv.) Use their corresponding eigenvector forming the reduced basis to compute th
 ### Our Implementation:
 
 ```python
+
 def PCA(data,threshold):
     '''Takes in a dataset and a specified threshold value to return a low dimensional representation
     of the original dataset containing threshold % variance of the original dataset'''
@@ -275,10 +276,10 @@ def PCA(data,threshold):
             break
         else:
             i +=1
+    #Ratio of variance explained
+    var_explained = [i[0]/sum(eig_val) for i in eig_pairs[0:number_pc]]
     #Basis of the selected PC's
-    basis = list()
-    for i in eig_pairs[0:number_pc]:
-        basis.append(i[1])
+    basis = [i[1] for i in eig_pairs[0:number_pc]]
     #Basis Matrix of the selected subspace
     reduced_basis_mat = np.vstack((basis[0].reshape(len(eig_val),1)))
     for j in range(1, number_pc):
@@ -287,7 +288,8 @@ def PCA(data,threshold):
     reduced_mat = (reduced_basis_mat.transpose()*data2.transpose()).transpose()
     finish = time.time()
     print("Run Time: ", round(finish - start,2), "seconds")
-    return(reduced_mat)
+    return(reduced_mat, var_explained)
+    
 ```
 
 ### Comparision with sklearn's implementation:
