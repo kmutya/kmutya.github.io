@@ -11,11 +11,13 @@ toc_icon: "cog"
 
 This post encompasses a classification model to predict fraudulent transactions and a discrete time stochastic model to understand the transient distribution and limiting behaviour of fraud by hour.
 
-#Introduction
+# Introduction
 
 Data set is from [here](https://www.kaggle.com/mlg-ulb/creditcardfraud/). In brief, it containts credit card transactions for 2 days where 0.172% of all transactions are fraudulent. There are 29 features of which 28 are linear Prinicpal components and one amount (Therefore all $$\in R$$ ) with names masked for confidentiality. Target is a bernoulli random variable which takes on two distinct values 0 - for non-fraudulent transaction and 1 - for fraudulent transaction.
 
-#Preprocessing
+# Modelling - Classification
+
+**Preprocessing**
 
 1. Check for null values.
 
@@ -43,7 +45,6 @@ data1['response'] = data.iloc[:, 30:31]
 
 4. We can define two half planes and solve a greedy - recursive binary tree problem to find the $$\underset{p,s}{argmin} \ \forall \ p$$ (where p stand for predictor and s for cutpoint within that predictor) to find the predictors that explain our response the best or alternatively, we could proceed to build our model with all the features, evaluate performance using area under the ROC curve, then depending on the results evaluate how the predictors explain our response. Let us proceed with the alternative approach.
 
-#Modelling - Classification
 
 **Classification - I**
 
