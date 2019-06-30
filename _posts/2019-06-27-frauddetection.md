@@ -9,13 +9,13 @@ toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
 
-This post encompasses a classification model to predict fraudulent transactions and a discrete time stochastic model to understand the transient distribution and limiting behaviour of fraud by hour.
+This post encompasses a classification model to predict fraudulent transactions and a continuous time stochastic model to understand the transient distribution, occupancy times and limiting behaviour.
 
 # Introduction
 
 Data set is from [here](https://www.kaggle.com/mlg-ulb/creditcardfraud/). In brief, it containts credit card transactions for 2 days where 0.172% of all transactions are fraudulent. There are 29 features of which 28 are linear Prinicpal components and one amount (Therefore all $$\in R$$ ) with names masked for confidentiality. Target is a bernoulli random variable which takes on two distinct values 0 - for non-fraudulent transaction and 1 - for fraudulent transaction.
 
-# Modelling - Classification
+# Modeling - Classification
 
 **Preprocessing**
 
@@ -150,7 +150,44 @@ Comparing both the results:
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/fruaddetection/result_comp.jpg" alt="Pre and Post Oversampling.">
 
-#References
+
+
+# Stochastic Modeling
+
+One way to model this problem as a CTMC is to think that transactions are not-fraudulent for an Exp($$\mu$$) amount of time and then fraud happens. Once there is fraud, the transactions are fraudulent for an Exp($$\lambda$$) amount of time and is independent of the past.
+
+In that case, $$\{X(t), t\geq0\}$$ is a continuous time stochastic process where $$X(t)$$ is the state of the process at time $$t$$ with a state space $$\{0,1\}$$ (0:non-fraudulent, 1:fraudulent). The sojourn time in state 0 is the non-fraud time which is an Exponential random variable with parameter $$\mu$$ hence, $$r_0 = \mu$$ and $$p_{0,1} = 1$$ since a transaction could just fail. Similarly, $$r_1 = \lambda$$ and $$p_{1,0} = 1$$. Therefore, the Rate matrix is
+
+$$
+R =
+\begin{bmatrix}
+0, \mu \\
+\lambda, 0
+\end{bmatrix}
+$$
+
+Now, one way to find out the above parameters: i.) Think of reaching state 1 from 0 as one run of an exponential R.V and compute the amount of time our CTMC stays in a particualar state for each such run ii.) Compute $$E[X]$$ and then iii.) compute $$\frac{1}{E[X]}$$
+
+```python
+data3 = data.loc[:, ['Time', 'Class']]
+time = data3.loc[:,'Time'].tolist()
+state = data3.loc[:, 'Class'].tolist()
+
+#Getting time spend in state 0 for each instance
+indices = [i for i, x in enumerate(state) if x == 1]
+exp_time_0 = []
+for i in range(len(indices)):
+    if i ==0:
+        exp_time_0.append(time[indices[i]])
+    else:
+        exp_time_0.append(time[indices[i]] - time[indices[i-1]])
+
+mu = 1/mean(exp_time_0)
+
+
+```
+
+# References
 
 1.  Chawla, N. V. (2002). SMOTE: Synthetic Minority Over-sampling Technique. Journal of Artificial Intelligence Research.
 
