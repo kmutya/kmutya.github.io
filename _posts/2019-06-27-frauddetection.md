@@ -19,21 +19,21 @@ Data set is from [here](https://www.kaggle.com/mlg-ulb/creditcardfraud/). In bri
 
 **Preprocessing**
 
-1. Check for null values.
+- Check for null values.
 
 ```python
 #Check for null values
 sum(data.isna().sum())
 ```
 
-2. Since the features are P.C's there will be no correlation amidst them. (Quick reminder: This is because in PCA, while solving the optimization problem to maximize projected variance one of the two constraints we use is $$u_i^Tu_j = 0, i \neq j$$. where $$u$$ denotes the basis of the subspace onto which we are projecting. Intutively, the reason we do is that is because we want to select basis's that capture most of the variation.)
+- Since the features are P.C's there will be no correlation amidst them. (Quick reminder: This is because in PCA, while solving the optimization problem to maximize projected variance one of the two constraints we use is $$u_i^Tu_j = 0, i \neq j$$. where $$u$$ denotes the basis of the subspace onto which we are projecting. Intutively, the reason we do is that is because we want to select basis's that capture most of the variation.)
 To re-confirm this we can plot a correlation matrix.
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/fruaddetection/cor_plot.jpg" alt="Feature correlation plot.">
 
 As expected there is no correlation between PC's. There appears to be a negative correlation between amount and V2,V5 but let us ignore that for the time being.
 
-3. Scale the values in order to avoid one factor to dominate.
+- Scale the values in order to avoid one factor to dominate.
 
 ```python
 #Scale the columns
@@ -43,7 +43,7 @@ data1 = pd.DataFrame(scaler.transform(data.iloc[:,1:30]), columns = data.columns
 data1['response'] = data.iloc[:, 30:31]
 ```
 
-4. We can define two half planes and solve a greedy - recursive binary tree problem to find the $$\underset{p,s}{argmin} \ \forall \ p$$ (where p stand for predictor and s for cutpoint within that predictor) to find the predictors that explain our response the best or alternatively, we could proceed to build our model with all the features, evaluate performance using area under the ROC curve, then depending on the results evaluate how the predictors explain our response. Let us proceed with the alternative approach.
+- We can define two half planes and solve a greedy - recursive binary tree problem to find the $$\underset{p,s}{argmin} \ \forall \ p$$ (where p stand for predictor and s for cutpoint within that predictor) to find the predictors that explain our response the best or alternatively, we could proceed to build our model with all the features, evaluate performance using area under the ROC curve, then depending on the results evaluate how the predictors explain our response. Let us proceed with the alternative approach.
 
 
 **Classification - I**
