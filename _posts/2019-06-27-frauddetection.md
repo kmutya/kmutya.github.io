@@ -166,7 +166,7 @@ R =
 \end{bmatrix}
 $$
 
-Now, one way to find out the above parameters: i.) Think of reaching state 1 from 0 as one run of an exponential R.V and compute the amount of time our CTMC stays in a particualar state for each such run ii.) Compute $$E[X]$$ and then iii.) compute $$\frac{1}{E[X]}$$
+Now, one way to find out the above parameters: i.) Think of reaching state $$i$$ from $$j$$ where $$i,j \in \{0,1\}$$ as one run of an exponential R.V and compute the amount of time our CTMC stays in a particualar state for each such run ii.) Compute $$E[X]$$ and then iii.) compute $$\frac{1}{E[X]}$$
 
 ```python
 data3 = data.loc[:, ['Time', 'Class']]
@@ -184,7 +184,13 @@ for i in range(len(indices)):
 
 mu = 1/mean(exp_time_0)
 
+#Getting time spend in state 1 for each instance
+len(set(indices)) #fraud happens at all unique intervals
+exp_time_1 = []
+for i in range(len(indices)):
+        exp_time_1.append(time[indices[i]+1]-time[indices[i]])
 
+lamda = 1/mean(exp_time_1)
 ```
 
 # References
@@ -192,3 +198,5 @@ mu = 1/mean(exp_time_0)
 1.  Chawla, N. V. (2002). SMOTE: Synthetic Minority Over-sampling Technique. Journal of Artificial Intelligence Research.
 
 2. Hastie, T., Tibshirani, R., & Friedman, J. H. (2004). The elements of statistical learning: Data mining, inference, and prediction.
+
+3. Modeling and Analysis of Stochastic Systems, by Vidyadhar G. Kulkarni, Taylor & Francis, 2009.
