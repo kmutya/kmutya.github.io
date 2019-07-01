@@ -5,6 +5,9 @@ tags: [Markov Chains, Stochastic Modelling]
 header:
   image:
 mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
 ---
 
 Ranking methods are an essential tool in making decisions. They have many applications from sports to web searches to recommender systems. One of the most popular ranking algorithm is Google's Page Rank algorithm that also uses the notion of Markov Chains in some capacity. In this post we use Discrete Time Markov Chains (DTMC's) to rank 32 NFL teams after the regular season.

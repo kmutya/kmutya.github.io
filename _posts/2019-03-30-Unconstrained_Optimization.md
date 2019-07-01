@@ -1,5 +1,5 @@
 ---
-title: "Nonlinear Programming"
+title: "Nonlinear Programming: Methods for Unconstrained Optimization"
 date: 2019-03-30
 header:
   image:
@@ -8,8 +8,6 @@ toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
-
-# Methods for Unconstrained Optimization
 
 This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. These implementations can also be extended to Machine Learning use cases.
 
@@ -21,7 +19,7 @@ $$
 Min_{x \in R^n} f(x)
 $$
 
-In this post, we use the below two quadratic functions for implementation and visulization.
+In this post, we use the below two quadratic functions with respective loss surface for implementation and visulization.
 
 - $$x_0^2 - 2.0  x_0  x_1 + 4  x_1^2$$
 
