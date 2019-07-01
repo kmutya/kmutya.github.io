@@ -11,25 +11,29 @@ toc_icon: "cog"
 
 # Methods for Unconstrained Optimization
 
+This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. These implementations can also be extended to Machine Learning use cases.
+
+## Introduction
+
 A typical unconstrained optimization problem looks like this:
 
 $$
 Min_{x \in R^n} f(x)
 $$
 
-Below are implementations of a few Unconstrained Optimization methods.
-Considering two different quadratic functions with respective loss surfaces:
+In this post, we use the below two quadratic functions for implementation and visulization.
 
-1. $$x_0^2 - 2.0  x_0  x_1 + 4  x_1^2$$
+- $$x_0^2 - 2.0  x_0  x_1 + 4  x_1^2$$
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/l1.jpg" alt="Loss surface of the first function">
 
-2. $$0.5x_0^2 + 2.5x_1^2$$
+- $$0.5x_0^2 + 2.5x_1^2$$
 
 <img src="{{ site.url }}{{ site.baseurl }}//images/unconstrainedopt/l2.jpg" alt="Loss surface of the second function">
 
 ## Preprocessing
-I used the SymPy library in python to generate equations in a symbolic manner. Thereafter, created some functions to preprocess these equations in python interpretable variables. Also, created some functions to plot the loss surface and contours.
+
+We use the SymPy library in python to generate equations in a symbolic manner. Thereafter, create some functions to preprocess these equations in python interpretable variables. We also, create some functions to plot the loss surface and contours.
 
 ```python
 import numpy as np #arrays
@@ -113,6 +117,7 @@ def contour_travel(x_array, sympy_function):
     return (plot)
 ```
 ## Algorithms
+
 ### Classical Newton Method:
 
 Newton’s method is an algorithm for finding a zero of a nonlinear function i.e the points where a function equals 0 (minima).
@@ -230,7 +235,7 @@ $$
 
 where $$\theta$$ is the angle between the direction and the gradient. Since, $$cos \theta$$ is bounded to [-1,1] any vector that minimizes the LHS of the equation has an angle $$\theta$$ with $$cos \theta = -1$$, hence must be a non-zero multiple of $$-\nabla f(x_k)$$. $$\implies p = -\nabla f(x_k)$$.
 
-But why is it called "steepest descent"? $$\rightarrow$$ A descent direction satisfies the condition $$p_k^T \nabla f(x_k) < 0$$. Therefore, choosing $$p_k$$ to minimize $$p_k^T \nabla f(x_k)$$ gives the direction that provides the **most** descent possible.
+One might wonder as to **why is it called "steepest descent"?** $$\rightarrow$$ That is because, a descent direction satisfies the condition $$p_k^T \nabla f(x_k) < 0$$. Therefore, choosing $$p_k$$ to minimize $$p_k^T \nabla f(x_k)$$ gives the direction that provides the **most** descent possible.
 
 **Algorithm:**
 

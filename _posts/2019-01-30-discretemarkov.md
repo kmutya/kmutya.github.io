@@ -3,15 +3,18 @@ title: "Ranking teams using Discrete Time Markov Chains"
 date: 2019-01-30
 tags: [Markov Chains, Stochastic Modelling]
 header:
-  image: 
+  image:
 mathjax: "true"
 ---
 
-Ranking methods are an essential tool in making decisions. They have many applications from sports to web searches to recommender systems. One of the most popular ranking algorithm is Google's Page Rank algorithm that also uses Markov Chains in some capacity. In this post we use Discrete Time Markov Chains (DTMC's) to rank all the 32 NFL teams after the regular season.
+Ranking methods are an essential tool in making decisions. They have many applications from sports to web searches to recommender systems. One of the most popular ranking algorithm is Google's Page Rank algorithm that also uses the notion of Markov Chains in some capacity. In this post we use Discrete Time Markov Chains (DTMC's) to rank 32 NFL teams after the regular season.
+
+# Introduction
+
 The National Football League (NFL) is a professional American football league consisting of 32 teams, divided equally between the National Football Conference (NFC) and the American Football Conference (AFC). Both conferences consist of four four-team divisions. Each team plays 16 regular-season games; thus, teams do not play all other teams during a single regular season.
 We will be using scores from the 2007 regular season, can be downloaded from: [link](https://www.pro-football-reference.com/years/2007/games.htm).
 
-## Modelling the problem
+# Modelling
 
 Naturally, we will consider each team to correspond to each state in the Markov chain.
 
@@ -334,6 +337,7 @@ Using $$\pi = \pi P$$ and ranking the steady state $$\pi$$ vector this is what w
 32. St. Louis Rams
 
 All the code for this project can be found on my [here](https://github.com/kmutya/Discrete-time-Markov-Chains-to-rank-NFL-teams.).
+
 ## References
 
 1. NFL league scheduling: https://www.youtube.com/watch?v=KGKwTnaV-rg

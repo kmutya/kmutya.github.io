@@ -10,9 +10,7 @@ toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
 
-
-In this article we look at the NP-hard maximum clique problem and solve it using a Linear Programming approach.
-In particular, we reduce the clique problem to an Independent set problem and solve it by appying linear relaxation and column generation. MCP was one of the 21 original NP-hard problems Karp enumerated in 1972.
+Maximum Clique Problem was one of the 21 original NP-hard problems enumerated by Richard Karp in 1972. This post models it using a Linear Programming approach. In particular, we reduce the clique problem to an Independent set problem and solve it by appying linear relaxation and column generation.
 
 ## Background
 
