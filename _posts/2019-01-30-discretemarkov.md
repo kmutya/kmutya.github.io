@@ -94,7 +94,7 @@ Note that, for finite states an irreducible and aperiodic DTMC is positive reccu
 
 On an intutive level: if a DTMC is positive recurrent and we take it's probability transition matrix to infinity then it's transition probability values of moving from one state to another will converge to a steady state distribution.
 
-> ### First, we prove it is irreducible.
+> ### Proving it is irreducible.
 
 Our Markov Chain is **irreducible** simply by how the league is scheduled. To elaborate, in an NFL league each team plays 16 games each season.
 
@@ -105,7 +105,7 @@ Our Markov Chain is **irreducible** simply by how the league is scheduled. To el
 
 So a team is connected to all the other 32 teams.
 
-> ### Secondly, we show it is aperiodic.
+> ### Proving aperiodicity.
 
 For **aperiodicity**, first consider one division where all 4 teams play each other twice. We will have 4 bi-directed states that are all connected to each other. Note that a Markov chain is **aperiodic** if there are 3 or more fully connected bidirected states. By extension, our division is aperiodic. Now as our chain is irreducible and since aperiodicity is a class property, our entire model is also aperiodic.
 

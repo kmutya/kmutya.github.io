@@ -9,7 +9,7 @@ toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
 
-This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. These implementations can also be extended to Machine Learning use cases.
+This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. These implementations can also be extended to Machine Learning use cases since most ML problems reduce to Non-Linear Optimization problems.
 
 ## Introduction
 
