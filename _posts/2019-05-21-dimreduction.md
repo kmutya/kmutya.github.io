@@ -7,6 +7,8 @@ mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
+taxonomy: ML
+entries_layout: # list (default), grid
 ---
 
 This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
@@ -289,7 +291,7 @@ def PCA(data,threshold):
     finish = time.time()
     print("Run Time: ", round(finish - start,2), "seconds")
     return(reduced_mat, var_explained)
-    
+
 ```
 
 ### Comparision with sklearn's implementation:
