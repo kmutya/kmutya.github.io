@@ -8,4 +8,4 @@ classes: wide
 
 
 
- [Someyhing]({{ "/docs/dimreduction/" | relative_url }})
+ [Someyhing]({{ "/docs/2019-06-27-frauddetection/" | relative_url }})
