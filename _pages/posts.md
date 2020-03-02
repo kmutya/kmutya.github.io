@@ -5,6 +5,7 @@ header:
   image:
 classes: wide
 ---
+ Someyhing
 
 
-This is [one post]({{"/docs/dimreduction"}})
+ 
