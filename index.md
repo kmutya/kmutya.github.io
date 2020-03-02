@@ -1,9 +1,6 @@
 ---
-title: "About"
-permalink: /about/
-header:
-  image:
-classes: wide
+layout: home
+author_profile: true
 ---
 
 This blog documents my exploration of Machine Learning and Optimization, theory first followed by some applied stuff. I started this blog during my Graduate Studies at TAMU to keep my thoughts in one place.
