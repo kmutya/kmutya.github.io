@@ -1,6 +1,6 @@
 ---
 title: "About"
-permalink: /about/
+permalink: https://kmutya.github.io/
 header:
   image:
 classes: wide
