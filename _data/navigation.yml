@@ -1,8 +1,7 @@
 # main links
 main:
   - title: "About"
-    url: https://kmutya.github.io/
-  # /about/
+    url: /about/
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
