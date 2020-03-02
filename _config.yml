@@ -285,12 +285,15 @@ defaults:
       layout: single
       author_profile: true
 
-# _docs
-- scope:
-    path: ""
-    type: docs
-  values:
-    layout: single
-    author_profile: true
-    share: true
-    comments: true
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+
+#
