@@ -1,5 +1,13 @@
 ---
-title: "Chocolate Chip Cookies"
+title: "Dimensionality Reduction"
+permalink: /docs/dimreduction/
+header:
+  image:
+mathjax: "true"
+toc: true
+toc_label: "Table of Contents"
+toc_icon: "cog"
+entries_layout: # list (default), grid
 ---
 
 This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
