@@ -8,4 +8,4 @@ classes: wide
 
 
 
- [Someyhing]({{ "/docs/2019-06-27-frauddetection/" | relative_url }})
+ [Check](https://kmutya.github.io/dimreduction/)
