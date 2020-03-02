@@ -5,7 +5,7 @@ header:
   image:
 classes: wide
 ---
- Someyhing
 
 
- 
+
+ [Someyhing] {{ "/docs/dimreduction/" | relative_url }}
