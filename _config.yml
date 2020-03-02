@@ -19,8 +19,8 @@ title                    : "kmutya's blog"
 title_separator          : "-"
 name                     : "Kartik Mutya"
 description              : "Graduate Studies Blog"
-url                      : https://kmutya.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
-baseurl                  : "kmutya/kmutya.github.io" # the subpath of your site, e.g. "/blog"
+url                      : # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
@@ -279,21 +279,8 @@ defaults:
 
 #_pages
   - scope:
-      path: "_pages"
+      path: ""
       type: pages
     values:
       layout: single
       author_profile: true
-
-# _docs
-- scope:
-    path: ""
-    type: docs
-  values:
-    layout: single
-    read_time: false
-    author_profile: false
-    share: false
-    comments: false
-    sidebar:
-      nav: "docs"
