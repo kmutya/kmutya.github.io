@@ -1,11 +1,13 @@
 ---
 title: "Dimensionality Reduction"
+date: 2019-05-19
 header:
   image:
 mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
+taxonomy: ML
 entries_layout: # list (default), grid
 ---
 
