@@ -1,6 +1,5 @@
 ---
 title: "Dimensionality Reduction"
-permalink: /docs/dimreduction/
 header:
   image:
 mathjax: "true"
