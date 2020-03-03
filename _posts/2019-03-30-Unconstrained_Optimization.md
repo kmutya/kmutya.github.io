@@ -149,7 +149,7 @@ where $$\theta \in R^n, n\geq 1, f: R^n \rightarrow R$$ is a smooth function.
      - At $$\theta_k$$, construct a model function $$m_k$$ (using taylors theorem) whose behaviour at $$\theta_k$$ is similar to actual $$f$$.
      - We find the direction $p$ to move in by solving subproblem $$min_p \ m_k(\theta_k + p)$$
      - Restrict search for minimizer of $$m_k$$ to some region around $$\theta_k$$ because $$m_k$$ not a good approximation of $$f$$ if $$\theta$$ is far away.
-     - Usually, trust region is a ball $$(||p||_2 \leq \Delta)$$, ellipse or box depending on norm.
+     - Usually, trust region is a ball $$||p||_2 \leq \Delta$$, ellipse or box depending on norm.
      - If candidate solution not found, trust region too large, shrink $$\Delta$$ and repeat.
 
 # Exploring Line Search
