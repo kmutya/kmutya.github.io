@@ -9,15 +9,150 @@ toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
 
-This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. These implementations can also be extended to Machine Learning use cases since most ML problems reduce to Non-Linear Optimization problems.
+Nonlinear Optimization sits at the heart of modern Machine Learning. For a practioner, due to the profusion of well built packages, NLP has reduced to playing with hyperparameters. This post talks illustrates the 'Hello World' of nonlinear optimization theory: Unconstrained Optimization. We look at some basic theory followed by python implementations and loss surface visualizations.
 
-## Introduction
 
-A typical unconstrained optimization problem looks like this:
+# Motivation
+
+- Once we set up a ML problem with a certain hypothesis, it can be solved as an optimization problem.
+
+- Almost, all ML algorithms can be formulated as an optimization problem to find the max/min of an objective function.
+
+## Supervised Learning
+
+* $$X \in R^p$$, $$Y \in R$$.
+
+* Learn a function that is able to predict X at given values of Y.
+
+* Define the residual as $$r_i = L(y_i - f(x_i;\theta))$$ where $$L$$ is say the squared error loss.
+
+* Set up the goal to find the optimal function as follows (least squares problem):
 
 $$
-Min_{x \in R^n} f(x)
+min_\theta f(\theta) = \frac{1}{2N} \sum_{i=1}^N L(y_i, f(x_i,\theta))
 $$
+
+where $$i$$ is defined over the training set.
+
+
+## Semi-Supervised
+
+* Have both labelled and unlabelled data here.
+
+* Common stratergy here is to optimise a standard supervised classification loss on labelled samples
+
+* Along with an additional unsupervised loss term imposed on either unlabelled data or both labelled and unlabelled data.
+
+* These additional loss terms are considered as unsupervised supervision signals, since ground-truth label is not necessarily required to derive the loss values.
+
+* For a 2 class problem with SVM's is as follows:
+
+$$
+argmin_f \frac{1}{l}\sum_{i=1}^l max(1-y_if(x_i),0) + \lambda_1||f||^2 + \lambda_2 \frac{1}{u} \sum_{i = l+1}^{l+u} max(1-|f(x)|,0)
+$$
+
+* Minimize the objective for supervised support vector machines with hinge function and the average hat loss for unlablled instances.
+
+## Unsupervised Learning
+
+### Clustering problem
+
+* Given $$D \in R^{n*d}$$, we want to partition it into $$K$$ clusters.
+
+* Using a scoring function such as SSE, we can set up the optimization problem as follows:
+
+$$
+argmin_{C_1,C_2,...C_K} \sum_{i=1}^k\sum_{x_j \in C_i} ||x_j - \mu_i||^2
+$$
+
+where $$\mu$$ is a summary statistic of each cluster such as the mean.
+
+### Dimensionality Reduction
+
+* $$D \in R^{n*d}$$ where each row is spanned by $$d$$ standard basis vectors i.e $$e_1,e_2...e_d$$
+
+* Project points from our Dataset $$D$$ onto a lower dimensional subspace $$A$$ in such a way that we capture most of the variation in our data.
+
+* One way to select an optimum basis among all basis would be to set this up as a variance maximation problem i.e choose a basis that maximizes the projected variance.
+
+$$
+Max \ \sigma^2 =  w^T \Sigma w \\
+s.t \ i.) w^Tw = 1 \\
+ii.) \ u_i^Tw = 0  \ \forall \ i \in \{1,2...,j-1\}
+$$
+
+# Unconstrained Optimization Basics
+
+## Basic Definitions:
+
+* Continuous Optimization: Variables ∈ R.
+
+* **Unconstrained Optimization**: Minimize OF that depends on real variables with no restrictions.
+
+$$
+min_\theta f(\theta)
+$$
+
+where $$\theta \in R^n, n\geq 1, f: R^n \rightarrow R$$ is a smooth function.
+
+* Constrained Optimization: Explicit bounds on the variables. Have equality, inequality. Eg: Norms. (Not covered in this post.)
+
+## Basic Theory
+
+* **Global Minimizer**: A point $$\theta^*$$ is a global minimizer if $$f(\theta^*) \leq f(\theta)$$ for all $$\theta$$.
+
+* **Weak Local Minimizer:**  A point $$\theta^*$$ is a weak local minimizer if there is a neighbourhood $$N$$ of $$\theta^* \ni f(\theta^*) \leq f(\theta) \forall x \in N$$.
+
+* **Strict Local minimizer:** $$f(\theta^*) < f(\theta)$$ (outright winner) with $$\theta \neq \theta^*$$
+
+[Picture](https://screenshot.googleplex.com/rPyg0Brj8gU)
+
+* **Necessary condition:**  Min criteria parameter must satisfy to be of interest. But just satisying it is not enough.
+
+* **FONC:** If $$\theta^*$$ is a local min and $f$ is continuously differentiable in an open neighborhood of $$\theta^*$$, then $$\nabla f(\theta^*) = 0$$
+
+  - Points satisfying $$\nabla f(\theta^*) = 0$$ are stationary points: min, max, saddle points.
+  - $$\nabla f(\theta^*) = 0$$ guarantees global minimality of $$\theta^*$$ if f is convex.
+
+
+* **SONC:** If $$\theta^*$$ is a local min and $$\nabla^2 f$$ exists and is continuous in an open neighborhood of $$\theta^*$$, then $$\nabla f(\theta^*) = 0$$ and $$\nabla^2 f(\theta^*)$$ is positive semi deifinite.
+
+
+* **Sufficient condition:** If this is met, can call it a min.
+
+* **SOSC:** $$\nabla f(\theta^*) = 0$$ (FONC) and $$\nabla^2 f(\theta^*)$$ is p.d then $$\theta^*$$ is a strict local minimizer.
+
+
+# Fundamental approach to optimization
+
+
+## General idea:
+
+   - Start at a $$\theta_0$$, generate a sequence of iterates $$\{\theta_k\}_{k=0}^{\inf}$$ that termintates when it seems a reasonable solution has been found.
+
+   - To move from one iterate to another, we use information of $$f$$ at $$\theta_k$$ or from earlier.
+
+   - Want $$f(\theta_k) < f(\theta_{k+1})$$
+
+## Fundamental Stratergy:
+
+- Two fundamental stratergies, for moving from $$\theta_k$$ to $$\theta_{k+1}$$.
+
+  - **Line Search** Fix direction, identify step length.
+    - Algorithm chooses a direction $$p_k$$, search along $$p_k$$ from $$\theta_k$$ to find a new $$\theta_{k+1} \ni f(\theta_{k+1}) < f(\theta_{k})$$.
+    - How far to move along this direction?: \\
+        1) Exactly solve 1-d min problem: $$min_{\alpha>0}f(\theta_k + \alpha p_k)$$ \\
+        2) Generate limited no. of trial length steps.
+    - How to choose search direction? Choose guaranteed descent direction. (Add Proofs).
+
+  - **Trust Region** Choose distance, then find direction.
+     - At $$\theta_k$$, construct a model function $$m_k$$ (using taylors theorem) whose behaviour at $$\theta_k$$ is similar to actual $$f$$.
+     - We find the direction $p$ to move in by solving subproblem $$min_p \ m_k(\theta_k + p)$$
+     - Restrict search for minimizer of $$m_k$$ to some region around $$\theta_k$$ because $$m_k$$ not a good approximation of $$f$$ if $$\theta$$ is far away.
+     - Usually, trust region is a ball ($$||p||_2 \leq \Delta$$), ellipse or box depending on norm.
+     - If candidate solution not found, trust region too large, shrink $$\Delta$$ and repeat.
+
+
 
 In this post, we use the below two quadratic functions with respective loss surface for implementation and visulization.
 

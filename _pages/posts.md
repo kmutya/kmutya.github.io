@@ -8,8 +8,8 @@ classes: wide
 
 ### Nonlinear Programming: Methods for Unconstrained Optimization
 
-This post talks about different variants of unconstrained optimization algorithms along with their implementation and visulization. <br>
-[Post Link](https://kmutya.github.io/Unconstrained_Optimization)
+Nonlinear Optimization sits at the heart of modern Machine Learning. For a practioner, due to the profusion of well built packages, NLP has reduced to playing with hyperparameters. This post talks illustrates the 'Hello World' of nonlinear optimization theory: Unconstrained Optimization. We look at some basic theory followed by python implementations and loss surface visualizations. <br>
+[View](https://kmutya.github.io/Unconstrained_Optimization)
 
 ### Maximum Clique Problem as an LP
 
