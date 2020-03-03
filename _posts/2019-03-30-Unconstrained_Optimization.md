@@ -9,7 +9,7 @@ toc_label: "Table of Contents"
 toc_icon: "cog"
 ---
 
-Nonlinear Optimization sits at the heart of modern Machine Learning. For a practioner, due to the profusion of well built packages, NLP has reduced to playing with hyperparameters. This post talks illustrates the 'Hello World' of nonlinear optimization theory: Unconstrained Optimization. We look at some basic theory followed by python implementations and loss surface visualizations.
+Nonlinear Optimization sits at the heart of modern Machine Learning. For a practioner, due to the profusion of well built packages, NLP has reduced to playing with hyperparameters. This post briefly illustrates the 'Hello World' of nonlinear optimization theory: Unconstrained Optimization. We look at some basic theory followed by python implementations and loss surface visualizations.
 
 
 # Motivation
@@ -149,10 +149,10 @@ where $$\theta \in R^n, n\geq 1, f: R^n \rightarrow R$$ is a smooth function.
      - At $$\theta_k$$, construct a model function $$m_k$$ (using taylors theorem) whose behaviour at $$\theta_k$$ is similar to actual $$f$$.
      - We find the direction $p$ to move in by solving subproblem $$min_p \ m_k(\theta_k + p)$$
      - Restrict search for minimizer of $$m_k$$ to some region around $$\theta_k$$ because $$m_k$$ not a good approximation of $$f$$ if $$\theta$$ is far away.
-     - Usually, trust region is a ball ($$||p||_2 \leq \Delta$$), ellipse or box depending on norm.
+     - Usually, trust region is a ball $$(||p||_2 \leq \Delta)$$, ellipse or box depending on norm.
      - If candidate solution not found, trust region too large, shrink $$\Delta$$ and repeat.
 
-
+# Exploring Line Search
 
 In this post, we use the below two quadratic functions with respective loss surface for implementation and visulization.
 
