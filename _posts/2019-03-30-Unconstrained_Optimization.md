@@ -1,12 +1,12 @@
 ---
 title: "Nonlinear Programming: Methods for Unconstrained Optimization"
 date: 2019-03-30
-header:
-  image:
 mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
+author_profile: false
+classes: wide
 ---
 
 Nonlinear Optimization sits at the heart of modern Machine Learning. For a practioner, due to the profusion of well built packages, NLP has reduced to playing with hyperparameters. This post briefly illustrates the 'Hello World' of nonlinear optimization theory: Unconstrained Optimization. We look at some basic theory followed by python implementations and loss surface visualizations.

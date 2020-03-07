@@ -1,7 +1,7 @@
 ---
 title: "Writing"
 permalink: /posts/
-author_profile: false
+author_profile: true
 classes: wide
 ---
 
