@@ -7,6 +7,8 @@ toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
 toc_sticky: true
+layout: single
+classes: wide
 ---
 
 This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
