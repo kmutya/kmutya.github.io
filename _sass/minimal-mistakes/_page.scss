@@ -519,17 +519,3 @@
     }
   }
 }
-
-.toc {
-    font-size: 95%;
-    @media #{$large} {
-        display: block;
-        @include grid(12,2);
-        @include prefix(12,0.5);
-        @include suffix(12,0.5);
-        position: absolute;; /* changed from absolute */
-        top: 5.5em;
-        right: 0;
-        background-color: $white;
-    }
-}
