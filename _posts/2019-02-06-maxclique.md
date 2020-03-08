@@ -2,8 +2,7 @@
 title: "Maximum Clique Problem: Linear Programming Approach"
 date: 2019-02-06
 tags: [Linear Programming]
-header:
-  image:
+author_profile: false
 mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
