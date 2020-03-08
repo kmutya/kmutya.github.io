@@ -1,14 +1,11 @@
 ---
 title: "Dimensionality Reduction"
 date: 2019-05-19
-header:
-  image:
+author_profile: false
 mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
-taxonomy: ML
-entries_layout: # list (default), grid
 ---
 
 This post focuses on the mathematical underpinnings of dimensionality reduction from a projection-optimization point of view and raw numpy implementations.
