@@ -6,7 +6,6 @@ mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
-layout: single
 classes: wide
 ---
 
