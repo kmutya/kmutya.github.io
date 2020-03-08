@@ -5,7 +5,7 @@ mathjax: "true"
 toc: true
 toc_label: "Table of Contents"
 toc_icon: "cog"
-toc_sticky: true
+toc_sticky: false
 author_profile: false
 ---
 
