@@ -40,9 +40,9 @@ We consider an experiment to be non-deterministic but it's set of all outcomes t
 
 Now, **probability is formally defined as the limiting proportion of time $$E$$ occurs**:
 
-$$$$
+$$
 P(E) = lim_{n \rightarrow \inf} \frac{n(E)}{n}
-$$$$
+$$
 
 Due to the above defined axioms, we know for a fact that this value converges to a constant.
 
@@ -84,7 +84,7 @@ This $$P$$ is known as a **probability measure.** Observe that, Event from the P
 
 <u>Measureable real valued function $$f$$:</u> If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
 
-Thinking about a Random Variable in this fashion is super useful
+Thinking about a Random Variable in this fashion is super useful at times. 
 
 
 # References
