@@ -28,15 +28,15 @@ We will be using [3] as reference for PT and [2] as reference for MT. For conven
 <u>Exepriment, Sample Space:</u> Traditionally, we use the notion of an **experiment** to define a sample space.
 We consider an experiment to be non-deterministic but it's set of all outcomes to be known. This known set of all possible outcomes is defined as the **sample space.** Common notations are $$S, \Omega$$. Naturally, $$S^c = \emptyset$$.
 
-<u>Event:</u> $$(E)$$ Any subset of the sample space is defined as an **event**. If the outcome of our experiment ends up in an event $$E$$, then we can deterministically state that $$E$$ has occured.
+<u>Event</u> $$(E)$$: Any subset of the sample space is defined as an **event**. If the outcome of our experiment ends up in an event $$E$$, then we can deterministically state that $$E$$ has occured.
 
 <u>Probability:</u> Here, probability is defined using an axiomatic approach. We assume that for each event in the sample there exists a probability, $$P(E)$$. Thereafter, we assume that each of these probabilities satisy a set of intuitive axioms. The three axioms are as follows:
 
-    1. $$P(S) = 1$$
+1. $$P(S) = 1$$
 
-    2. $$0 \geq P(E) \leq 1$$
+2. $$0 \geq P(E) \leq 1$$
 
-    3. For mutually exclusive events, $$P(\bigcup_{i}E_i) = \sum_{i}P(E_i)$$ - countable additivity.
+3. For mutually exclusive events, $$P(\bigcup_{i}E_i) = \sum_{i}P(E_i)$$ - countable additivity.
 
 Now, **probability is formally defined as the limiting proportion of time $$E$$ occurs**:
 
@@ -82,7 +82,7 @@ Let $$A$$ be the set's in $$\mathcal{B}$$. Let $$P$$ be a function $$P: \mathcal
 
 This $$P$$ is known as a **probability measure.** Observe that, Event from the PT definition is now simply a measureable set.
 
-<u>Measureable real valued function:</u>$$f$$ If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
+<u>Measureable real valued function</u>$$f$$: If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
 
 Thinking about a Random Variable in this fashion is super useful at times.
 
