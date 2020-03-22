@@ -28,7 +28,7 @@ We will be using [3] as reference for PT and [2] as reference for MT. For conven
 <u>Exepriment, Sample Space:</u> Traditionally, we use the notion of an **experiment** to define a sample space.
 We consider an experiment to be non-deterministic but it's set of all outcomes to be known. This known set of all possible outcomes is defined as the **sample space.** Common notations are $$S, \Omega$$. Naturally, $$S^c = \emptyset$$.
 
-<u>Event $$(E)$$:</u> Any subset of the sample space is defined as an **event**. If the outcome of our experiment ends up in an event $$E$$, then we can deterministically state that $$E$$ has occured.
+<u>Event:</u> $$(E)$$ Any subset of the sample space is defined as an **event**. If the outcome of our experiment ends up in an event $$E$$, then we can deterministically state that $$E$$ has occured.
 
 <u>Probability:</u> Here, probability is defined using an axiomatic approach. We assume that for each event in the sample there exists a probability, $$P(E)$$. Thereafter, we assume that each of these probabilities satisy a set of intuitive axioms. The three axioms are as follows:
 
@@ -54,7 +54,7 @@ Ideally, we would like to have a function that maps a value from a given set to 
 
 However, this is not possible due to the presense of certain strange subsets in $$R^n$$. Therefore, instead of describing this function for all subsets of $$R^n$$ we constrain it to a certain class of subsets within $$R^n$$. This class is known as $$\sigma$$-algebra.
 
-<u>$$\sigma$$-algebra:</u> Let $$X$$ be a nonempty set, an **algebra** is a non empty collection of subsets of X that is closed under finte unions and complements. A **$$\sigma$$-algebra** is an algebra that is closed under countable unions.
+$$\sigma$$<u>-algebra:</u> Let $$X$$ be a nonempty set, an **algebra** is a non empty collection of subsets of X that is closed under finte unions and complements. A **$$\sigma$$-algebra** is an algebra that is closed under countable unions.
 
 <u>Measure, Measureable Space, Measureable Sets:</u> - Now, a measure for a set $$X$$ equipped with a $$\sigma$$-algebra $$\mathcal{M}$$, i.e $$(X,\mathcal{M})$$ - **measureable space**, is a function $$\mu: \mathcal{M} \rightarrow [0,inf]$$ such that:
   - i. $$\mu(\emptyset) = 0$$
@@ -82,9 +82,9 @@ Let $$A$$ be the set's in $$\mathcal{B}$$. Let $$P$$ be a function $$P: \mathcal
 
 This $$P$$ is known as a **probability measure.** Observe that, Event from the PT definition is now simply a measureable set.
 
-<u>Measureable real valued function $$f$$:</u> If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
+<u>Measureable real valued function:</u>$$f$$ If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
 
-Thinking about a Random Variable in this fashion is super useful at times. 
+Thinking about a Random Variable in this fashion is super useful at times.
 
 
 # References
