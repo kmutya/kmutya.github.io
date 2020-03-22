@@ -82,10 +82,10 @@ Let $$A$$ be the set's in $$\mathcal{B}$$. Let $$P$$ be a function $$P: \mathcal
 
 This $$P$$ is known as a **probability measure.** Observe that, Event from the PT definition is now simply a measureable set.
 
-<u>Measureable real valued function</u>$$f$$: If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
+<u>Measureable real valued function</u>$$f$$: If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function. This as seen in the table is the R.V equivalent.
 
-Thinking about a Random Variable in this fashion is super useful at times.
-
+Now let's use this notion and an example to rethink a few things. Say we have an experiment where we toss 3 fair coins simultaneously. Let our random variable $$V$$ denote the no. of heads in this experiment. Depending on the throw it can take on any of these 4 values i.e $$Val(V) = \{0,1,2,3\}$$. Therefore, there is a probability measure assosiated with this random variable. But how do we specify it? One way to specify it is to directly state the probability of each value this random variable can take, i.e $$P(V = v)$$. This is simply the Probability Mass Function.
+Similarly, we can also define the CDF and PDF (for continous R.V's). Therefore, these functions are used to specify the probability measure assosiated with a random variable. Hence, they are not probabilities but rather representations of probability assosiated with a Random Variable.
 
 # References
 
