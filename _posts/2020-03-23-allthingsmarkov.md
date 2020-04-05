@@ -298,7 +298,7 @@ $$
 v_i(n) = P(T > n | X_0 = i) \\
 = \sum_{j=0}^\infty P(T > n | X_1 = j, X_0 = i) P(X_1 = j | X_0 = i) - \text{Conditioning on the first step} \\
 = p_{i,0}P(T > n | X_1 = 0, X_0 = i) + \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j, X_0 = i) \\
-= \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j, X_0 = i) - \text{Since} \ X_1 = 0, T = 1 \ \text{and} \ P(T > n | X_1 = 0, X_0 = i) = 0}\\
+= \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j, X_0 = i) \\
 = \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j) - \text{Markov property} \\
 = \sum_{j=1}^\infty p_{i,j}P(T > n-1 | X_0 = j) - \text{Time Homogeneity} \\
 = \sum_{j=1}^\infty p_{i,j}v_j(n-1)
@@ -311,7 +311,7 @@ If $$\mathbf{B} = [p_{i,j} : i,j \geq 1]$$ then in matrix form:
 $$\mathbf{v(n)} = \mathbf{B}\mathbf{v(n-1)}$$ Solving this equation recursively, we get $$\mathbf{B}^n\mathbf{v(0)}$$ where $$\mathbf{v(0)} = e$$.
 
 > Example: For our running example let's compute the probability of $$\veebar$$ not buying Brand $$B_1$$ in the next 6 months if his first purchase is $$B_3$$: </br>
-> Let $$T = min\{n \geq 0 : X_n = B_1\}$$ and $$\mathbf{B}$$ be the submatrix obtained by deleting rows and columns of $$B_1$$. 
+> Let $$T = min\{n \geq 0 : X_n = B_1\}$$ and $$\mathbf{B}$$ be the submatrix obtained by deleting rows and columns of $$B_1$$.
 
 ```python
 dtmc.complementary_conditional_cdf(ex_tpm, 0, n = 5)
