@@ -284,6 +284,7 @@ Computing this complementary CDF for all $$n \geq 0$$ in a brute force manner is
 Yes!
 
 **Formally, Theorem 6:**
+
 $$
 \mathbf{v(n)} = \mathbf{B}^ne, n \geq 0, \\
 \text{where e is a column vector of all ones.}
@@ -303,8 +304,10 @@ v_i(n) = P(T > n | X_0 = i) \\
 = \sum_{j=1}^\infty p_{i,j}v_j(n-1)
 $$
 
-Note that, in this above proof for simplicity we are only interested in $$T = min\{n \geq 0 : X_n = 0\}$$. </br>
+Note that, in this above proof for simplicity we are only interested in $$T = min\{n \geq 0 : X_n = 0\}$$.
+
 If $$\mathbf{B} = [p_{i,j} : i,j \geq 1]$$ then in matrix form:
+
 $$\mathbf{v(n)} = \mathbf{B}\mathbf{v(n-1)}$$ Solving this equation recursively, we get $$\mathbf{B}^n\mathbf{v(0)}$$ where $$\mathbf{v(0)} = e$$.
 
 > Example: For our running example let's compute the probability of $$\veebar$$ not buying Brand $$B_1$$ in the next 6 months if his first purchase is $$B_3$$: </br>
