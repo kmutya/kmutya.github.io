@@ -140,11 +140,13 @@ Something that would be particularly useful would be to obtain the distribution 
 **Intuitively:** The easiest way to figure this out is to understand how our system behaves at the start (which is something we already have - initial distribution, denoted by $$\mathbf{a}$$) and then charecterize how our system has changed up until that moment i.e up until $$X_n$$. The obvious next question would be, how do we charecterize this change quantitatively? One way to do that would be to compute $$P(X_n = j | X_0 = i), i,j \in S$$, i.e compute the n-step transition probability.
 
 **Formally:** To find the marginal distribution of $$X_n$$ we can sum it over all R.V's, $$X_{n-1},X_{n-2},...,X_0$$, up until that point. But this is tedious instead since we know $$X_0$$ if we can find out $$P(X_n = j | X_0 = i), i,j \in S$$ our task is greatly simplified. Using the idea of marginalization over $$X_0$$,
+
 $$
 P(X_n = j) = \sum_{i \in S} P(X_n = j, X_0 = i)\\
 = \sum_{i \in S} P(X_n = j | X_0 = i) P(X_0 = i) \\
 = \sum_{i \in S}p^n_{i,j}a_i \ where \ i,j \in S, n \geq 0
 $$
+
 where $$p^n_{i,j}$$ is the n-step transition probability i.e the probability of going from state $$i$$ to state $$j$$ in $$n$$ steps.
 
 **Q3-3.** How do we compute $$p^n_{i,j}$$?
@@ -198,7 +200,9 @@ dtmc.pmf_
 
 Suppose we have a finite state space where a few or all states are of primary importance, then understanding the amount of time spent in those states is particularly useful. This is what occupancy times helps us study.
 
-Let $$V_j^{(n)}$$ be the number of visits to state $$j$$ by the DTMC with state space $$\{0,1,2,...,n\}$$. This $$V_j^{(n)}$$ is a R.V. Now, **occupancy time** i.e expected time spent by the DTMC in state $$j$$ upto time $$n$$ starting from state $$i$$ is $$M_{i,j}^{(n)} = E(V_j^{(n)}|X_0 = i), i,j \in S, n \geq 0$$. </br> Occupancy matrix is simply, $$\mathbf{M}^{(n)} = [M^{(n)}_{i,j}]$$.
+Let $$V_j^{(n)}$$ be the number of visits to state $$j$$ by the DTMC with state space $$\{0,1,2,...,n\}$$. This $$V_j^{(n)}$$ is a R.V. Now, **occupancy time** i.e expected time spent by the DTMC in state $$j$$ upto time $$n$$ starting from state $$i$$ is $$M_{i,j}^{(n)} = E(V_j^{(n)}|X_0 = i), i,j \in S, n \geq 0$$.
+
+Occupancy matrix is simply, $$\mathbf{M}^{(n)} = [M^{(n)}_{i,j}]$$.
 
 **Q4-1.** How do we compute occupancy time matrix ($$\mathbf{M}^{(n)}$$)?
 
@@ -287,6 +291,7 @@ $$
 Proof:
 
 From earlier,
+
 $$
 v_i(n) = P(T > n | X_0 = i) \\
 = \sum_{j=0}^\infty P(T > n | X_1 = j, X_0 = i) P(X_1 = j | X_0 = i) - \text{Conditioning on the first step} \\
