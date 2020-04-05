@@ -338,3 +338,80 @@ print(dtmc.absorption_prob_)
 We can also compute the **Expectation** and **higer moments** of $$T$$.
 
 ## Limiting Behaviour
+
+# Appendix
+
+```python
+import numpy as np
+import numpy.linalg as la
+
+class DTMC:
+    """
+    A Discrete Time Markov Chain class
+
+    """
+    def __init__(self):
+        self.pmf_ = None
+        self.conditional_pmf_ = None
+        self.ocm_ = None
+        self.complementary_conditional_cdf_ = None
+        self.absorption_prob_ = None
+
+    def pmf(self, inidist, ptm, interval):
+        """
+        Computes the Probability Mass Function of the DTMC for the given interval
+
+        Arguments:
+        inidist = initial distribution of the DMTC
+        ptm = probability transition matrix of the DTMC
+        interval = discrete time interval at which PMF is required
+        """
+        self.pmf_ = np.dot(inidist, la.matrix_power(ptm, interval))
+
+    def conditional_pmf(self, ptm, interval):
+        """
+        Computes the conditionl Probability Mass Function of the DTMC for the given interval, conditioned on initial state
+
+        Arguments:
+        ptm = probability transition matrix of the DTMC
+        interval = discrete time interval at which conditional PMF is required
+        """
+        self.conditional_pmf_ = la.matrix_power(ptm, interval)
+
+    def occupancy_time(self, ptm, interval):
+        """
+        Computes the occupancy matrix of the DTMC
+
+        Arguments:
+        ptm = probability transition matrix of the DTMC
+        interval = discrete time interval till which summation is required
+        """
+        ocm_list = []
+        for i in range(interval+1):
+            ocm_list.append(la.matrix_power(ptm, i))
+        self.ocm_ = sum(ocm_list)
+
+    def complementary_conditional_cdf(self, ptm, fpt_state, n = None):
+        """
+        Computes the conditional CDF of first passage time T
+
+        Arguments:
+        ptm = probability transition matrix of the DTM
+        fpt_state = first passage time state being analyzed
+        """
+        ptm_sub = np.delete(np.delete(ptm, fpt_state, 0), fpt_state, 1)
+        e = np.ones((ptm_sub.shape[0], 1))
+        self.complementary_conditional_cdf_ = np.dot(la.matrix_power(ptm_sub, n), e)
+
+    def absorption_prob(self, ptm, fpt_state, n = 5000):
+      """
+      Computes the conditional CDF of first passage time T
+
+      Arguments:
+      ptm = probability transition matrix of the DTM
+      fpt_state = first passage time state being analyzed
+      n = infinity
+      """
+      self.complementary_conditional_cdf(ptm, fpt_state, n = 5000)
+      self.absorption_prob_ = 1 - self.complementary_conditional_cdf_
+```
