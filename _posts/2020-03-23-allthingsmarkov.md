@@ -318,13 +318,14 @@ dtmc.complementary_conditional_cdf(ex_tpm, 0, n = 5)
 print(dtmc.complementary_conditional_cdf_)
 ```
 
-> This gives, $$\mathbf{v(6)} \ \text{i.e} \ [v_2(6), v_3(6)]^T \ \text{as:} \ [0.18261, 0.26814]^T$$. Meaning the probability to not move state $$B_1$$ starting from $$B_3$$ in the next six time steps is 0.26.
+> This gives, $$\mathbf{v(6)} \ \text{i.e} \ [v_2(6), v_3(6)]^T \ \text{as:} \ [0.18261, 0.26814]^T$$.
+> Meaning the probability to not move state $$B_1$$ starting from $$B_3$$ in the next six time steps is 0.26.
 
 
 Alternatively, we can also compute the probability that the DTMC eventually visits state 0 (or any other state) starting from some state i, this is known as the **absorption probability** into state 0.
 
-> Example: For our running example let's compute the probability $$\veebar$$ will buy Brand $$B_1$$ if his first purchase is $$B_3$$: </br>
-> As before, let $$T = min\{n \geq 0 : X_n = B_1\}$$ and $$\mathbf{B}$$ be the submatrix obtained by deleting rows and columns of $$B_1$$. </br>
+> Example: For our running example let's compute the probability $$\veebar$$ will buy Brand $$B_1$$ if his first purchase is $$B_3$$:
+> As before, let $$T = min\{n \geq 0 : X_n = B_1\}$$ and $$\mathbf{B}$$ be the submatrix obtained by deleting rows and columns of $$B_1$$.
 > Now, we seek $$u_{B_3} = 1 - v_{B_3} = P(T < \infty | X_0 = B_1)$$. This can be computed as:
 
 ```python
