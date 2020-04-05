@@ -294,15 +294,13 @@ Proof:
 
 From earlier,
 
-$$
-v_i(n) = P(T > n | X_0 = i) \\
+$$v_i(n) = P(T > n | X_0 = i) \\
 = \sum_{j=0}^\infty P(T > n | X_1 = j, X_0 = i) P(X_1 = j | X_0 = i) - \text{Conditioning on the first step} \\
 = p_{i,0}P(T > n | X_1 = 0, X_0 = i) + \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j, X_0 = i) \\
 = \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j, X_0 = i) - \text{Since $$X_1 = 0$$, T = 1 and P(T > n | $$X_1$$ = 0, $$X_0$$ = i) = 0}\\
 = \sum_{j=1}^\infty p_{i,j}P(T > n | X_1 = j) - \text{Markov property} \\
 = \sum_{j=1}^\infty p_{i,j}P(T > n-1 | X_0 = j) - \text{Time Homogeneity} \\
-= \sum_{j=1}^\infty p_{i,j}v_j(n-1)
-$$
+= \sum_{j=1}^\infty p_{i,j}v_j(n-1)$$
 
 Note that, in this above proof for simplicity we are only interested in $$T = min\{n \geq 0 : X_n = 0\}$$.
 
@@ -334,6 +332,6 @@ print(dtmc.absorption_prob_)
 
 > which returns $$[u_{B_2}, u_{B_3}]^T = [1, 1]^T$$. Meaning the probability to visit state $$B_1$$ starting from $$B_3 = 1$$. This makes intuitive sense cosidering our probability transition matrix.
 
-We can also compute the Expectation and higer moments of $$T$$.
+We can also compute the **Expectation** and **higer moments** of $$T$$.
 
 ## Limiting Behaviour
