@@ -139,9 +139,7 @@ Something that would be particularly useful would be to obtain the distribution 
 
 **Intuitively:** The easiest way to figure this out is to understand how our system behaves at the start (which is something we already have - initial distribution, denoted by $$\mathbf{a}$$) and then charecterize how our system has changed up until that moment i.e up until $$X_n$$. The obvious next question would be, how do we charecterize this change quantitatively? One way to do that would be to compute $$P(X_n = j | X_0 = i), i,j \in S$$, i.e compute the n-step transition probability.
 
-**Formally:** To find the marginal distribution of $$X_n$$ we can sum it over all R.V's, $$X_{n-1},X_{n-2},...,X_0$$, up until that point. But this is tedious instead since we know $$X_0$$ if we can find out $$P(X_n = j | X_0 = i), i,j \in S$$ our task is greatly simplified. Using the idea of marginalization over $$X_0$$,
-
-$$
+**Formally:** To find the marginal distribution of $$X_n$$ we can sum it over all R.V's, $$X_{n-1},X_{n-2},...,X_0$$, up until that point. But this is tedious instead since we know $$X_0$$ if we can find out $$P(X_n = j | X_0 = i), i,j \in S$$ our task is greatly simplified. Using the idea of marginalization over $$X_0, \\
 P(X_n = j) = \sum_{i \in S} P(X_n = j, X_0 = i)\\
 = \sum_{i \in S} P(X_n = j | X_0 = i) P(X_0 = i) \\
 = \sum_{i \in S}p^n_{i,j}a_i \ where \ i,j \in S, n \geq 0
