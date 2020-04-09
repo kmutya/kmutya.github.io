@@ -14,7 +14,8 @@ toc_sticky: false
 
 Stochastic process is a system that evolves randomly in time. This system can be charecterized by a **collection of random variables**, $$\{X(\tau), \tau \in T\}$$ where $$T$$ is the **parameter set**. The values these random variables can take is given by the **state space**, $$S$$. If the system is discrete it can be represented as $$\{X_n, n \geq 0\}$$ (intuitively this means we observe the system in discrete points in time). If continous $$\{X(t), t \geq 0\}$$, here we observe the system continuously.
 
-In the above definition, we are saying that the input to this Stochastic process is in the parameter set $$(T)$$ and the output is in the state space $$(S)$$. That means, a stochastic process has to be some type of a function that maps values from parameter space to state space? As it turns out, stochastic process is a special type of a function. </br>
+In the above definition, we are saying that the input to this Stochastic process is in the parameter set $$(T)$$ and the output is in the state space $$(S)$$. That means, a stochastic process has to be some type of a function that maps values from parameter space to state space? As it turns out, stochastic process is a special type of a function.
+
 Formally, we can define $$x: T \rightarrow S$$ then we can consider $$\{x(\tau), \tau \in T\}$$ to be an evolution trajectory of $$\{X(\tau), \tau \in T\}$$. These functions $$x$$ are called **sample paths** of the stochastic process. Naturally, there could uncountable sample paths. Since our stochastic process follows one of the sample paths randomly, it is called a **random function.** If we are able to understand the behaviour of these random sample paths then we can predict the outcome of our system.
 
 Many times it's useful to convert a continous time stochastic process into a discrete time one by assuming that we observe the system in discrete points in time.
@@ -54,7 +55,8 @@ $$
 
 **Def 1, Markov Property:** "If the present state of the system is known, the future of the system is independent of it's past."
 
-One interpretation: Past affects the future of a system only via the present. </br>
+One interpretation: Past affects the future of a system only via the present.
+
 Another interpretation: Present state of the system contains all the information to predict the future state of the system.
 
 **Def 2, Discrete Time Markov Chain (DTMC):** Stochastic process $$\{X_n, n \geq 0\}$$ with countable state space $$S$$ is a DTMC if:
@@ -275,8 +277,9 @@ $$
 v_i(n) = P(T > n | X_0 = i) - \text{conditional complementary CDF of} \ T
 $$
 
-Putting these $$v_i(n) \ \forall i \in S$$ in a vector we get </br>
-$$\mathbf{v(n)} = [v_1(n),v_2(n),...]^T$$ </br>
+Putting these $$v_i(n) \ \forall i \in S$$ in a vector we get
+$$\mathbf{v(n)} = [v_1(n),v_2(n),...]^T$$
+
 Computing this complementary CDF for all $$n \geq 0$$ in a brute force manner is extremely tedious. Now the question is,
 
 **Q5-2.** Can we use the tools at our disposal (Markov prop., Time homo. etc.) to obtain this $$\mathbf{v(n)}$$ in a numerically feasible manner?
@@ -310,7 +313,8 @@ If $$\mathbf{B} = [p_{i,j} : i,j \geq 1]$$ then in matrix form:
 
 $$\mathbf{v(n)} = \mathbf{B}\mathbf{v(n-1)}$$ Solving this equation recursively, we get $$\mathbf{B}^n\mathbf{v(0)}$$ where $$\mathbf{v(0)} = e$$.
 
-> Example: For our running example let's compute the probability of $$\veebar$$ not buying Brand $$B_1$$ in the next 6 months if his first purchase is $$B_3$$: </br>
+> Example: For our running example let's compute the probability of $$\veebar$$ not buying Brand $$B_1$$ in the next 6 months if his first purchase is $$B_3$$:
+
 > Let $$T = min\{n \geq 0 : X_n = B_1\}$$ and $$\mathbf{B}$$ be the submatrix obtained by deleting rows and columns of $$B_1$$.
 
 ```python
