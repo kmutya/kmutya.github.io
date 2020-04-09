@@ -339,6 +339,106 @@ We can also compute the **Expectation** and **higer moments** of $$T$$.
 
 ## Limiting Behaviour
 
+**Formally: Theorem 6, Limiting Distribution**
+
+Let
+$$
+\mathbf{\pi} = [\pi_0, \pi_1, ..., \pi_n] \\
+\text{where} \ \pi_j = \lim_{n \rightarrow \infty} P(X_n = j), j \in S \\
+\text{i.e} \ \pi_j = \lim_{n \rightarrow \infty} p^{(n)}_{i,j}, i,j \in S
+$$
+
+If a limiting distribution $$\pi$$ exists, it satisfies
+
+$$
+\pi_j = \sum_{i} \pi_i p_{i,j}, j \in S \\
+\text{and} \ \sum_j \pi_j = 1 - \text{Since it is a PMF} \\
+\text{In matrix form,} \ \mathbf{\pi} = \mathbf{\pi P} - \text{Balance equations/steady state equations}
+$$
+
+Skipping a formal proof. Let's understand this emperically.
+Numerically, we can obtain the PMF of $$X_n \ \text{where} \ {n \rightarrow \infty}$$ by taking $$P^n$$ to an arbitarily large n.
+
+> For our running example:
+
+```python
+la.matrix_power(ex_tpm, 15)
+```
+We obtain:
+
+$$
+\begin{bmatrix}
+0.23076923 & 0.35897436 & 0.41025641 \\
+0.23076923 & 0.35897436 & 0.41025641 \\
+0.23076923 & 0.35897436 & 0.41025641 \\
+\end{bmatrix}
+$$
+
+> Observe how all rows are similar. Since all the rows of $$P^n$$ are the same in the limit, it implies that the limiting distribution of $$X_n$$ is the same regardless of the initial distribution. We can verify this emeprically as well:
+
+```python
+ex_inidist = np.array([0.1,0,0.9]).reshape(1,3)
+dtmc.pmf(ex_inidist, ex_tpm, 5000)
+print(dtmc.pmf_)
+```
+
+> We observe that irrespective of the initial distribution our DTMC has a unique limiting distribution - [0.23076923, 0.35897436, 0.41025641]. Meaning, this $$\mathbf{\pi}$$ satisfies both the equations in the above theorem.
+
+> From a practical standpoint this result has profound implications, it basically means that irrespective of the probability of $$\veebar's$$ first purchase. Over a large period of time (in this case 15 months) his probability of choosing one of the 3 brands converges to the above value.
+
+> From a brand perspective this can help them channelize their marketing efforts. If they're able to find out which customers have low probability of purchase (in this case $$\veebar \ \text{and his friends for} \ B_1$$), they can invest more resources into them to avoid churning.
+
+Formally, this means that **irrespective of the initial distribution, our system converges to a steady state.**
+
+But do all DTMC's behave in this manner?
+
+Let's analyze one more example:
+
+> For a DTMC with state space $$\{1,2,3\}$$ let P be:
+
+$$
+\begin{bmatrix}
+0 & 1 & 0 \\
+0.10 & 0 & 0.90 \\
+0 & 1 & 0 \\
+\end{bmatrix}
+$$
+
+> here is the transition diagram:
+
+<figure>
+  <img src="{{site.url}}/images/allthingsmarkov/2.jpg" alt="my alt text"/>
+</figure>
+
+```python
+ex_tpm = np.array([0,1,0,0.1,0,0.9,0,1,0]).reshape(3,3)
+la.matrix_power(ex_tpm, 5000)
+la.matrix_power(ex_tpm, 5001)
+```
+> For $$P^n$$:
+
+$$
+\begin{bmatrix}
+0.1 & 0 & 0.9 \\
+0.0 & 1 & 0.0 \\
+0.1 & 0 & 0.9 \\
+\end{bmatrix}
+$$
+
+
+> For $$P^{2n-1}$$:
+
+$$
+\begin{bmatrix}
+0 & 1 & 0 \\
+0.10 & 0 & 0.90 \\
+0 & 1 & 0 \\
+\end{bmatrix}
+$$
+
+Thus the pmf of $$X_n$$ does not approach a limit. It fluctuates between two pmfs that depend on the initial distribution. The DTMC has no limiting distribution.
+
+
 # Appendix
 
 ```python
