@@ -8,15 +8,19 @@ classes: wide
 
 # Conceptual
 
+## All Things Markov
+
+A theoretical, graphical and computational exploration of stochastic modelling. <br>
+[View](https://kmutya.github.io/allthingsmarkov/)
 
 ## Nonlinear Programming: Methods for Unconstrained Optimization
 
-Here, I catalog some basic theory followed by numpy/scipy based implementations and loss surface visualizations. <br>
+A theoretical, graphical and computational exploration of unconstrained nonlinear optimization. <br>
 [View](https://kmutya.github.io/Unconstrained_Optimization)
 
 ## Dimensionality Reduction
 
-Here, I approach dimensionality reduction from a projection-optimization point of view, followed by raw numpy implementations. <br>
+A theoretical and computational exploration of dimensionality reduction from a projection-optimization point of view. <br>
 [View](https://kmutya.github.io/dimreduction/)
 
 # Applied
