@@ -33,15 +33,14 @@
   \node[main node] (3) [below right of=1] {$3$};
 
   \path
-    (1) edge [loop above] node {0} (1)
+    (1)
         edge [bend right] node {1} (2)
-        edge node [below]{0}(3)
+
     (2) edge node [below]{0.1} (1)
-        edge [loop below] node {0} (2)
+
         edge [bend right] node {0.9} (3)
-    (3) edge [bend right] node {0} (1)
-        edge node[below] {1} (2)
-        edge [loop below] node {0} (3);
+    (3)
+        edge node[below] {1} (2);
 \end{tikzpicture}
 
 

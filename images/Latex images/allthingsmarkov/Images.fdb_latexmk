@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1586408589 "Images.tex" "Images.pdf" "Images" 1586408595
+["pdflatex"] 1586489950 "Images.tex" "Images.pdf" "Images" 1586489954
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm" 1480098701 1524 4414a8315f39513458b80dfc63bff03a ""
@@ -108,9 +108,9 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1538413783 4220280 173d8c510a441dee8479587840da9d18 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "Images.aux" 1586408591 8 a94a2480d3289e625eea47cd1b285758 ""
-  "Images.tex" 1586408579 1452 3af8ccb5300c8dbb3000ad92920f6a91 ""
+  "Images.aux" 1586489952 8 a94a2480d3289e625eea47cd1b285758 ""
+  "Images.tex" 1586489933 1282 973a857b0d08802e30a58f314677ed45 ""
   (generated)
   "Images.aux"
-  "Images.log"
   "Images.pdf"
+  "Images.log"
