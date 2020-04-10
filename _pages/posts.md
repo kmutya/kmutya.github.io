@@ -37,5 +37,5 @@ Maximum Clique Problem was one of the 21 original NP-hard problems enumerated by
 
 ## Predictive maintenance: A time series approach
 
-Comparision of a statical time series vs a deep learning approach for solving prognostic problems. <br>
+Comparision of a statistical time series vs a deep learning approach for solving prognostic problems. <br>
 [View](https://kmutya.github.io/predmaintenance/)
