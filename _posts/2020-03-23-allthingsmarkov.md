@@ -440,7 +440,59 @@ $$
 \end{bmatrix}
 $$
 
-Thus the pmf of $$X_n$$ does not approach a limit. It fluctuates between two pmfs that depend on the initial distribution. The DTMC has no limiting distribution.
+> Thus the pmf of $$X_n$$ does not approach a limit. It fluctuates between two pmfs that depend on the initial distribution. The DTMC has no limiting distribution.
+
+> Although this DTMC doesn't have a limiting distribution we observe that if the initial distribution is [0.05, 0.50, 0.45] then solution to the balance equation is unique. Therefore, if that is the inital distribution then PMF of $$X_n$$ is [0.05, 0.50, 0.45] $$\forall n \geq 0$$. This initial distribution is known as a **stationary distribution.**
+
+**Formally, Def 4. Stationary Distribution:**
+
+$$
+\pi^* = [\pi_1^*, \pi_2^*, ..., \pi_N^*] \ \text{is a stationary distribution if}
+
+P(X_0 = i) = \pi_i^* \forall 1 \leq i \leq N \imples \\
+P(X_n = i) = \pi_i^* \forall 1 \leq i \leq N, \ n \geq 0
+$$
+
+**Formally: Theorem 7, Stationary Distribution**
+
+$$
+\pi^* = [\pi_1^*, \pi_2^*, ..., \pi_N^*] \  \text{is a stationary distribution if and only if it satisfies} \\
+
+\pi^* = \pi^*P \\
+and \sum_j \pi^* = 1
+$$
+
+Note that, if a limiting distribution exists it is also a stationary distribution. Skipping a formal proof, we can emperically check this using our running example.
+
+```python
+ex_inidist = np.array([0.23076923, 0.35897436 ,0.41025641]).reshape(1,3)
+for i in range(15):
+  dtmc.pmf(ex_inidist, ex_tpm, 2)
+  print(dtmc.pmf_)
+```
+
+which gives:
+
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+[[0.23076923 0.35897436 0.41025641]]
+
+
+Therefore, if we use the limiting distribution as the initial distribution, i.e [0.23076923, 0.35897436, 0.41025641], we observe it behave as the stationary distribution.
+
+
 
 
 # Appendix
