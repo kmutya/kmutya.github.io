@@ -467,7 +467,7 @@ Note that, if a limiting distribution exists it is also a stationary distributio
 ```python
 ex_inidist = np.array([0.23076923, 0.35897436 ,0.41025641]).reshape(1,3)
 for i in range(15):
-  dtmc.pmf(ex_inidist, ex_tpm, 2)
+  dtmc.pmf(ex_inidist, ex_tpm, i)
   print(dtmc.pmf_)
 ```
 
