@@ -3,7 +3,7 @@ layout: single
 author_profile: true
 ---
 
-I like to understand things deeply and clearly. In order to accomplish this, I start by formally defining the initial idea and then convert it into working code. Along the way, I try to make use of mathematical visualizations to augument my understanding. Post that, I love to apply my understanding to solve interesting problems.
+**I like to understand things deeply and clearly** and perfer an "applied-theoretic" approach. This usually entails, using theory and computations to my advantage.
 
 I started this blog during my Graduate Studies to bring order and structure to my thoughts.
 
