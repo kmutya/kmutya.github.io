@@ -447,7 +447,7 @@ $$
 **Formally, Def 4. Stationary Distribution:**
 
 $$
-\pi^* = [\pi_1^*, \pi_2^*, ..., \pi_N^*] \ \text{is a stationary distribution if}
+\pi^* = [\pi_1^*, \pi_2^*, ..., \pi_N^*] \ \text{is a stationary distribution if} \\
 
 P(X_0 = i) = \pi_i^* \forall 1 \leq i \leq N \implies \\
 P(X_n = i) = \pi_i^* \forall 1 \leq i \leq N, \ n \geq 0
