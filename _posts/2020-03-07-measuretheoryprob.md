@@ -10,7 +10,7 @@ toc_sticky: false
 ---
 
 
-Connecting the links between Measure Theory and Probability Theory can help open up a new perspective. This perspective can help while trying to think about probability in an abstract manner i.e as a quantity we would like to distribute across a region in space.
+Connecting the links between Measure Theory and Probability Theory can help open up a new perspective. This perspective can be useful while trying to think about probability in an abstract manner i.e as a quantity we would like to distribute across a region in space.
 
 First let's briefly look at the experimental view point of probability.
 
