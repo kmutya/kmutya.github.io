@@ -491,7 +491,7 @@ $$
 [[0.23076923 0.35897436 0.41025641]] \\
 $$
 
-Therefore, if we use the limiting distribution as the initial distribution, i.e [0.23076923, 0.35897436, 0.41025641], we observe it behave as the stationary distribution.
+Therefore, if we use the limiting distribution as the initial distribution, i.e [0.23076923, 0.35897436, 0.41025641], we observe that it behaves as the stationary distribution.
 
 
 
