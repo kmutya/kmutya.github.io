@@ -103,9 +103,9 @@ plt.show()
     /usr/local/lib/python3.6/dist-packages/numpy/core/_methods.py:161: RuntimeWarning: invalid value encountered in double_scalars
       ret = ret.dtype.type(ret / rcount)
 
-
-![png](/images/Convergence_files/Convergence_3_1.jpg)
-
+<figure>
+  <img src="{{site.url}}/images/Convergence_files/Convergence_3_1.jpg" alt="my alt text"/>
+</figure>
 
 - We can observe that as the sample size increases, sample mean gets
 centered around the population mean, $$\mu = 5$$.
@@ -187,17 +187,9 @@ plt.xlabel("Sample Sum Sqrt")
 plt.show()
 ```
 
-
-![png](/images/Convergence_files/Convergence_8_0.jpg)
-
-
-
-![png](/images/Convergence_files/Convergence_8_1.jpg)
-
-
-
-![png](/images/Convergence_files/Convergence_8_2.jpg)
-
+<figure>
+  <img src="{{site.url}}/images/Convergence_files/Convergence_8_0.jpg" alt="my alt text"/>
+</figure>
 
 - Observe how that the distribution of sample means takes the shape of a gaussian with it's location at the population mean value of 5.
 - Observe how that the distribution of sample sum/sqrt. of sample sum has a normal distribution with a certain mean.
