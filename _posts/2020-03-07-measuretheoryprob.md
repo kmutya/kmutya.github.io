@@ -75,7 +75,7 @@ Let $$A$$ be the set's in $$\mathcal{B}$$. Let $$P$$ be a function $$P: \mathcal
 
 > This $$P$$ is known as a **probability measure.** Observe that, Event from the EV definition is now simply a measureable set.
 
-<u>Measureable real valued function</u>$$f$$: If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \forall E \in \mathcal{M}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function.
+<u>Measureable real valued function</u>$$f$$: If $$(X,\mathcal{M})$$ and ($$Y,\mathcal{N}$$) are measureable spaces, a mapping $$f: X \rightarrow Y$$ is called measureable if $$f^{-1} (E) \in \mathcal{M} \ \forall \ E \in \mathcal{N}$$. When $$f: X \rightarrow R$$, then it is called a measureable real valued function. Here, $$f^{-1}$$ stand for pre-image.
 
 > This measureable real valued function is the EV's Random Variable equivalent.
 
