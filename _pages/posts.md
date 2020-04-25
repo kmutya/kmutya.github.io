@@ -28,6 +28,11 @@ A theoretical and computational exploration of dimensionality reduction from a p
 A synopsis of measure theoretic take on probability. <br>
 [View](https://kmutya.github.io/measuretheoryprob/)
 
+## Simulating Convergence
+
+Simple computational simulations to build intuition on Convergence. <br>
+[View](https://kmutya.github.io/Convergence/)
+
 # Applied
 
 ## Maximum Clique Problem as an LP
