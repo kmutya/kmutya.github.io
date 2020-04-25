@@ -9,27 +9,6 @@ toc_icon: "cog"
 toc_sticky: false
 ---
 
-```
-import numpy as np
-import random
-import matplotlib
-import matplotlib.pyplot as plt
-import tensorflow as tf
-import tensorflow_probability as tfp#Setting some global plot parameters
-matplotlib.rc('xtick', color = 'white')
-matplotlib.rc('ytick', color = 'white')
-matplotlib.rc('axes', edgecolor = 'white')
-matplotlib.rc('text', color = 'white')
-matplotlib.rc('axes', labelcolor = 'white')
-
-try:
-  tf.compat.v1.enable_eager_execution()
-except ValueError:
-  pass
-
-tfd = tfp.distributions
-```
-
 # TL;DR
 
 **Theme:** Convergence helps answer the limiting behaviour of a sequence of random variables.
@@ -50,7 +29,7 @@ tfd = tfp.distributions
 
 # Convergence in probability
 
-**Def-1:** Let $X_1, X_2, ...$ be a sequence of random variables and let $X$ be another random variable. Then, $X_n$ converges to $X$ in probability, i.e
+**Def-1:** Let $$X_1, X_2, ...$$ be a sequence of random variables and let $$X$$ be another random variable. Then, $$X_n$$ converges to $$X$$ in probability, i.e
 
 $$
 X_n \xrightarrow{P} X, \\
@@ -72,8 +51,28 @@ This means that as the sample size increases, the sample mean gets centered arou
 
 Let's build deeper intuition of WLLN using a simple example.
 
-**Example-1:** Say $X$ is a R.V that is normally distributed with population mean, $\mu = 5$. Now, as per WLLN as the sample size increases sample mean, $\bar{X}$, should get closer to 5.
+**Example-1:** Say $$X$$ is a R.V that is normally distributed with population mean, $$\mu = 5$$. Now, as per WLLN as the sample size increases sample mean, $$\bar{X}$$, should get closer to 5.
 
+```
+import numpy as np
+import random
+import matplotlib
+import matplotlib.pyplot as plt
+import tensorflow as tf
+import tensorflow_probability as tfp#Setting some global plot parameters
+matplotlib.rc('xtick', color = 'white')
+matplotlib.rc('ytick', color = 'white')
+matplotlib.rc('axes', edgecolor = 'white')
+matplotlib.rc('text', color = 'white')
+matplotlib.rc('axes', labelcolor = 'white')
+
+try:
+  tf.compat.v1.enable_eager_execution()
+except ValueError:
+  pass
+
+tfd = tfp.distributions
+```
 
 ```
 #Create a normal distribution with mean = 5 and pull one sample at a time
@@ -109,27 +108,27 @@ plt.show()
 
 
 - We can observe that as the sample size increases, sample mean gets
-centered around the population mean, $\mu = 5$.
+centered around the population mean, $$\mu = 5$$.
 
 
 # Convergence in Distribution
 
-**Def-2:** Let $X_1, X_2, ...$ be a sequence of random variables and let $X$ be another random variable. Let $F_n$ denote the CDF of $X_n$ and let $F$ denote the CDF of X. Then, $X_n$ converges to $X$ in distribution i.e $X_n \xrightarrow{D} X$ if,
+**Def-2:** Let $$X_1, X_2, ...$$ be a sequence of random variables and let $$X$$ be another random variable. Let $$F_n$$ denote the CDF of $$X_n$$ and let $$F$$ denote the CDF of X. Then, $$X_n$$ converges to $$X$$ in distribution i.e $$X_n \xrightarrow{D} X$$ if,
 
 $$
 lim_{n \rightarrow \infty} F_n(t) = F(t)
 $$
 
-at all $t$ for which F is continuous.
+at all $$t$$ for which F is continuous.
 
 This notion helps build up CLT (Central Limit Theorem) which says that sum of a large number of independent random variables each with a finite mean and variance has a distribution that is approximately normal. A simple formalization is as follows:
 
-**Theorem-2, The central limit theorem:** Let X_1, X_2,... be a sequence of i.i.d random variable, each with mean $\mu$ and variance $\sigma^2$. Let $S_n = \sum_{i=1}^n X_i$ Then the distribution of
+**Theorem-2, The central limit theorem:** Let X_1, X_2,... be a sequence of i.i.d random variable, each with mean $$\mu$$ and variance $$\sigma^2$$. Let $$S_n = \sum_{i=1}^n X_i$$ Then the distribution of
 
 $$
 \frac{S_n-n \mu}{\sigma \sqrt n} \xrightarrow{D} Z
 $$
-where $Z$ is the standard normal, $Z ~ N(0,1)$, as $n \rightarrow \infty$.
+where $$Z$$ is the standard normal, $$Z ~ N(0,1)$$, as $$n \rightarrow \infty$$.
 
 Let us emperically observe a few examples of CLT:
 
@@ -157,10 +156,7 @@ for i in range(10):
 fig.tight_layout()
 ```
 
-<figure>
-  <img src="{{site.url}}/images/Convergence_files/Convergence_7_0.png" alt="my alt text"/>
-</figure>
-
+![png](/images/Convergence_files/Convergence_7_0.jpg)
 
 ```
 #Get mean of each sample
@@ -192,15 +188,15 @@ plt.show()
 ```
 
 
-![png](Convergence_files/Convergence_8_0.png)
+![png](/images/Convergence_files/Convergence_8_0.png)
 
 
 
-![png](Convergence_files/Convergence_8_1.png)
+![png](/images/Convergence_files/Convergence_8_1.png)
 
 
 
-![png](Convergence_files/Convergence_8_2.png)
+![png](/images/Convergence_files/Convergence_8_2.png)
 
 
 - Observe how that the distribution of sample means takes the shape of a gaussian with it's location at the population mean value of 5.
