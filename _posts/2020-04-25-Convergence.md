@@ -53,7 +53,7 @@ Let's build deeper intuition of WLLN using a simple example.
 
 **Example-1:** Say $$X$$ is a R.V that is normally distributed with population mean, $$\mu = 5$$. Now, as per WLLN as the sample size increases sample mean, $$\bar{X}$$, should get closer to 5.
 
-```
+```python
 import numpy as np
 import random
 import matplotlib
@@ -74,7 +74,7 @@ except ValueError:
 tfd = tfp.distributions
 ```
 
-```
+```python
 #Create a normal distribution with mean = 5 and pull one sample at a time
 ex1_dist = tfd.Normal(loc = 5, scale = 1)
 ex1_rvs = np.zeros(20000)
@@ -133,7 +133,7 @@ where $$Z$$ is the standard normal, $$Z ~ N(0,1)$$, as $$n \rightarrow \infty$$.
 Let us emperically observe a few examples of CLT:
 
 
-```
+```python
 #First let's generate 500 i.i.d random variables
 mean = 5
 var = np.arange(0.5, 2, 0.5)
@@ -147,7 +147,7 @@ while i <= 1000:
 ```
 
 
-```
+```python
 #Plot histograms for every 5th sample
 fig, ax = plt.subplots(nrows = 10, ncols = 10, figsize=(20, 20))
 for i in range(10):
@@ -158,7 +158,7 @@ fig.tight_layout()
 
 ![png](/images/Convergence_files/Convergence_7_0.jpg)
 
-```
+```python
 #Get mean of each sample
 rv_sequence_mean = [np.mean(i) for i in rv_sequence]
 #Plot distribution of sample means
