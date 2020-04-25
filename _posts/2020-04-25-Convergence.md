@@ -188,15 +188,15 @@ plt.show()
 ```
 
 
-![png](/images/Convergence_files/Convergence_8_0.png)
+![png](/images/Convergence_files/Convergence_8_0.jpg)
 
 
 
-![png](/images/Convergence_files/Convergence_8_1.png)
+![png](/images/Convergence_files/Convergence_8_1.jpg)
 
 
 
-![png](/images/Convergence_files/Convergence_8_2.png)
+![png](/images/Convergence_files/Convergence_8_2.jpg)
 
 
 - Observe how that the distribution of sample means takes the shape of a gaussian with it's location at the population mean value of 5.
