@@ -3,8 +3,12 @@ layout: single
 author_profile: true
 ---
 
-**I like to understand things deeply and clearly** and perfer an "applied-theoretic" approach. This usually entails, using theory and computations to my advantage.
+Data Science. Jnana Yoga. Dhyāna. Nature. Fitness.
 
-I started this blog during my Graduate Studies to bring order and structure to my thoughts.
+I like how data science can be used to understand the nature of reality. I have an academic and professional background in Operations Research and Applied Statistics. I currently work at Google.
 
-Apart from Math, I am also fascinated by Indian Philosphy particular questions relating to Atman (self), try to lead a sattvic lifestyle, maintain a low carbon footprint and quite contradictorily love strength training.
+I am interested in Upanishads and Āstika Darśana's, particularly: Vedanta, Nyāyá, Vaiśeṣika and Yoga. I like reading, writing and contemplating on them.
+
+I like biking, hiking, weight training and bouldering. 
+
+I try to practise ahimsa in all forms: which entails food preference (Vegan), shopping ethically and sustainably.

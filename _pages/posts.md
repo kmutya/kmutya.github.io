@@ -6,7 +6,7 @@ classes: wide
 ---
 
 
-# Conceptual
+# Ganita
 
 ## All Things Markov
 
@@ -33,8 +33,6 @@ A synopsis of measure theoretic take on probability. <br>
 Simple computational simulations to build intuition on Convergence. <br>
 [View](https://kmutya.github.io/Convergence/)
 
-# Applied
-
 ## Maximum Clique Problem as an LP
 
 Maximum Clique Problem was one of the 21 original NP-hard problems enumerated by Richard Karp in 1972. Here, I model it using a Linear Programming approach. In particular, reduce the clique problem to an Independent set problem and solve it by appying linear relaxation and column generation. <br>
@@ -44,3 +42,7 @@ Maximum Clique Problem was one of the 21 original NP-hard problems enumerated by
 
 Comparision of a statistical time series vs a deep learning approach for solving prognostic problems. <br>
 [View](https://kmutya.github.io/predmaintenance/)
+
+# Jnana yoga
+
+# Fitness
