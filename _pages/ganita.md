@@ -1,12 +1,10 @@
 ---
-title: "Writing"
-permalink: /posts/
+title: "Ganita"
+permalink: /ganita/
 author_profile: true
 classes: wide
 ---
 
-
-# Ganita
 
 ## All Things Markov
 
@@ -42,7 +40,3 @@ Maximum Clique Problem was one of the 21 original NP-hard problems enumerated by
 
 Comparision of a statistical time series vs a deep learning approach for solving prognostic problems. <br>
 [View](https://kmutya.github.io/predmaintenance/)
-
-# Jnana yoga
-
-# Fitness
