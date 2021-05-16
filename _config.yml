@@ -101,7 +101,7 @@ analytics:
 # Site Author
 author:
   name             : "Kartik Mutya"
-  avatar           : "/assets/images/dp3.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/dp1.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Data Science. Jnana Yoga."
   location         : "Mountain View, CA"
   email            : kartik.mutya@gmail.com
