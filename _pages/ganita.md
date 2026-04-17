@@ -1,6 +1,6 @@
 ---
 title: "Posts"
-permalink: /ganita/
+permalink: /posts/
 author_profile: true
 classes: wide
 ---
